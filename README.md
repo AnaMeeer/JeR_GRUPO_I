@@ -18,179 +18,179 @@ Game Document Design del grupo I para la asignatura de Juegos en Red
 
 # 1. Contenido
 
-[2. Concepto ](#_Toc54216959)
+2. Concepto 
 
-[2.1 Título del juego ](#_Toc54216960)
+2.1 Título del juego 
 
-[2.2 Estudio/Diseñadores ](#_Toc54216961)
+2.2 Estudio/Diseñadores 
 
-[2.3 Género ](#_Toc54216962)
+2.3 Género 
 
-[2.4 Versión ](#_Toc54216963)
+2.4 Versión 
 
-[2.5 Sinopsis de jugabilidad y contenido ](#_Toc54216964)
+2.5 Sinopsis de jugabilidad y contenido 
 
-[2.6 Aspecto Visual ](#_Toc54216965)
+2.6 Aspecto Visual 
 
-[2.7 Mundo del juego ](#_Toc54216966)
+2.7 Mundo del juego 
 
-[2.8 Categoría ](#_Toc54216967)
+2.8 Categoría 
 
-[2.9 mecánica ](#_Toc54216968)
+2.9 mecánica 
 
-[2.10 Tecnología ](#_Toc54216969)
+2.10 Tecnología 
 
-[3 Mecánica del juego ](#_Toc54216970)
+3. Mecánica del juego 
 
-[3.1 Flujo del juego ](#_Toc54216971)
+3.1 Flujo del juego 
 
-[3.2 Cámara ](#_Toc54216972)
+3.2 Cámara 
 
-[3.3 Periféricos ](#_Toc54216973)
+3.3 Periféricos 
 
-[3.4 Controles ](#_Toc54216974)
+3.4 Controles 
 
-[3.5 Puntuación ](#_Toc54216975)
+3.5 Puntuación 
 
-[3.6 Guardar/Cargar: ](#_Toc54216976)
+3.6 Guardar/Cargar: 
 
-[4 Interfaces ](#_Toc54216977)
+4. Interfaces 
 
-[4.1 Interfaz de inicio (menú principal) ](#_Toc54216978)
+4.1 Interfaz de inicio (menú principal) 
 
-[4.1.1 Descripción ](#_Toc54216979)
+4.1.1 Descripción 
 
-[4.1.2 Estados de juego ](#_Toc54216980)
+4.1.2 Estados de juego 
 
-[4.2 Interfaz de inicio (V2) ](#_Toc54216981)
+4.2 Interfaz de inicio (V2) 
 
-[4.2.1 Descripción ](#_Toc54216982)
+4.2.1 Descripción 
 
-[4.2.2 Estados de juego ](#_Toc54216983)
+4.2.2 Estados de juego 
 
-[4.3 Interfaz de inicio (Menú) ](#_Toc54216984)
+4.3 Interfaz de inicio (Menú) 
 
-[4.3.1 Descripción ](#_Toc54216985)
+4.3.1 Descripción 
 
-[4.3.2 Estados de juego ](#_Toc54216986)
+4.3.2 Estados de juego 
 
-[4.4 Interfaz HUD ](#_Toc54216987)
+4.4 Interfaz HUD 
 
-[4.4.1 Descripción ](#_Toc54216988)
+4.4.1 Descripción 
 
-[4.4.2 Estados de juego ](#_Toc54216989)
+4.4.2 Estados de juego 
 
-[4.5 Menú de pausa ](#_Toc54216990)
+4.5 Menú de pausa 
 
-[4.5.1 Descripción ](#_Toc54216991)
+4.5.1 Descripción 
 
-[4.5.2 Estados de juego ](#_Toc54216992)
+4.5.2 Estados de juego 
 
-[5 Niveles ](#_Toc54216993)
+5. Niveles 
 
-[5.1 Título ](#_Toc54216994)
+5.1 Título 
 
-[5.2 Encuentro ](#_Toc54216995)
+5.2 Encuentro 
 
-[5.3 Objetivos ](#_Toc54216996)
+5.3 Objetivos 
 
-[5.4 Enemigos ](#_Toc54216997)
+5.4 Enemigos 
 
-[5.5 Ítems ](#_Toc54216998)
+5.5 Ítems 
 
-[5.6 Personajes ](#_Toc54216999)
+5.6 Personajes 
 
-[5.7 Música y Efectos de sonido ](#_Toc54217000)
+5.7 Música y Efectos de sonido 
 
-[5.8 Referencias de BGM y SFX: ](#_Toc54217001)
+5.8 Referencias de BGM y SFX: 
 
-[6 Personajes ](#_Toc54217002)
+6. Personajes 
 
-[6.1 Personaje 1 ](#_Toc54217003)
+6.1 Personaje 1 
 
-[6.1.1 Nombre del personaje ](#_Toc54217004)
+6.1.1 Nombre del personaje 
 
-[6.1.2 Descripción ](#_Toc54217005)
+6.1.2 Descripción 
 
-[6.1.3 Concepto ](#_Toc54217006)
+6.1.3 Concepto 
 
-[6.1.4 Encuentro ](#_Toc54217007)
+6.1.4 Encuentro 
 
-[6.1.5 Armas ](#_Toc54217008)
+6.1.5 Armas 
 
-[6.1.6 Habilidades ](#_Toc54217009)
+6.1.6 Habilidades 
 
-[6.1.7 Ítems ](#_Toc54217010)
+6.1.7 Ítems 
 
-[6.1.8 ¿Es el personaje jugable? ](#_Toc54217011)
+6.1.8 ¿Es el personaje jugable? 
 
-[6.2 Personaje 2 ](#_Toc54217012)
+6.2 Personaje 2 
 
-[6.2.1 Nombre del personaje ](#_Toc54217013)
+6.2.1 Nombre del personaje 
 
-[6.2.2 Descripción ](#_Toc54217014)
+6.2.2 Descripción 
 
-[6.2.3 Concepto ](#_Toc54217015)
+6.2.3 Concepto 
 
-[6.2.4 Encuentro ](#_Toc54217016)
+6.2.4 Encuentro 
 
-[6.2.5 Armas ](#_Toc54217017)
+6.2.5 Armas 
 
-[6.2.6 Habilidades ](#_Toc54217018)
+6.2.6 Habilidades 
 
-[6.2.7 Ítems ](#_Toc54217019)
+6.2.7 Ítems 
 
-[6.2.8 ¿Es el personaje jugable? ](#_Toc54217020)
+6.2.8 ¿Es el personaje jugable? 
 
-[6.3 Personaje 3 ](#_Toc54217021)
+6.3 Personaje 3 
 
-[6.3.1 Nombre del personaje ](#_Toc54217022)
+6.3.1 Nombre del personaje 
 
-[6.3.2 Descripción ](#_Toc54217023)
+6.3.2 Descripción 
 
-[6.3.3 Concepto ](#_Toc54217024)
+6.3.3 Concepto 
 
-[6.3.4 Encuentro ](#_Toc54217025)
+6.3.4 Encuentro 
 
-[6.3.5 Armas ](#_Toc54217026)
+6.3.5 Armas 
 
-[6.3.6 Habilidades ](#_Toc54217027)
+6.3.6 Habilidades 
 
-[6.3.7 Ítems ](#_Toc54217028)
+6.3.7 Ítems 
 
-[6.3.8 ¿Es el personaje jugable? ](#_Toc54217029)
+6.3.8 ¿Es el personaje jugable? 
 
-[7 Enemigos ](#_Toc54217030)
+7. Enemigos 
 
-[7.1 Nombre ](#_Toc54217031)
+7.1 Nombre 
 
-[7.2 Descripción ](#_Toc54217032)
+7.2 Descripción 
 
-[7.3 Encuentro ](#_Toc54217033)
+7.3 Encuentro 
 
-[7.4 Imagen ](#_Toc54217034)
+7.4 Imagen 
 
-[7.5 Habilidad ](#_Toc54217035)
+7.5 Habilidad 
 
-[7.6 Armas ](#_Toc54217036)
+7.6 Armas 
 
-[7.7 Ítems ](#_Toc54217037)
+7.7 Ítems 
 
-[8 Progreso del juego](#_Toc54217038)
+8. Progreso del juego
 
-[9 Armas ](#_Toc54217039)
+9. Armas 
 
-[10 Ítems ](#_Toc54217040)
+10. Ítems 
 
-[11 Guion ](#_Toc54217041)
+11. Guion 
 
-[12 Música y sonido ](#_Toc54217042)
+12. Música y sonido 
 
-[13 Imágenes de concepto ](#_Toc54217043)
+13. Imágenes de concepto 
 
-[14 Miembros del equipo ](#_Toc54217044)
+14. Miembros del equipo 
 
-[15 Créditos ](#_Toc54217045)
+15. Créditos 
 
 
 
@@ -315,12 +315,12 @@ De no conseguir eso, se intentaría implementar un sistema de ranking para el ni
 ![](https://i.imgur.com/sRj1SEn.png)
 
     
-#### 4.1.1 Descripción
+### 4.1.1 Descripción
 
 Esta interfaz será la primera que verá el usuario al entrar en el juego. Es simplista y no hay otro elemento en pantalla que no sea ese gran botón central que insta al jugador a clicar.
 
     
-#### 4.1.2 Estados de juego
+### 4.1.2 Estados de juego
 
 El estado inicial será el mostrado anteriormente, una vez el jugador pase el cursor sobre el botón se activará la transición al siguiente estado del menú de inicio.
 
@@ -331,12 +331,12 @@ El estado inicial será el mostrado anteriormente, una vez el jugador pase el cu
 ![](https://i.imgur.com/mSi7tap.png)
 
     
-####  4.2.1 Descripción
+###  4.2.1 Descripción
 
 Al pasar el ratón por encima, una pequeña animación de giro revelará un nuevo texto.
     
     
-#### 4.2.2 Estados de juego
+### 4.2.2 Estados de juego
 
 Mientras el jugador tenga el cursor sobre el botón se mantendrá este estado, y transicionará al menú de inicio una vez se presione el botón (se haga click).
 
@@ -347,12 +347,12 @@ Mientras el jugador tenga el cursor sobre el botón se mantendrá este estado, y
 ![](https://i.imgur.com/ddto2yh.png)
 
     
-#### 4.3.1 Descripción
+### 4.3.1 Descripción
 
 Al clicar el botón anterior, este se desplegará y revelará otros dos botones, uno para empezar a jugar y el otro que le permitirá acceder a un menú de opciones.
 
     
-#### 4.3.2 Estados de juego
+### 4.3.2 Estados de juego
 
 Una vez desplegamos esta opción tenemos a elegir entre dos opciones:
 
@@ -367,12 +367,12 @@ Una vez desplegamos esta opción tenemos a elegir entre dos opciones:
 ![](https://i.imgur.com/DK46Dru.png)
 
     
-#### 4.4.1 Descripción
+### 4.4.1 Descripción
 
 Esta será la interfaz HUD que el jugador verá al estar jugando por los niveles del juego.
 
     
-#### 4.4.2 Estados de juego
+### 4.4.2 Estados de juego
 
 Mientras el jugador se mantenga con vida el juego se mantendrá en un estado activo.
 
@@ -387,12 +387,12 @@ En caso de que el jugador pierda todos sus puntos de vida se entrará en modo de
 ![](https://i.imgur.com/ImflgWq.png)
 
     
-#### 4.5.1 Descripción
+### 4.5.1 Descripción
 
 Este es el menú de pausa al darle a la tecla escape durante el juego o al botón de opciones en el primer menú. El botón de la izquierda te sacará al menú principal, el botón de la derecha te devolverá a la pantalla donde estabas. El botón superior izquierdo te permitirá subir o bajar los efectos de sonido.
 
     
-####  4.5.2 Estados de juego
+###  4.5.2 Estados de juego
 
 Aquí el jugador tiene 3 opciones claras:
 
@@ -456,12 +456,12 @@ Boss: jefe final que nos ofrecerá una dura batalla y nos debilitará antes de p
 ## 6.1 Personaje 1
 
     
-#### 6.1.1 Nombre del personaje
+### 6.1.1 Nombre del personaje
 
 Deelia (D-01).
 
     
-#### 6.1.2 Descripción
+### 6.1.2 Descripción
 
 Deelia (D-01). Joven protagonista de Project D.Mon. Es una de las heroínas generadas por MechaSoft y la líder del grupo.
 
@@ -474,34 +474,34 @@ Deelia (D-01). Joven protagonista de Project D.Mon. Es una de las heroínas gene
 • Daño de disparo: 40.
 
     
-#### 6.1.3 Concepto
+### 6.1.3 Concepto
 
 Deelia (D-01) es una chica joven de carácter alegre y apasionado. En ocasiones, peca de temeraria e impulsiva y a menudo se ve envuelta en muchas situaciones de peligro como resultado de su entusiasmo por proteger a los demás. Posee un alto nivel de exigencia personal y siempre se presiona con el fin de ser más útil para la defensa de la humanidad.
 
 Aunque sus orígenes humildes se vean reflejados en su vestimenta cotidiana, es reconocida públicamente por su icónico traje azul de combate.
 
     
-#### 6.1.4 Encuentro
+### 6.1.4 Encuentro
 
 El personaje está presente desde el inicio del juego.
 
     
-#### 6.1.5 Armas
+### 6.1.5 Armas
 
 Ametralladoras ligeras: disparan munición de calibre .50 (12,7 mm) capaz de perforar la capa de armadura de los enemigos.
 
     
-#### 6.1.6 Habilidades
+### 6.1.6 Habilidades
 
 _Láser desintegrador_: el personaje invocará un láser vertical que alcanzará a todos los enemigos en una línea recta sobre su cabeza. La duración será de 5 segundos e infligirá 50 puntos de daño de forma constante. Esta habilidad consume toda la energía acumulada en el indicador de PowerUp.
 
     
-#### 6.1.7 Ítems
+### 6.1.7 Ítems
 
 (En desarrollo).
 
     
-#### 6.1.8 ¿Es el personaje jugable?
+### 6.1.8 ¿Es el personaje jugable?
 
 Sí
 
@@ -510,12 +510,12 @@ Sí
 ## 6.2 Personaje 2
 
     
-#### 6.2.1 Nombre del personaje
+### 6.2.1 Nombre del personaje
 
 Deirdre (D-00).
 
     
-#### 6.2.2 Descripción
+### 6.2.2 Descripción
 
 Deirdre (D-00) es una de las heroínas generadas por MechaSoft y destaca como personaje de apoyo.
 
@@ -528,34 +528,34 @@ Deirdre (D-00) es una de las heroínas generadas por MechaSoft y destaca como pe
 • Daño de disparo: 40.
 
     
-#### 6.2.3 Concepto
+### 6.2.3 Concepto
 
 Deidre (D-00) es la más veterana de las heroínas y desempeña un papel maternal en el grupo. Se caracteriza por su buen humor, además de por estar buscando siempre el lado bueno de cualquier persona o situación, mostrándose ingenua en algunos momentos.
 
 Su apariencia suele ser recatada en un vano intento por pasar desapercibida. Es fácilmente reconocible por su traje verde de combate.
 
     
-#### 6.2.4 Encuentro
+### 6.2.4 Encuentro
 
 El personaje está presente desde el inicio del juego.
 
     
-#### 6.2.5 Armas
+### 6.2.5 Armas
 
 Ametralladoras ligeras: disparan munición de calibre .50 (12,7 mm) capaz de perforar la capa de armadura de los enemigos.
 
     
-#### 6.2.6 Habilidades
+### 6.2.6 Habilidades
 
 _Rezo desesperado_: el personaje creará una barrera perpendicular a su posición que eliminará a cualquier enemigo que impacte sobre ella y protegerá de proyectiles durante 5 segundos. Esta habilidad consume toda la energía acumulada en el indicador de PowerUp.
 
     
-#### 6.2.7 Ítems
+### 6.2.7 Ítems
 
 (En desarrollo).
 
     
-#### 6.2.8 ¿Es el personaje jugable?
+### 6.2.8 ¿Es el personaje jugable?
 
 Sí
 
@@ -565,12 +565,12 @@ Sí
 ## 6.3 Personaje 3
 
     
-#### 6.3.1 Nombre del personaje
+### 6.3.1 Nombre del personaje
 
 Diane (D-06).
 
     
-#### 6.3.2 Descripción
+### 6.3.2 Descripción
 
 Diane (D-06) es una de las heroínas generadas por MechaSoft. Se especializa en hacer daño a muchas unidades de manera simultánea
 
@@ -583,34 +583,34 @@ Diane (D-06) es una de las heroínas generadas por MechaSoft. Se especializa en 
 • Daño de disparo: 40.
 
     
-#### 6.3.3 Concepto
+### 6.3.3 Concepto
 
 Diane (D-06) es de naturaleza rebelde, ambiciosa, malhumorada e irascible. Su arrogancia y agresividad la convierten en una pésima compañera de equipo y solo bajo determinadas situaciones críticas se compromete a cumplir con las órdenes de sus superiores.
 
 Adora ser el centro de atención y su vestimenta canaliza este deseo por captar el interés del público. A pesar de ello, es especialmente conocida por su traje morado de combate.
 
     
-#### 6.3.4 Encuentro
+### 6.3.4 Encuentro
 
 El personaje está presente desde el inicio del juego.
 
     
-#### 6.3.5 Armas
+### 6.3.5 Armas
 
 Ametralladoras ligeras: disparan munición de calibre .50 (12,7 mm) capaz de perforar la capa de armadura de los enemigos.
 
     
-#### 6.3.6 Habilidades
+### 6.3.6 Habilidades
 
 _Guanteletes Zzap:_ electrocuta a todos las unidades enemigas no especiales, reduciendo su vida a la mitad. Además, aturde a todos los enemigos que, durante 2 segundos, jefes de sala incluidos
 
     
-#### 6.3.7 Ítems
+### 6.3.7 Ítems
 
 (En desarrollo).
 
     
-#### 6.3.8 ¿Es el personaje jugable?
+### 6.3.8 ¿Es el personaje jugable?
 
 Sí
 
