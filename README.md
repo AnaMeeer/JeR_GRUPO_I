@@ -1,8 +1,8 @@
 # JeR_GrupoI
 
-> **Nombre del juego:** Project D.MON
+> **Nombre del juego:** Project D.MON  
 > **Descripción de la temática del juego:**
-Shoot'em up, disparos y acción.
+Shoot'em up, disparos y acción.  
 > **Integrantes del equipo:** 
 > 
 >  - María De La Paloma Leiva: mp.leiva.2018@alumnos.urjc.es   	Usuario de github: Palomalh
