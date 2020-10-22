@@ -2,12 +2,13 @@
 
 > **Nombre del juego:** Project D.MON
 > **Descripción de la temática del juego:**
+Shoot'em up, disparos y acción.
 > **Integrantes del equipo:** 
 > 
->  - María De La Paloma Leiva Haro:  	 Usuario de github:
->  - Miguel Vidal:  	 Usuario de github:
->  - Ana Mercedes García: am.garciaga.2018@alumnos.urjc.es  	 Usuario de github: AnaMeeer
->  - Bozhidar Petrov: 	 Usuario de github:
+>  - María De La Paloma Leiva: mp.leiva.2018@alumnos.urjc.es   	Usuario de github: Palomalh
+>  - Miguel Vidal: m.vidal.2018@alumnos.urjc.es 	 Usuario de github: MiguelVDP
+>  - Ana Mercedes García: am.garciaga.2018@alumnos.urjc.es  	  Usuario de github: AnaMeeer
+>  - Bozhidar Petrov: b.petrov.2018@alumnos.urjc.es	     Usuario de github: BossyFi 
 
 
 # GDD
