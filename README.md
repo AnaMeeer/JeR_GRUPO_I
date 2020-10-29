@@ -223,7 +223,7 @@ El usuario controlará una Lunaran (Un vehículo aéreo de combate), la cual ver
 
 El jugador podrá disparar infinitamente balas para destruir los enemigos los cuales también dispararán para derrotar al jugador.
 
-Para compensar la desventaja del jugador ante la presencia de adversarios fuertes, este contará con PowerUps con cooldown.
+Para compensar la desventaja del jugador ante la presencia de adversarios fuertes, este contará con PowerUps con cooldown. Este cooldown se recargará destruyendo enemigos, que al salir a velocidades desenfrenadas cargarán muy poco a poco la habilidad del jugador.
 
   
 ### 2.6 Aspecto Visual
@@ -259,7 +259,7 @@ Tendremos que enfrentarnos a una gran multitud de enemigos, moviéndonos horizon
 
 Dependiendo del nivel, puede que este sea completado venciendo a todos los enemigos, solamente al jefe final sin necesidad de vencer a sus secuaces o aguantando vivo una cantidad de tiempo determinada.
 
-El jugador puede disparar de forma ilimitada para destruir a los enemigos y puede usar ventajas para cambiar las tornas de la pelea.
+El jugador puede disparar de forma ilimitada para destruir a los enemigos y puede usar ventajas (powerUps) para cambiar las tornas de la pelea.
 
   
 ### 2.10 Tecnología
@@ -278,7 +278,7 @@ El juego podrá ser jugado en navegador web. Será realizado usando JavaScript e
   
 ### 3.2 Cámara
 
-La cámara estará situada de forma perpendicular al suelo y se encuentra en la cima de la escena, proporcionando una imagen cenital de esta.
+La cámara estará situada de forma perpendicular al suelo y se encuentra en la cima de la escena, proporcionando una perspectiva cenital del enotrno.
 
   
 ### 3.3 Periféricos
@@ -288,7 +288,7 @@ El jugador puede usar el teclado para moverse por el mapa. Adicionalmente, se po
   
 ### 3.4 Controles
 
-_Modo un jugador tradicional:_ el jugador se desplaza con las teclas A, W, S, D (izquierda, arriba, abajo, derecha, dispara el PowerUp con la Q y hace el dash con la E. Con el espacio se disparará.
+_Modo un jugador tradicional:_ el jugador se desplaza con las teclas A, W, S, D (izquierda, arriba, abajo, derecha), dispara el PowerUp con la Q y hace el dash con la E. Con el espacio se disparará.
 
 _Modo un jugador a dos manos:_ el jugador se desplaza con las flechas de posición del teclado y usa los botones 1 y 2 (teclado tradicional, no el numérico) para disparar el PowerUp y el Dash respectivamente. Con el espacio se disparará.
 
