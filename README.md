@@ -489,7 +489,7 @@ El personaje está presente desde el inicio del juego.
     
 ### 6.1.5 Armas
 
-Ametralladoras ligeras: disparan munición de calibre .50 (12,7 mm) capaz de perforar la capa de armadura de los enemigos.
+Ametralladoras ligeras: disparan munición de calibre 50 (12,7 mm) capaz de perforar la capa de armadura de los enemigos.
 
     
 ### 6.1.6 Habilidades
@@ -543,7 +543,7 @@ El personaje está presente desde el inicio del juego.
     
 ### 6.2.5 Armas
 
-Ametralladoras ligeras: disparan munición de calibre .50 (12,7 mm) capaz de perforar la capa de armadura de los enemigos.
+Ametralladoras ligeras: disparan munición de calibre 50 (12,7 mm) capaz de perforar la capa de armadura de los enemigos.
 
     
 ### 6.2.6 Habilidades
@@ -598,12 +598,12 @@ El personaje está presente desde el inicio del juego.
     
 ### 6.3.5 Armas
 
-Ametralladoras ligeras: disparan munición de calibre .50 (12,7 mm) capaz de perforar la capa de armadura de los enemigos.
+Ametralladoras ligeras: disparan munición de calibre 50 (12,7 mm) capaz de perforar la capa de armadura de los enemigos.
 
     
 ### 6.3.6 Habilidades
 
-_Guanteletes Zzap:_ electrocuta a todos las unidades enemigas no especiales, reduciendo su vida a la mitad. Además, aturde a todos los enemigos que, durante 2 segundos, jefes de sala incluidos
+_Guanteletes Zzap:_ electrocuta a todos las unidades enemigas no especiales, reduciendo su vida a la mitad. Además, aturde a todos los enemigos durante 2 segundos, jefes de sala incluidos
 
     
 ### 6.3.7 Ítems
