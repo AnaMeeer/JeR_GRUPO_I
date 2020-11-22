@@ -14,13 +14,13 @@ class Balas extends Phaser.Physics.Arcade.Group{
         });
     }
 
-    fireBullet (x, y)
+    fireBullet (x, y, xDir, yDir)
     {
         let bullet = this.getFirstDead(false);
 
         if (bullet)
         {
-            bullet.fire(x,y);
+            bullet.fire(x,y,xDir,yDir);
     
         }
     }
@@ -32,12 +32,13 @@ class Bala extends Phaser.Physics.Arcade.Sprite{
         // scene.physics.world.enable(this);
     }
 
-    fire (x, y){
+    fire (x, y, xDir, yDir){
         this.body.reset(x, y);
         this.setActive(true);
         this.setVisible(true);
 
-        this.setVelocityY(-300);
+        this.setVelocityX(xDir)
+        this.setVelocityY(yDir);
     }
 
     preUpdate (time, delta)

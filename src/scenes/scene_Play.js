@@ -41,7 +41,8 @@ class scene_Play extends Phaser.Scene {
         this.input.keyboard.on("keydown_SPACE", () => {
             this.bullets.fireBullet(this.player1.x, this.player1.y);
         })
-        this.fireRate = 2000;
+        this.fireRate = 4000;
+        this.payerBulletYSpeed = -300;
 
         //Enemigos
         this.enemies = new Enemies(this);
@@ -64,8 +65,6 @@ class scene_Play extends Phaser.Scene {
         //shoot(this.time, this.bullets, this.player1);
 
         // Phaser.Game.timer.events.loop(Phaser.Timer.SECOND * 0.5, shoot, this);
-        console.log(this);
-        console.log(Phaser);
         //this.secuenciaDisparo = new Phaser.time.events.loop(500, shoot(this.bullets, this.player1), this);
         // const config2 = {
         //     delay: 500,
@@ -85,7 +84,7 @@ class scene_Play extends Phaser.Scene {
         //shoot(this.time, this.bullets, this.player1);
         //this.bullets.fireBullet(this.player1.x, this.player1.y);
          if(time > this.fireRate){
-             this.bullets.fireBullet(this.player1.x, this.player1.y);
+             this.bullets.fireBullet(this.player1.x, this.player1.y, 300, this.payerBulletYSpeed);
              this.fireRate += 100;
          }
         //Player 1
