@@ -50,6 +50,11 @@ class Bala extends Phaser.Physics.Arcade.Sprite{
             this.setVisible(false);
         }
     }
+
+    die(){
+        this.setActive(false);
+        this.setVisible(false);
+    }
     
 }
 export default Balas;

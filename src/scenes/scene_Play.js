@@ -1,6 +1,6 @@
 import Lunaran from '../gameObjects/lunaran.js';
 import Balas from '../gameObjects/balas.js';
-import Enemy from '../gameObjects/enemy.js';
+import Enemies from '../gameObjects/enemy.js';
 
 
 class scene_Play extends Phaser.Scene {
@@ -41,12 +41,16 @@ class scene_Play extends Phaser.Scene {
         this.input.keyboard.on("keydown_SPACE", () => {
             this.bullets.fireBullet(this.player1.x, this.player1.y);
         })
+        this.fireRate = 2000;
 
         //Enemigos
-        this.enemy = new Enemy(this, 100, 100);
+        this.enemies = new Enemies(this);
+        this.enemies.spawnEnemy(100, 100);
 
         //Colisiones 
-        this.physics.add.overlap(this.bullets, this.enemy, killEnemy(this.enemy), null, this);
+        var that = this;
+        this.physics.add.collider(this.bullets, this.enemies, killEnemy);
+        //this.physics.add.overlap(this.bullets, this.enemy, killEnemy(this.enemy), null, this);
 
         //  this.variable = this.time.addEvent({
         //     delay: 500, callback: () => {
@@ -73,7 +77,7 @@ class scene_Play extends Phaser.Scene {
         //     hasDispatched = true
         // };
         //Phaser.Time.TimerEvent(500, shoot(this.bullets, this.player1), this);
-        this.fireRate = 5000;
+        
     }
 
     update(time, delta) {
@@ -84,10 +88,6 @@ class scene_Play extends Phaser.Scene {
              this.bullets.fireBullet(this.player1.x, this.player1.y);
              this.fireRate += 100;
          }
-     
-        
-
-
         //Player 1
         if (this.cursor_a.isDown) {
             this.player1.body.setVelocityX(-200);
@@ -123,8 +123,11 @@ class scene_Play extends Phaser.Scene {
         }
     }
 }
-function killEnemy(enemy) {
+
+function killEnemy(bullet, enemy){
+    bullet.die();
     enemy.die();
 }
+
 
 export default scene_Play;

@@ -5,7 +5,7 @@ import scene_Play from './scenes/scene_Play.js'
 const config = {
     type: Phaser.CANVAS,
     width: 800,
-    height: 800,
+    height: 500,
     parent: 'container',
     physics:{
         default: "arcade"
