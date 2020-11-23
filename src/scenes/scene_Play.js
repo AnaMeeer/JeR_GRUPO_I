@@ -1,6 +1,7 @@
 import Lunaran from '../gameObjects/lunaran.js';
 import Balas from '../gameObjects/balas.js';
 import Enemies from '../gameObjects/enemy.js';
+import Lasers from '../gameObjects/laser.js';
 
 
 class scene_Play extends Phaser.Scene {
@@ -39,9 +40,19 @@ class scene_Play extends Phaser.Scene {
         this.bullets = new Balas(this);
 
         this.input.keyboard.on("keydown_SPACE", () => {
-            this.bullets.fireBullet(this.player1.x, this.player1.y);
+            this.fireBullet(this.player1.x, this.player1.y);
         })
         this.fireRate = 4000;
+        this.payerBulletYSpeed = -300;
+
+        //PowerUps: Láser desintegrador.
+        var duracion = 5;
+        this.lasers = new Lasers(this);
+
+        this.input.keyboard.on("keydown_Q", () => {
+            this.lasers.fireLaser(this.player1.x, this.player1.y, 0, -300);
+        })
+        this.fireRate = 7000;
         this.payerBulletYSpeed = -300;
 
         //Enemigos
@@ -84,9 +95,18 @@ class scene_Play extends Phaser.Scene {
         //shoot(this.time, this.bullets, this.player1);
         //this.bullets.fireBullet(this.player1.x, this.player1.y);
          if(time > this.fireRate){
-             this.bullets.fireBullet(this.player1.x, this.player1.y, 300, this.payerBulletYSpeed);
+             this.bullets.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);    
              this.fireRate += 100;
          }
+
+        //PowerUp: Laser desintegrador        
+        if (this.cursor_q.isDown) {
+            //while (duracion >= 0) {
+                this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);
+               // duracion -= duracion;
+           // }      
+        }
+
         //Player 1
         if (this.cursor_a.isDown) {
             this.player1.body.setVelocityX(-200);
