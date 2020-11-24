@@ -10,7 +10,6 @@ class scene_Play extends Phaser.Scene {
     }
 
 
-
     create() {
 
         let center_width = this.sys.game.config.width / 2;
@@ -48,12 +47,8 @@ class scene_Play extends Phaser.Scene {
         //PowerUps: Láser desintegrador.
         var duracion = 5;
         this.lasers = new Lasers(this);
-
-        this.input.keyboard.on("keydown_Q", () => {
-            this.lasers.fireLaser(this.player1.x, this.player1.y, 0, -300);
-        })
-        this.fireRate = 7000;
-        this.payerBulletYSpeed = -300;
+        this.cursor_q = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+        this.bulletSpeed = -1000;
 
         //Enemigos
         this.enemies = new Enemies(this);
@@ -101,10 +96,7 @@ class scene_Play extends Phaser.Scene {
 
         //PowerUp: Laser desintegrador        
         if (this.cursor_q.isDown) {
-            //while (duracion >= 0) {
-                this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);
-               // duracion -= duracion;
-           // }      
+                this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);   
         }
 
         //Player 1
