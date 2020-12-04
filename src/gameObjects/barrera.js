@@ -1,50 +1,56 @@
-
-class Lasers extends Phaser.Physics.Arcade.Group{
+class Barreras extends Phaser.Physics.Arcade.Group{
     constructor (scene)
     {
         super(scene.physics.world, scene);
 
         this.createMultiple({
             frameQuantity: 50,
-            key: 'lasers',
+            key: 'barrier',
             active: false,
             visible: false,
-            classType: Laser
+            classType: Barrera
         });
     }
 
-    fireLaser (x, y, xDir, yDir)
+    crearBarrera (x, y)
     {
-        let laser = this.getFirstDead(false);
+        let barrera = this.getFirstDead(true);
 
-        if (laser)
+        if (barrera)
         {
-            laser.disparar(x,y,xDir,yDir);
+            barrera.createBarrier(x,y);
     
         }
     }
+    killBarrier(){
+        let barrera = this.getFirstAlive();
+
+        if (barrera){
+            barrera.die();
+        }
+    }
 }
-class Laser extends Phaser.Physics.Arcade.Sprite{
+class Barrera extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y){
-        super(scene, x, y, 'laser');
+        super(scene, x, y, 'barrera');
         // scene.add.existing(this);
         // scene.physics.world.enable(this);
     }
 
-    disparar (x, y, xDir, yDir){
+    createBarrier (x, y){
         this.body.reset(x, y);
         this.setActive(true);
         this.setVisible(true);
 
-        this.setVelocityX(xDir)
-        this.setVelocityY(yDir);
+        //this.setVelocityX(xDir)
+        //this.setVelocityY(yDir);
     }
 
     preUpdate (time, delta)
     {
         super.preUpdate(time, delta);
 
-        if (this.y <= -10)
+        if (this.x <= -10 || this.x >= 810)
         {
             this.setActive(false);
             this.setVisible(false);
@@ -57,4 +63,4 @@ class Laser extends Phaser.Physics.Arcade.Sprite{
     }
     
 }
-export default Lasers;
+export default Barreras;

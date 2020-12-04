@@ -2,7 +2,13 @@ import Lunaran from '../gameObjects/lunaran.js';
 import Balas from '../gameObjects/balas.js';
 import Enemies from '../gameObjects/enemy.js';
 import Lasers from '../gameObjects/laser.js';
+import Barreras from '../gameObjects/barrera.js';
 
+//variables
+var numBarreras = 0;
+var tiempoActual;
+var amountDamageBullet = 1;
+var amountDamageLaser = 50;
 
 class scene_Play extends Phaser.Scene {
     constructor() {
@@ -24,8 +30,8 @@ class scene_Play extends Phaser.Scene {
         this.cursor_a = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.cursor_s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.cursor_d = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        this.cursor_e = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
-        this.cursor_q = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        this.cursor_q = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+        this.cursor_e = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
         //Jugador 2
         this.cursor_i = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
@@ -45,10 +51,15 @@ class scene_Play extends Phaser.Scene {
         this.payerBulletYSpeed = -300;
 
         //PowerUps: Láser desintegrador.
-        var duracion = 5;
         this.lasers = new Lasers(this);
-        this.cursor_q = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.bulletSpeed = -1000;
+
+        //Rezo desesperado.
+        this.barreras = new Barreras(this);
+
+        //Guanteletes Zzap.
+
+        //Impulso de Hringhorni.
 
         //Enemigos
         this.enemies = new Enemies(this);
@@ -56,7 +67,8 @@ class scene_Play extends Phaser.Scene {
 
         //Colisiones 
         var that = this;
-        this.physics.add.collider(this.bullets, this.enemies, killEnemy);
+        this.physics.add.overlap(this.bullets, this.enemies, bulletEnemy);  //colision con una bala
+        this.physics.add.overlap(this.lasers, this.enemies, laserEnemy);    //colision con el laser
         //this.physics.add.overlap(this.bullets, this.enemy, killEnemy(this.enemy), null, this);
 
         //  this.variable = this.time.addEvent({
@@ -99,6 +111,17 @@ class scene_Play extends Phaser.Scene {
                 this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);   
         }
 
+        //PowerUp: Rezo desesperado
+        if ((this.cursor_e.isDown) && (numBarreras < 1)) {
+            this.barreras.crearBarrera(this.player1.x, (this.player1.y - 20));
+            numBarreras += 1;
+            tiempoActual = time;         
+        }
+        if (time > (tiempoActual + 5000)) {
+            this.barreras.killBarrier();
+            numBarreras = 0;
+        }
+
         //Player 1
         if (this.cursor_a.isDown) {
             this.player1.body.setVelocityX(-200);
@@ -135,10 +158,18 @@ class scene_Play extends Phaser.Scene {
     }
 }
 
-function killEnemy(bullet, enemy){
+//impacto de una bala contra un enemigo
+function bulletEnemy(bullet, enemy){
     bullet.die();
     enemy.die();
 }
+//impacto del laser contra un enemigo
+function laserEnemy(laser, enemy){
+    enemy.die();
+}
 
+function killBarrier() {
+    barrera.die();
+}
 
 export default scene_Play;
