@@ -1,0 +1,188 @@
+{
+	"textures": [
+		{
+			"image": "EnemigoBasico.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 64,
+				"h": 43
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "EnemigoBasico_0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 16,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 5,
+						"w": 13,
+						"h": 19
+					},
+					"frame": {
+						"x": 49,
+						"y": 23,
+						"w": 13,
+						"h": 19
+					}
+				},
+				{
+					"filename": "EnemigoBasico_0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 16,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 9,
+						"w": 13,
+						"h": 15
+					},
+					"frame": {
+						"x": 16,
+						"y": 26,
+						"w": 13,
+						"h": 15
+					}
+				},
+				{
+					"filename": "EnemigoBasico_0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 16,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 8,
+						"w": 13,
+						"h": 16
+					},
+					"frame": {
+						"x": 1,
+						"y": 26,
+						"w": 13,
+						"h": 16
+					}
+				},
+				{
+					"filename": "EnemigoBasico_0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 16,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 13,
+						"h": 22
+					},
+					"frame": {
+						"x": 19,
+						"y": 1,
+						"w": 13,
+						"h": 22
+					}
+				},
+				{
+					"filename": "EnemigoBasico_0005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 16,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 13,
+						"h": 22
+					},
+					"frame": {
+						"x": 34,
+						"y": 1,
+						"w": 13,
+						"h": 22
+					}
+				},
+				{
+					"filename": "EnemigoBasico_0006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 16,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 23
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 16,
+						"h": 23
+					}
+				},
+				{
+					"filename": "EnemigoBasico_0007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 16,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 4,
+						"w": 14,
+						"h": 20
+					},
+					"frame": {
+						"x": 49,
+						"y": 1,
+						"w": 14,
+						"h": 20
+					}
+				},
+				{
+					"filename": "EnemigoBasico_0008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 16,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 7,
+						"w": 13,
+						"h": 17
+					},
+					"frame": {
+						"x": 31,
+						"y": 25,
+						"w": 13,
+						"h": 17
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:1777f72fdd93639ad8e6650b7b1f091f:0f289094af483bd2414a93e1b677961c:b8806fb2f0c1e10700c53999f1d3e85b$"
+	}
+}

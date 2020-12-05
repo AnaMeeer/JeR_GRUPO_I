@@ -13,7 +13,11 @@ class Bootloader extends Phaser.Scene {
         this.load.atlas('anim_intro', 'assets/Anim_Intro.png', './assets/Anim_Intro.json'); //nombre que le damos, donde está el json, nombre de la carpeta
         this.load.atlas('anim_apertura', 'assets/Anim_Apertura.png', './assets/Anim_Apertura.json');
         this.load.atlas('anim_boton', 'assets/Anim_Boton.png', './assets/Anim_Boton.json');
+        this.load.atlas('EnemigoBasico', 'assets/EnemigoBasico.png', './assets/EnemigoBasico.json');
         this.load.image('fondo', './assets/white-background-2.jpg');
+        this.load.audio('prueba', "./assets/NeverSurrender.ogg")
+        this.load.audio('click1', "./assets/click1.ogg")
+        this.load.audio('click2', "./assets/click2.ogg")
 
         //Cosas que usa scene_Play
         this.load.image("lunaran", "./assets/nave.png");
@@ -21,6 +25,7 @@ class Bootloader extends Phaser.Scene {
         this.load.image("malo","./assets/star.png");
         this.load.image("bala", "./assets/bala.png");
         this.load.image("enemigo", "./assets/star.png");
+        
 
         
         console.log("Se ha cargado la escena bootloader");

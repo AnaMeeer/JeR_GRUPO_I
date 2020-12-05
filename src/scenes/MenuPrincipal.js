@@ -4,12 +4,31 @@ export default class MenuPrincipal extends Phaser.Scene {
     }
 
     create() {
+        this.click1Sound = this.sound.add("click1");
+        this.click2Sound=this.sound.add("click2");
+        let musica=this.sound.add("prueba");
+
+        var musicConfig = {
+            mute: false,
+            volume: 0.4,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+            musica.play(musicConfig);
+
+    
+        
+    
         //Renderizamos el fondo
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
         
         //Renderizamos la primera imagen del SpriteSheet
         this.imagen = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'anim_intro', 'SpriteIntro_0001.png').setInteractive();
-
+        
+      
         //Variables que usaremos para controlar animaciones
         this.animable = true;
         this.seClicka = false;
@@ -24,8 +43,12 @@ export default class MenuPrincipal extends Phaser.Scene {
             zeroPad: 4
         });
 
+
+
         //se inicia la primera animación
         this.anims.create({ key: 'anim', frames: frameNames, frameRate: 10, repeat: 0 });
+        
+      
 
         //función al pasar por encima de la primera animación
         this.imagen.on('pointerover', () => {
@@ -40,9 +63,12 @@ export default class MenuPrincipal extends Phaser.Scene {
 
         //función al clickar en la primera animación
         this.imagen.on('pointerdown', () => {
+            
             if (this.seClicka == true) {
+                this.click1Sound.play();
                 //hacemos que se vuelva invisible la primera animación
                 this.imagen.setVisible(false);
+                
                 
 
                 //Iniciamos la segunda animación
@@ -77,6 +103,7 @@ export default class MenuPrincipal extends Phaser.Scene {
                         this.anims.create({ key: 'anim3', frames: framesBoton, frameRate: 25, repeat: 0 });
                         this.imagenBoton.play('anim3');
                         this.imagenBoton.on('pointerdown', () => {
+                            this.click2Sound.play();
 
                             //lo que ocurrirá al pulsar el botón
                             console.log("hola");
