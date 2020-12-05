@@ -12,6 +12,7 @@ const config = {
         arcade: {
             debug: true
         }
+
     },
     scene: [Bootloader, MenuPrincipal, scene_Play]
 };
