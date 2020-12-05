@@ -14,6 +14,18 @@ class Bootloader extends Phaser.Scene {
         this.load.atlas('anim_apertura', 'assets/Anim_Apertura.png', './assets/Anim_Apertura.json');
         this.load.atlas('anim_boton', 'assets/Anim_Boton.png', './assets/Anim_Boton.json');
         this.load.image('fondo', './assets/white-background-2.jpg');
+
+        //Cosas que usa scene_Play
+        this.load.image("lunaran", "./assets/nave.png");
+        this.load.image("lunaran2", "./assets/nave2.png");
+        this.load.image("malo","./assets/star.png");
+        this.load.image("bala", "./assets/bala.png");
+        this.load.image("enemigo", "./assets/star.png");
+        this.load.image("laser", "./assets/bullet11.png");
+        this.load.image("barrera", "./assets/barrera.png");
+        this.load.image("corazon", "./assets/corazon.png");
+
+        
         console.log("Se ha cargado la escena bootloader");
     }
 

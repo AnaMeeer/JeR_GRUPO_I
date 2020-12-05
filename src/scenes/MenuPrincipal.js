@@ -80,7 +80,7 @@ export default class MenuPrincipal extends Phaser.Scene {
 
                             //lo que ocurrirá al pulsar el botón
                             console.log("hola");
-                            this.scene.start('EscenaPrueba');
+                            this.scene.start('scene_Play');
 
                         })
                     }, callbackScope: this
