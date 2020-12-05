@@ -79,42 +79,16 @@ class scene_Play extends Phaser.Scene {
         this.physics.add.overlap(this.bullets, this.enemies, bulletEnemy);  //colision con una bala
         this.physics.add.overlap(this.lasers, this.enemies, laserEnemy);    //colision con el laser
 
-        //this.physics.add.overlap(this.bullets, this.enemy, killEnemy(this.enemy), null, this);
-
-        //  this.variable = this.time.addEvent({
-        //     delay: 500, callback: () => {
-
-        //     }, callback: this
-        // });
-
-
-        //window.setInterval(this.bullets.fireBullet(), 1000, this.player1.x, this.player1.y);
-
-        //shoot(this.time, this.bullets, this.player1);
-
-        // Phaser.Game.timer.events.loop(Phaser.Timer.SECOND * 0.5, shoot, this);
-        //this.secuenciaDisparo = new Phaser.time.events.loop(500, shoot(this.bullets, this.player1), this);
-        // const config2 = {
-        //     delay: 500,
-        //     loop: true,
-        //     callback: shoot(this.bullets, this.player1),
-        //     callbackScope: this,
-        //     startAt = 0,
-        //     paused: false,
-        //     hasDispatched = true
-        // };
-        //Phaser.Time.TimerEvent(500, shoot(this.bullets, this.player1), this);
-        
     }
 
     update(time, delta) {
-        //Controles
-        //shoot(this.time, this.bullets, this.player1);
-        //this.bullets.fireBullet(this.player1.x, this.player1.y);
+
          if(time > this.fireRate){
              this.bullets.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);    
-             this.fireRate += 100;
+             this.fireRate += 300;
          }
+
+         //CONTROLES
 
         //PowerUp: Laser desintegrador        
         if (this.cursor_q.isDown) {

@@ -59,8 +59,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
     }
 
     die(){
-        this.setActive(false);
-        this.setVisible(false);
+        this.destroy();
     }
 }
 export default Enemies;
