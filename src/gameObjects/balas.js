@@ -1,4 +1,3 @@
-//import Bala from "./bala";
 
 class Balas extends Phaser.Physics.Arcade.Group{
     constructor (scene)
@@ -55,6 +54,7 @@ class Bala extends Phaser.Physics.Arcade.Sprite{
     die(){
         this.setActive(false);
         this.setVisible(false);
+        this.setVelocityY(0);
     }
     
 }
