@@ -24,6 +24,8 @@ class Bootloader extends Phaser.Scene {
         this.load.image("laser", "./assets/bullet11.png");
         this.load.image("barrera", "./assets/barrera.png");
         this.load.image("corazon", "./assets/corazon.png");
+        this.load.audio('muerteEnemigo','./assets/muerteEnemigo.ogg');
+
 
         
         console.log("Se ha cargado la escena bootloader");
