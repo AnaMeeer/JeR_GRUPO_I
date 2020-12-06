@@ -167,8 +167,6 @@ class scene_Play extends Phaser.Scene {
         //Menu
         this.iconoPausa.on('pointerdown', () => {
             this.scene.sleep();
-            this.scene.swapPosition('EscenaPausa');
-            
         })
         
 

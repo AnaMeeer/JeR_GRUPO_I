@@ -22,7 +22,6 @@ export default class EscenaPausa extends Phaser.Scene {
 
 
         this.no = this.add.image(this.sys.game.config.width / 2 + 82.5, this.sys.game.config.height / 2 + 87, 'no').setInteractive({ useHandCursor: true }).on('pointerup', function () {
-            that.scene.swapPosition('scene_Play');
             that.scene.wake('scene_Play');
 
         });
