@@ -25,7 +25,6 @@ class scene_Play extends Phaser.Scene {
         this.player1 = new Lunaran(this, center_width - 10, 350, "lunaran");
 
         this.player2 = new Lunaran(this, center_width + 10, 350, "lunaran2");
-
         //Controles
         //Jugador 1
         this.cursor_w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -43,11 +42,14 @@ class scene_Play extends Phaser.Scene {
         this.cursor_o = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);//dash
         this.cursor_u = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);//power up
 
+        //Menú de pausa
+        this.cursor_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
         //Balas
         this.bullets = new Balas(this);
 
         this.input.keyboard.on("keydown_SPACE", () => {
-            this.fireBullet(this.player1.x, this.player1.y);
+            this.bullets.fireBullet(this.player1.x, this.player1.y);
         })
         this.fireRate = 4000;
         this.payerBulletYSpeed = -300;
@@ -75,57 +77,27 @@ class scene_Play extends Phaser.Scene {
         })
 
         //Colisiones 
-        var that = this;
         this.physics.add.overlap(this.bullets, this.enemies, bulletEnemy);  //colision con una bala
         this.physics.add.overlap(this.lasers, this.enemies, laserEnemy);    //colision con el laser
 
-        //this.physics.add.overlap(this.bullets, this.enemy, killEnemy(this.enemy), null, this);
-
-        //  this.variable = this.time.addEvent({
-        //     delay: 500, callback: () => {
-
-        //     }, callback: this
-        // });
+        //disparo automático
+        this.timedEvent = this.time.addEvent({ delay: 100, callback: disparo, callbackScope: this, loop: true });
 
 
-        //window.setInterval(this.bullets.fireBullet(), 1000, this.player1.x, this.player1.y);
-
-        //shoot(this.time, this.bullets, this.player1);
-
-        // Phaser.Game.timer.events.loop(Phaser.Timer.SECOND * 0.5, shoot, this);
-        //this.secuenciaDisparo = new Phaser.time.events.loop(500, shoot(this.bullets, this.player1), this);
-        // const config2 = {
-        //     delay: 500,
-        //     loop: true,
-        //     callback: shoot(this.bullets, this.player1),
-        //     callbackScope: this,
-        //     startAt = 0,
-        //     paused: false,
-        //     hasDispatched = true
-        // };
-        //Phaser.Time.TimerEvent(500, shoot(this.bullets, this.player1), this);
-        
     }
 
     update(time, delta) {
-        //Controles
-        //shoot(this.time, this.bullets, this.player1);
-        //this.bullets.fireBullet(this.player1.x, this.player1.y);
-         if(time > this.fireRate){
-             this.bullets.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);    
-             this.fireRate += 100;
-         }
 
         //PowerUp: Laser desintegrador        
         if (this.cursor_q.isDown) {
-                this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);   
+            this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);
         }
 
         //PowerUp: Rezo desesperado
         if ((this.cursor_u.isDown) && (numBarreras < 1)) {
             this.barreras.crearBarrera(this.player1.x, (this.player1.y - 20));
             numBarreras += 1;
-            tiempoActual = time;         
+            tiempoActual = time;
         }
         if (time > (tiempoActual + 5000)) {
             this.barreras.killBarrier();
@@ -190,17 +162,35 @@ class scene_Play extends Phaser.Scene {
             this.player2.body.setVelocity(0);
         }
 
+
+        this.render = false;
+
+        //Menu
+
+        if (this.cursor_ESC.isDown) {
+            this.render = true;
+        }
+        if (this.render) {
+            this.render = false;
+            this.scene.switch('EscenaPausa');
+        }
+
     }
 }
 
 //impacto de una bala contra un enemigo
-function bulletEnemy(bullet, enemy){
+function bulletEnemy(bullet, enemy) {
     bullet.die();
     enemy.die();
 }
 //impacto del laser contra un enemigo
-function laserEnemy(laser, enemy){
+function laserEnemy(laser, enemy) {
     enemy.die();
+}
+
+function disparo() {
+    this.bullets.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);
+    this.bullets.fireBullet(this.player2.x, this.player2.y, 0, this.payerBulletYSpeed);
 }
 
 export default scene_Play;
