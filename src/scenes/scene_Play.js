@@ -19,6 +19,8 @@ class scene_Play extends Phaser.Scene {
 
 
     create() {
+        this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
+        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
 
         let center_width = this.sys.game.config.width / 2;
         //Lunara
@@ -41,9 +43,6 @@ class scene_Play extends Phaser.Scene {
         this.cursor_l = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
         this.cursor_o = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);//dash
         this.cursor_u = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);//power up
-
-        //Menú de pausa
-        this.cursor_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         //Balas
         this.bullets = new Balas(this);
@@ -163,17 +162,16 @@ class scene_Play extends Phaser.Scene {
         }
 
 
-        this.render = false;
+
 
         //Menu
+        this.iconoPausa.on('pointerdown', () => {
+            this.scene.sleep();
+            this.scene.swapPosition('EscenaPausa');
+            
+        })
+        
 
-        if (this.cursor_ESC.isDown) {
-            this.render = true;
-        }
-        if (this.render) {
-            this.render = false;
-            this.scene.switch('EscenaPausa');
-        }
 
     }
 }

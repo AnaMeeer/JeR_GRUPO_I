@@ -9,6 +9,7 @@ class Bootloader extends Phaser.Scene {
     preload() {
         this.load.on("complete", () => { //hasta que no se carguen todas las imágenes/sprites, no se cargará la siguiente escena 
             this.scene.start("MenuPrincipal");
+            this.scene.start("EscenaPausa");
         });
         this.load.atlas('anim_intro', 'assets/Anim_Intro.png', './assets/Anim_Intro.json'); //nombre que le damos, donde está el json, nombre de la carpeta
         this.load.atlas('anim_apertura', 'assets/Anim_Apertura.png', './assets/Anim_Apertura.json');
@@ -25,6 +26,14 @@ class Bootloader extends Phaser.Scene {
         this.load.image("barrera", "./assets/barrera.png");
         this.load.image("corazon", "./assets/corazon.png");
         this.load.image("fondoNegro","./assets/fondoNegro.jpg");
+        this.load.image('iconPausa',"./assets/icon_pausa.png");
+
+        //Cosas que usa EscenaPausa
+        this.load.image("ImagenPausa","./assets/Interfaz_Pausa.jpg");
+        this.load.image("sfx", "./assets/sfx.png");
+        this.load.image("quit", "./assets/quit.png");
+        this.load.image("yes", "./assets/yes.png");
+        this.load.image("no", "./assets/no.png");
 
         
         console.log("Se ha cargado la escena bootloader");

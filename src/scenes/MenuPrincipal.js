@@ -8,7 +8,7 @@ export default class MenuPrincipal extends Phaser.Scene {
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
         
         //Renderizamos la primera imagen del SpriteSheet
-        this.imagen = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'anim_intro', 'SpriteIntro_0001.png').setInteractive();
+        this.imagen = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'anim_intro', 'SpriteIntro_0001.png').setInteractive({ useHandCursor: true });
 
         //Variables que usaremos para controlar animaciones
         this.animable = true;
@@ -63,7 +63,7 @@ export default class MenuPrincipal extends Phaser.Scene {
                 //añado timer para que comience la tercera animación
                 this.seAnimaBoton = this.time.addEvent({
                     delay: 250, callback: () => {
-                        this.imagenBoton = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'anim_boton', 'AnimBoton_0001.png').setInteractive();
+                        this.imagenBoton = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'anim_boton', 'AnimBoton_0001.png').setInteractive({ useHandCursor: true });
                         this.imagenBoton.setScale(1, 1);
                         var framesBoton = this.anims.generateFrameNames('anim_boton', {
                             start: 0,
@@ -81,6 +81,7 @@ export default class MenuPrincipal extends Phaser.Scene {
                             //lo que ocurrirá al pulsar el botón
                             console.log("hola");
                             this.scene.start('scene_Play');
+                            this.scene.start("EscenaPausa");
 
                         })
                     }, callbackScope: this
