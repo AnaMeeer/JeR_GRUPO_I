@@ -29,6 +29,15 @@ class Barreras extends Phaser.Physics.Arcade.Group{
             barrera.die();
         }
     }
+    isAlive(){
+        let barrera = this.getFirstAlive();
+        
+        if (barrera) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 class Barrera extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y){
