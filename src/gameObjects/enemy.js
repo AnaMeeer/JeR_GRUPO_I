@@ -43,16 +43,15 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
     {
         super.preUpdate(time, delta);
 
-        if (this.x <= -150 || this.x >= 950)
+        if (this.x <= -150 || this.x >= 950 || this.y < -60 || this.y > 500)
         {
             this.setActive(false);
             this.setVisible(false);
-            
+            this.destroy();
         }
     }
 
     die(){
-        console.log("tocado")
         this.destroy();
     }
 }
