@@ -3,9 +3,10 @@ import Bootloader from './bootloader.js'
 import MenuPrincipal from './scenes/MenuPrincipal.js'
 import scene_Play from './scenes/scene_Play.js'
 import EscenaPausa from './scenes/EscenaPausa.js'
+import EscenaSonido from './scenes/EscenaSonido.js'
 const config = {
     type: Phaser.CANVAS,
-    scale:{
+    scale: {
         mode: Phaser.Scale.FIT,
         parent: 'container',
         autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -19,7 +20,7 @@ const config = {
         }
 
     },
-    scene: [ Bootloader,EscenaPausa, scene_Play, MenuPrincipal]
+    scene: [Bootloader, EscenaSonido, EscenaPausa, scene_Play, MenuPrincipal]
 };
 
 new Phaser.Game(config);

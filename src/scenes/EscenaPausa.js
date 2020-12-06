@@ -9,7 +9,9 @@ export default class EscenaPausa extends Phaser.Scene {
         this.render = false;
         this.pausa = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'ImagenPausa');
         this.quit = this.add.image(this.sys.game.config.width / 2 + 1, this.sys.game.config.height / 2 + 9, 'quit');
-        this.sfx = this.add.image(this.sys.game.config.width / 2 - 80, this.sys.game.config.height / 2 - 72.5, 'sfx').setInteractive({ useHandCursor: true });
+        this.sfx = this.add.image(this.sys.game.config.width / 2 - 80, this.sys.game.config.height / 2 - 72.5, 'sfx').setInteractive({ useHandCursor: true }).on('pointerup',function(){
+            that.scene.sleep();
+        });
 
         this.yes = this.add.image(this.sys.game.config.width / 2 - 79.5, this.sys.game.config.height / 2 + 87.5, 'yes').setInteractive({ useHandCursor: true }).on('pointerup', function () {
             that.scene.stop('scene_Play');
@@ -60,25 +62,6 @@ export default class EscenaPausa extends Phaser.Scene {
 
     }
 
-    // update() {
-
-    //     this.no.on("pointerdown", prueba);
-    //     var that = this;
-    //     function prueba() {
-    //         // that.scene.switch('scene_Play');
-    //         that.render = true;
-    //     };
-
-    //     if (this.cursor_ESC.isDown) {
-
-    //         this.render = true;
-    //     }
-
-    //     if (that.render) {
-    //         that.scene.switch('scene_Play');
-    //         that.render = false;
-    //     }
-    // }
 }
 
 
