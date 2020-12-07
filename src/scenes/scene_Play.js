@@ -19,13 +19,15 @@ class scene_Play extends Phaser.Scene {
 
 
     create() {
+        this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
+        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
+
         var that = this;
         let center_width = this.sys.game.config.width / 2;
         //Lunara
         this.player1 = new Lunaran(this, center_width - 10, 350, "lunaran");
 
         this.player2 = new Lunaran(this, center_width + 10, 350, "lunaran2");
-
         //Controles
         //Jugador 1
         this.cursor_w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -45,7 +47,6 @@ class scene_Play extends Phaser.Scene {
 
         //Balas
         this.bullets = new Balas(this);
-
 
         this.payerBulletYSpeed = -300;
 
@@ -84,7 +85,9 @@ class scene_Play extends Phaser.Scene {
         })
 
         //Colisiones 
+
         this.physics.add.collider(this.bullets, this.enemies, bulletEnemy);  //colision con una bala
+
         this.physics.add.overlap(this.lasers, this.enemies, laserEnemy);    //colision con el laser
         this.physics.add.overlap(this.player1, this.enemyBullets, playerHit);
 
@@ -96,6 +99,7 @@ class scene_Play extends Phaser.Scene {
 
     update(time, delta) {
         //CONTROLES
+
         //PowerUp: Laser desintegrador        
         if (this.cursor_q.isDown) {
             this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);
@@ -170,23 +174,30 @@ class scene_Play extends Phaser.Scene {
             this.player2.body.setVelocity(0);
         }
 
+
+
+
+        //Menu
+        this.iconoPausa.on('pointerdown', () => {
+            this.scene.sleep();
+        })
+        
+
+
     }
 }
-
-
-//impacto de una bala contra un enemigo
-
-
 
 //impacto del laser contra un enemigo
 function laserEnemy(laser, enemy) {
     enemy.die();
 }
 
+
 function shootFunc() {
     this.bullets.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);
     this.bullets.fireBullet(this.player2.x, this.player2.y, 0, this.payerBulletYSpeed);
 }
+
 
 function spawnerFunc() {
     var y = Phaser.Math.Between(-50, 300);
@@ -244,6 +255,5 @@ function enemyShoot() {
         this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
     }
 }
-
 
 export default scene_Play;
