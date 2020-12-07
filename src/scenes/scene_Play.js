@@ -71,10 +71,15 @@ class scene_Play extends Phaser.Scene {
         that.muerteEnemigoSound.setVolume(0.1);
         this.muerteEnemigoSound.setMute(true);
 
-        //Colisión Bala-Jugador
-        function playerHit(player, bullet) {
+        //Colisión Bala-Jugador1
+        function player1Hit(player, bullet) {
             bullet.die();
             that.sistemaVida.damage(amountDamageEnemy);
+        }
+        //Colisión Bala-Jugador2
+        function player2Hit(player, bullet) {
+            bullet.die();
+            that.sistemaVida2.damage(amountDamageEnemy);
         }
 
         //Colisión BalaP1-Enemigo
@@ -91,13 +96,17 @@ class scene_Play extends Phaser.Scene {
                     that.score += 5;
                     that.count++;
                     that.texto.text = "Puntos: " + that.score;
-                    console.log(that.primeravez)
+                    console.log(that.primeravez);
+                    that.barraEnergia.increasePowerUp(10);
                 }
             }
-            if (that.count >= 51) {
-                that.barraEnergia.increasePowerUp(10);
+            if (that.count >= 50) {
                 that.muerteEnemigoSound.setMute(false);
                 that.muerteEnemigoSound.play();
+            }
+            if (that.count <= 50) {
+                that.barraEnergia.decrease(100);
+                that.muerteEnemigoSound.setMute(true);
             }
         }
 
@@ -108,10 +117,10 @@ class scene_Play extends Phaser.Scene {
                 that.score += 5;
                 that.count++;
                 that.texto.text = "Puntos: " + that.score;
-                console.log(that.primeravez)
+                console.log(that.primeravez);
+                that.barraEnergia2.increasePowerUp(10);
             }
             if (that.count >= 50) {
-                that.barraEnergia2.increasePowerUp(10);
                 that.muerteEnemigoSound.setMute(false);
                 that.muerteEnemigoSound.play();
             }
@@ -141,12 +150,13 @@ class scene_Play extends Phaser.Scene {
         this.physics.add.collider(this.bulletsP1, this.enemies, bullet1Enemy);  //colision con una bala
         this.physics.add.collider(this.bulletsP2, this.enemies, bullet2Enemy);
         this.physics.add.collider(this.lasers, this.enemies, laserEnemy);    //colision con el laser
-        this.physics.add.overlap(this.player1, this.enemyBullets, playerHit);
+        this.physics.add.overlap(this.player1, this.enemyBullets, player1Hit);
+        this.physics.add.overlap(this.player2, this.enemyBullets, player2Hit);
         this.physics.add.overlap(this.barreras, this.enemyBullets, barrera);
         this.physics.add.overlap(this.barreras, this.enemies, barrera);
 
 
-        this.timerSpawn = this.time.addEvent({ delay: 4000, callback: spawnerFunc, callbackScope: this, loop: true });
+        this.timerSpawn = this.time.addEvent({ delay: 1000, callback: spawnerFunc, callbackScope: this, loop: true });
         this.timerDisparo = this.time.addEvent({ delay: 300, callback: shootFunc, callbackScope: this, loop: true });
         this.timerDisparoEnemigo = this.time.addEvent({ delay: 5000, callback: enemyShoot, callbackScope: this, loop: true });
 
@@ -269,7 +279,7 @@ class scene_Play extends Phaser.Scene {
 
 function shootFunc() {
     this.bulletsP1.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);
-    //this.bulletsP2.fireBullet(this.player2.x, this.player2.y, 0, this.payerBulletYSpeed);
+    this.bulletsP2.fireBullet(this.player2.x, this.player2.y, 0, this.payerBulletYSpeed);
 }
 
 
