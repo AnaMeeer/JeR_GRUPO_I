@@ -67,11 +67,11 @@ class scene_Play extends Phaser.Scene {
 
         //Enemigos
         this.enemies = new Enemies(this);
-        
+
         this.muerteEnemigoSound = this.sound.add("muerteEnemigo");
         that.muerteEnemigoSound.setVolume(0.1);
         this.muerteEnemigoSound.setMute(true);
-        
+
         function playerHit(player, bullet) {
             bullet.die();
             that.sistemaVida.damage(amountDamageEnemy);
@@ -80,20 +80,21 @@ class scene_Play extends Phaser.Scene {
             enemy.damageEnemy(amountDamageBullet);
             bullet.die();
             enemy.die();
-            
+
             if (that.primeravez) {
                 that.score -= 245;
                 that.primeravez = false;
-                
+
             }
-            else{
-           
-            that.score += 5;
-            that.count++;
-            that.texto.text = "Puntos: " + that.score;
+            else {
+                that.score += 5;
+                that.count++;
+                that.texto.text = "Puntos: " + that.score;
                 console.log(that.primeravez)
             }
-            if(that.count >=50){
+            if (that.count >= 50) {
+                that.barraEnergia.increasePowerUp(10);
+                that.barraEnergia2.increasePowerUp(10);
                 that.muerteEnemigoSound.setMute(false);
                 that.muerteEnemigoSound.play();
             }
@@ -104,23 +105,20 @@ class scene_Play extends Phaser.Scene {
 
         //Vidas
         this.sistemaVida = new Vidas(this);
-        this.sistemaVida.createHealthSistem(680, 465);
-        this.input.keyboard.on("keydown_R", () => {     //para comprobar que funciona bien. Cambiarlo luego por una colision
-            this.sistemaVida.damage(amountDamageEnemy);
-        });
+        this.sistemaVida2 = new Vidas(this);
+        this.sistemaVida.createHealthSistem(40, 425);
+        this.sistemaVida2.createHealthSistem(780, 425);
 
         //barras
         this.barraEnergia = new Barra(this, 0x0033ff);
-        this.barraEnergia.createBar(20, 435, 100);  //Azul. Empieza vacía.
+        this.barraEnergia.createBar(20, 450, 0);  //Azul. Empieza vacía.
+        this.barraEnergia2 = new Barra(this, 0x0033ff);
+        this.barraEnergia2.createBar(750, 450, 0);
         this.barraDash = new Barra(this, 0xff7514);
-        this.barraDash.createBar(20, 465, 0);   //Naranja. Empieza llena.
+        this.barraDash.createBar(20, 470, 100);   //Naranja. Empieza llena.
+        this.barraDash2 = new Barra(this, 0xff7514);
+        this.barraDash2.createBar(750, 470, 100);
 
-        
-
-        this.input.keyboard.on("keydown_T", () => {     //cambiar por una colision
-            this.puntos += 10;
-            this.barraEnergia.increasePowerUp(10);
-        });
 
         //Colisiones 
         this.physics.add.collider(this.bullets, this.enemies, bulletEnemy);  //colision con una bala
@@ -150,20 +148,20 @@ class scene_Play extends Phaser.Scene {
 
         //PowerUp: Laser desintegrador        
         if (this.cursor_q.isDown && (this.barraEnergia.value > 0)) {
-                this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed); 
-                this.barraEnergia.decrease(0.33);  
+            this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);
+            this.barraEnergia.decrease(0.33);
         }
 
         //PowerUp: Rezo desesperado
         if (this.cursor_u.isDown) {
-            if (this.barraEnergia.value === 100) {
+            if (this.barraEnergia2.value === 100) {
                 this.barreras.crearBarrera(this.player1.x, (this.player1.y - 20));
-            }     
+            }
         }
         if (this.barreras.isAlive() == true) {
-            this.barraEnergia.decrease(0.33);  
+            this.barraEnergia2.decrease(0.33);
         }
-        if (this.barraEnergia.value == 0) {
+        if (this.barraEnergia2.value == 0) {
             this.barreras.killBarrier();
         }
 
@@ -205,28 +203,28 @@ class scene_Play extends Phaser.Scene {
             this.player2.body.setVelocityY(200);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityY(1000);
-                this.barraDash.decrease(8);
+                this.barraDash2.decrease(8);
             }
         }
         else if (this.cursor_i.isDown) {
             this.player2.body.setVelocityY(-200);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityY(-1000);
-                this.barraDash.decrease(8);
+                this.barraDash2.decrease(8);
             }
         }
         else if (this.cursor_l.isDown) {
             this.player2.body.setVelocityX(200);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityX(1000);
-                this.barraDash.decrease(8);
+                this.barraDash2.decrease(8);
             }
         }
         else if (this.cursor_j.isDown) {
             this.player2.body.setVelocityX(-200);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityX(-1000);
-                this.barraDash.decrease(8);
+                this.barraDash2.decrease(8);
             }
         }
         else {
@@ -236,6 +234,9 @@ class scene_Play extends Phaser.Scene {
         //Barras
         if (this.cursor_e.isUp) {
             this.barraDash.increaseDash();
+        }
+        if (this.cursor_o.isUp) {
+            this.barraDash2.increaseDash();
         }
 
         //Menu
@@ -310,7 +311,7 @@ function enemyShoot() {
     }
 }
 
-function barrera(barrera, bala){
+function barrera(barrera, bala) {
     bala.die();
 }
 

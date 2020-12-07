@@ -7,7 +7,7 @@ class Barra extends Phaser.Physics.Arcade.Group{
         this.bar = new Phaser.GameObjects.Graphics(scene);
 
         this.value = 100;
-        this.p = 144/100;   //para saber que porcentaje de la barra pintar
+        this.p = 124/100;   //para saber que porcentaje de la barra pintar
         this.setVisible(false);
         this.setActive(false);
         scene.add.existing(this.bar);
@@ -24,15 +24,13 @@ class Barra extends Phaser.Physics.Arcade.Group{
     }
 
     Init (amount) {
-        for (var i = 0; i < amount; i++) {
-            this.value -= 1;
+            this.value = amount;
 
             if (this.value < 0) {
                 this.value = 0;
             }
 
             this.draw();
-        }
 
         return (this.value === 0);
     }
@@ -80,16 +78,16 @@ class Barra extends Phaser.Physics.Arcade.Group{
 
         //  Borde
         this.bar.fillStyle(0xffffff);
-        this.bar.fillRect(this.x, this.y, 150, 16);
+        this.bar.fillRect(this.x, this.y, 130, 12);
 
         //  Health
         this.bar.fillStyle(0xffffff);
-        this.bar.fillRect(this.x + 2, this.y + 2, 146, 12); //Fondo blanco de la barra de vida
+        this.bar.fillRect(this.x + 2, this.y + 2, 126, 8); //Fondo blanco de la barra de vida
 
         if (this.value >= 100) //pintar de verde
         {
             this.bar.fillStyle(0x39ff14);
-            this.bar.fillRect(this.x + 2, this.y + 2, 146, 12);
+            this.bar.fillRect(this.x + 2, this.y + 2, 126, 8);
         }
         else    //pintar de cada color
         {
@@ -98,7 +96,7 @@ class Barra extends Phaser.Physics.Arcade.Group{
 
         var d = Math.floor(this.p * this.value);
 
-        this.bar.fillRect(this.x + 2, this.y + 2, d, 12);
+        this.bar.fillRect(this.x + 2, this.y + 2, d, 8);
     }
 
 }
