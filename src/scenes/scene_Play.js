@@ -63,10 +63,10 @@ class scene_Play extends Phaser.Scene {
         //Enemigos
         this.enemies = new Enemies(this);
         this.muerteEnemigoSound = this.sound.add("muerteEnemigo");
-        // function playerHit(player, bullet) {
-        //     bullet.die();
-        //     that.sistemaVida.damage(amountDamageEnemy);
-        // }
+         function playerHit(player, bullet) {
+             bullet.die();
+             that.sistemaVida.damage(amountDamageEnemy);
+        }
         function bulletEnemy(bullet, enemy) {
             bullet.die();
             enemy.die();
@@ -86,7 +86,7 @@ class scene_Play extends Phaser.Scene {
         //Colisiones 
         this.physics.add.collider(this.bullets, this.enemies, bulletEnemy);  //colision con una bala
         this.physics.add.overlap(this.lasers, this.enemies, laserEnemy);    //colision con el laser
-        //this.physics.add.overlap(this.player1, this.enemyBullets, playerHit);
+        this.physics.add.overlap(this.player1, this.enemyBullets, playerHit);
 
 
         this.timerSpawn = this.time.addEvent({ delay: 4000, callback: spawnerFunc, callbackScope: this, loop: true });

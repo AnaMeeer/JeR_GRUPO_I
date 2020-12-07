@@ -53,9 +53,7 @@ class Bala extends Phaser.Physics.Arcade.Sprite{
     }
 
     die(){
-        this.setActive(false);
-        this.setVisible(false);
-        this.setVelocityY(0);
+        this.destroy();
     }
     
 }
