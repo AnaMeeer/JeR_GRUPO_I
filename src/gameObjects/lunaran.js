@@ -6,6 +6,11 @@ class Lunaran extends Phaser.GameObjects.Sprite{
         this.body.setCollideWorldBounds(true);
 
     }
+    die(){
+        this.setActive(false);
+        this.setVisible(false);
+        this.body.enable = false;
+    }
 }
 
 export default Lunaran;

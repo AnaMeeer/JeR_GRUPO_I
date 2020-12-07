@@ -10,6 +10,8 @@ import Barra from '../gameObjects/barra.js';
 var amountDamageBullet = 50; //una bala normal les hace 1 de daño.
 var amountDamageLaser = 10; //el laser hace 50 de daño
 var amountDamageEnemy = 100;
+var p1 = true;
+var p2 = true;
 
 class scene_Play extends Phaser.Scene {
     constructor() {
@@ -157,7 +159,7 @@ class scene_Play extends Phaser.Scene {
 
 
         this.timerSpawn = this.time.addEvent({ delay: 1000, callback: spawnerFunc, callbackScope: this, loop: true });
-        this.timerDisparo = this.time.addEvent({ delay: 300, callback: shootFunc, callbackScope: this, loop: true });
+        this.timerDisparo = this.time.addEvent({ delay: 100, callback: shootFunc, callbackScope: this, loop: true });
         this.timerDisparoEnemigo = this.time.addEvent({ delay: 5000, callback: enemyShoot, callbackScope: this, loop: true });
 
         //impacto del laser contra un enemigo
@@ -173,6 +175,15 @@ class scene_Play extends Phaser.Scene {
     }
 
     update(time, delta) {
+
+        if(!this.sistemaVida.getFirstAlive()){
+            this.player1.die();
+            p1 = false;
+        }
+        if(!this.sistemaVida2.getFirstAlive()){
+            this.player2.die();
+            p2 = false;
+        }
         //CONTROLES
 
         //PowerUp: Laser desintegrador        
@@ -267,19 +278,28 @@ class scene_Play extends Phaser.Scene {
         if (this.cursor_o.isUp) {
             this.barraDash2.increaseDash();
         }
+        
 
         //Menu
         this.iconoPausa.on('pointerdown', () => {
             this.scene.sleep();
         })
+
+        if(!p1 && !p2){
+            this.physics.pause();
+        }
     }
 }
 
 
 
 function shootFunc() {
-    this.bulletsP1.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);
-    this.bulletsP2.fireBullet(this.player2.x, this.player2.y, 0, this.payerBulletYSpeed);
+    if(p1){
+        this.bulletsP1.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);
+    }
+    if(p2){
+        this.bulletsP2.fireBullet(this.player2.x, this.player2.y, 0, this.payerBulletYSpeed);
+    }
 }
 
 
@@ -328,13 +348,17 @@ function enemyShoot() {
         eX = enemigo.body.position.x;
         eY = enemigo.body.position.y;
 
-        if (i % 2) {
+        if (i % 2 && p1) {
             eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
             eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
         }
-        else {
+        else if(p2) {
             eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
             eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
+        }
+        else{
+            eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
+            eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
         }
         this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
     }

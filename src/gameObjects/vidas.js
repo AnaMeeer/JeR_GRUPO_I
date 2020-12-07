@@ -36,8 +36,6 @@ class Vidas extends Phaser.Physics.Arcade.Group{
 
         if (vidaRestante) {
             vidaRestante.decrease(amount);
-        } else {
-            gameOver = true;
         }
     }
     
