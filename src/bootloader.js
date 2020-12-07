@@ -14,6 +14,7 @@ class Bootloader extends Phaser.Scene {
         this.load.atlas('anim_apertura', 'assets/Anim_Apertura.png', './assets/Anim_Apertura.json');
         this.load.atlas('anim_boton', 'assets/Anim_Boton.png', './assets/Anim_Boton.json');
         this.load.image('fondo', './assets/white-background-2.jpg');
+        this.load.bitmapFont('NierFont','./assets/font.png','./assets/font.fnt');
 
         //Cosas que usa scene_Play
         this.load.image("lunaran", "./assets/nave.png");

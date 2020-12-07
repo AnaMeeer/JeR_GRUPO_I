@@ -7,7 +7,7 @@ export default class MenuPrincipal extends Phaser.Scene {
 
         //Musica
         this.musica = this.sound.add("musicaFondo");
-
+       
         var musicConfig = {
             mute: false,
             volume: 0.3,
@@ -22,6 +22,7 @@ export default class MenuPrincipal extends Phaser.Scene {
 
         //Renderizamos el fondo
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
+        
 
         //Renderizamos la primera imagen del SpriteSheet
         this.imagen = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'anim_intro', 'SpriteIntro_0001.png').setInteractive({ useHandCursor: true });

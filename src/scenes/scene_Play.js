@@ -19,10 +19,18 @@ class scene_Play extends Phaser.Scene {
 
 
     create() {
+        var that = this;
+        this.primeravez = true;
+        this.count = 0;
+
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
+        this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
+        this.score = 0;
+        this.texto.text = "Puntos: " + "0";
+
         this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
 
-        var that = this;
+
         let center_width = this.sys.game.config.width / 2;
         //Lunara
         this.player1 = new Lunaran(this, center_width - 10, 350, "lunaran");
@@ -63,15 +71,35 @@ class scene_Play extends Phaser.Scene {
 
         //Enemigos
         this.enemies = new Enemies(this);
+        
         this.muerteEnemigoSound = this.sound.add("muerteEnemigo");
-         function playerHit(player, bullet) {
-             bullet.die();
-             that.sistemaVida.damage(amountDamageEnemy);
+        that.muerteEnemigoSound.setVolume(0.1);
+        this.muerteEnemigoSound.setMute(true);
+        
+        function playerHit(player, bullet) {
+            bullet.die();
+            that.sistemaVida.damage(amountDamageEnemy);
         }
         function bulletEnemy(bullet, enemy) {
             bullet.die();
             enemy.die();
-            that.muerteEnemigoSound.play();
+            
+            if (that.primeravez) {
+                that.score -= 245;
+                that.primeravez = false;
+                
+            }
+            else{
+           
+            that.score += 5;
+            that.count++;
+            that.texto.text = "Puntos: " + that.score;
+                console.log(that.primeravez)
+            }
+            if(that.count >=50){
+                that.muerteEnemigoSound.setMute(false);
+                that.muerteEnemigoSound.play();
+            }
         }
 
         //Balas de Enemigos
@@ -87,7 +115,6 @@ class scene_Play extends Phaser.Scene {
         //Colisiones 
 
         this.physics.add.collider(this.bullets, this.enemies, bulletEnemy);  //colision con una bala
-
         this.physics.add.overlap(this.lasers, this.enemies, laserEnemy);    //colision con el laser
         this.physics.add.overlap(this.player1, this.enemyBullets, playerHit);
 
@@ -95,6 +122,15 @@ class scene_Play extends Phaser.Scene {
         this.timerSpawn = this.time.addEvent({ delay: 4000, callback: spawnerFunc, callbackScope: this, loop: true });
         this.timerDisparo = this.time.addEvent({ delay: 300, callback: shootFunc, callbackScope: this, loop: true });
         this.timerDisparoEnemigo = this.time.addEvent({ delay: 5000, callback: enemyShoot, callbackScope: this, loop: true });
+
+        //impacto del laser contra un enemigo
+        function laserEnemy(laser, enemy) {
+            enemy.die();
+            that.score += 5;
+            that.texto.text = "Puntos: " + that.score;
+            that.muerteEnemigoSound.setMute(false);
+            that.muerteEnemigoSound.play();
+        }
     }
 
     update(time, delta) {
@@ -174,23 +210,14 @@ class scene_Play extends Phaser.Scene {
             this.player2.body.setVelocity(0);
         }
 
-
-
-
         //Menu
         this.iconoPausa.on('pointerdown', () => {
             this.scene.sleep();
         })
-        
-
-
     }
 }
 
-//impacto del laser contra un enemigo
-function laserEnemy(laser, enemy) {
-    enemy.die();
-}
+
 
 
 function shootFunc() {
