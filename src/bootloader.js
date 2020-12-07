@@ -24,6 +24,7 @@ class Bootloader extends Phaser.Scene {
         this.load.image("laser", "./assets/bullet11.png");
         this.load.image("barrera", "./assets/barrera.png");
         this.load.image("corazon", "./assets/corazon.png");
+
         this.load.image("fondoNegro", "./assets/fondoNegro.jpg");
         this.load.image('iconPausa', "./assets/icon_pausa.png");
 
@@ -50,6 +51,8 @@ class Bootloader extends Phaser.Scene {
         this.load.image("mute","./assets/muted.png");
         this.load.image("back","./assets/icon_back.png");
         this.load.audio("musicaFondo","./assets/musicaFondo.mp3");
+
+        this.load.audio('muerteEnemigo','./assets/muerteEnemigo.ogg');
 
         console.log("Se ha cargado la escena bootloader");
     }
