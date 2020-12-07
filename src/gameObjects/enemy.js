@@ -1,3 +1,4 @@
+import HealthBar from '../gameObjects/HealthBar.js';
 
 class Enemies extends Phaser.Physics.Arcade.Group{
     constructor (scene)
@@ -37,6 +38,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         //scene.add.existing(this);
         //scene.physics.world.enable(this);
         //this.body.immovable = true;
+        this.hp = new HealthBar(this.scene);
     }
 
     spawn(x,y){
@@ -58,9 +60,20 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         }
     }
 
-    die(){
+    damageEnemy(amount){
+    
+        this.hp.decrease(amount);
+
+        if (this.hp.decrease(amount)) {
+            this.setActive(false);
+            this.setVisible(false);
+            this.alive = false;
+        }
+    }
+
+    /*die(){
         this.setActive(false);
         this.setVisible(false);
-    }
+    }*/
 }
 export default Enemies;

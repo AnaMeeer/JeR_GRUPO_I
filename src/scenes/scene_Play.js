@@ -8,8 +8,9 @@ import Barra from '../gameObjects/barra.js';
 
 //variables
 var tiempoActual;
-var amountDamageBullet = 1;
-var amountDamageLaser = 50;
+var amountDamageBullet = 1; //una bala normal les hace 1 de daño.
+var amountDamageLaser = 50; //el laser hace 50 de daño
+var amountDamageElec = 0.5; //el rayo electrificante reduce la vida a la mitad
 var amountDamageEnemy = 100;
 
 class scene_Play extends Phaser.Scene {
@@ -53,16 +54,12 @@ class scene_Play extends Phaser.Scene {
         this.fireRate = 4000;
         this.payerBulletYSpeed = -300;
 
-        //PowerUps: Láser desintegrador.
+        //PowerUp - Láser desintegrador.
         this.lasers = new Lasers(this);
         this.bulletSpeed = -1000;
 
-        //Rezo desesperado.
+        //PowerUp - Rezo desesperado.
         this.barreras = new Barreras(this);
-
-        //Guanteletes Zzap.
-
-        //Impulso de Hringhorni.
 
         //Enemigos
         this.enemies = new Enemies(this);
@@ -93,13 +90,13 @@ class scene_Play extends Phaser.Scene {
         //Colisiones 
         function bulletEnemy(bullet, enemy){    //colision de la bala con el enemigo
             bullet.die();
-            enemy.die();
+            enemy.damageEnemy(amountDamageBullet);
             //that.puntos += 10;
             //that.puntuacionText.setText('Score: ' + that.puntos);
         }
 
         function laserEnemy(laser, enemy){      //colision del laser con el enemigo
-            enemy.die();
+            enemy.damageEnemy(amountDamageLaser);
             //that.puntos += 10;
             //that.puntuacionText.setText('Score: ' + that.puntos);
         }
