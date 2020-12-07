@@ -99,7 +99,7 @@ export default class MenuPrincipal extends Phaser.Scene {
                             //lo que ocurrirá al pulsar el botón
                             console.log("hola");
                             this.scene.start('scene_Play');
-                            this.scene.start("EscenaPausa");
+                            this.scene.start("EscenaPausa", { musica: that.musica });
                             this.scene.start("EscenaSonido", { musica: that.musica });
 
                         })

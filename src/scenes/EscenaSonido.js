@@ -58,13 +58,18 @@ export default class EscenaSonido extends Phaser.Scene {
             })
             .on("pointerdown", () => {
                 if (that.musicaClickada) {
+                    that.musica.setMute(false);
                     that.musica.setVolume(0.1);
                     that.musicaClickada = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
                 else if (that.sonidoClickado) {
                     //el sonido
-                    that.sonidoClickado.setVolume(0.1);
+
                     that.sonidoClickado = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
             });
 
@@ -77,13 +82,18 @@ export default class EscenaSonido extends Phaser.Scene {
             })
             .on("pointerdown", () => {
                 if (that.musicaClickada) {
+                    that.musica.setMute(false);
                     that.musica.setVolume(0.2);
                     that.musicaClickada = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
                 else if (that.sonidoClickado) {
                     //el sonido
-                    that.sonidoClickado.setVolume(0.2);
+
                     that.sonidoClickado = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
             });
 
@@ -96,13 +106,18 @@ export default class EscenaSonido extends Phaser.Scene {
             })
             .on("pointerdown", () => {
                 if (that.musicaClickada) {
+                    that.musica.setMute(false);
                     that.musica.setVolume(0.3);
                     that.musicaClickada = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
                 else if (that.sonidoClickado) {
                     //el sonido
-                    that.sonidoClickado.setVolume(0.3);
+
                     that.sonidoClickado = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
             });
 
@@ -115,12 +130,16 @@ export default class EscenaSonido extends Phaser.Scene {
             })
             .on("pointerdown", () => {
                 if (that.musicaClickada) {
+                    that.musica.setMute(false);
                     that.musica.setVolume(0.4);
                     that.musicaClickada = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
                 else if (that.sonidoClickado) {
                     //el sonido
-                    that.sonidoClickado.setVolume(0.4);
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                     that.sonidoClickado = false;
                 }
             });
@@ -134,13 +153,18 @@ export default class EscenaSonido extends Phaser.Scene {
             })
             .on("pointerdown", () => {
                 if (that.musicaClickada) {
+                    that.musica.setMute(false);
                     that.musica.setVolume(0.5);
                     that.musicaClickada = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
                 else if (that.sonidoClickado) {
                     //el sonido
-                    that.sonidoClickado.setVolume(0.5);
+
                     that.sonidoClickado = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
             });
 
@@ -153,13 +177,18 @@ export default class EscenaSonido extends Phaser.Scene {
             })
             .on("pointerdown", () => {
                 if (that.musicaClickada) {
+                    that.musica.setMute(false);
                     that.musica.setVolume(0.6);
                     that.musicaClickada = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
                 else if (that.sonidoClickado) {
                     //el sonido
-                    that.sonidoClickado.setVolume(0.6);
+
                     that.sonidoClickado = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
             });
 
@@ -172,13 +201,17 @@ export default class EscenaSonido extends Phaser.Scene {
             })
             .on("pointerdown", () => {
                 if (that.musicaClickada) {
+                    that.musica.setMute(false);
                     that.musica.setVolume(0.7);
                     that.musicaClickada = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
                 else if (that.sonidoClickado) {
-                    //el sonido
-                    that.sonidoClickado.setVolume(0.7);
+                    //el sonido 
                     that.sonidoClickado = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
             });
 
@@ -191,13 +224,17 @@ export default class EscenaSonido extends Phaser.Scene {
             })
             .on("pointerdown", () => {
                 if (that.musicaClickada) {
+                    that.musica.setMute(false);
                     that.musica.setVolume(0.8);
                     that.musicaClickada = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
                 else if (that.sonidoClickado) {
                     //el sonido
-                    that.sonidoClickado.setVolume(0.8);
                     that.sonidoClickado = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
             });
 
@@ -210,13 +247,17 @@ export default class EscenaSonido extends Phaser.Scene {
             })
             .on("pointerdown", () => {
                 if (that.musicaClickada) {
+                    that.musica.setMute(false);
                     that.musica.setVolume(0.9);
                     that.musicaClickada = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
                 else if (that.sonidoClickado) {
                     //el sonido
-                    that.sonidoClickado.setVolume(0.9);
                     that.sonidoClickado = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
             });
 
@@ -229,17 +270,52 @@ export default class EscenaSonido extends Phaser.Scene {
             })
             .on("pointerdown", () => {
                 if (that.musicaClickada) {
+                    that.musica.setMute(false);
                     that.musica.setVolume(1);
                     that.musicaClickada = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
                 else if (that.sonidoClickado) {
                     //el sonido
-                    that.sonidoClickado.setVolume(1);
                     that.sonidoClickado = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
                 }
             });
 
-        this.iconMute = this.add.image(this.sys.game.config.width / 2 + 300, this.sys.game.config.height / 2 + 100, 'iconMute').setInteractive({ useHandCursor: true }).setScale(0.4);
+        this.iconMute = this.add.image(this.sys.game.config.width / 2 + 330, this.sys.game.config.height / 2 + 97, 'mute').setInteractive({ useHandCursor: true }).setScale(0.09)
+            .on("pointerover", () => {
+                this.iconMute.setScale(0.11);
+            })
+            .on("pointerout", () => {
+                this.iconMute.setScale(0.09);
+            })
+            .on("pointerdown", () => {
+                if (that.musicaClickada) {
+                    that.musica.setMute(true);
+                    that.musicaClickada = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
+                }
+                else if (that.sonidoClickado) {
+                    //el sonido
+                    that.sonidoClickado = false;
+                    that.iconMusica.setAlpha(1);
+                    that.iconSonidos.setAlpha(1);
+                }
+            });
+        this.back = this.add.image(this.sys.game.config.width / 2 - 300, this.sys.game.config.height / 2 - 200, 'back').setInteractive({ useHandCursor: true }).setScale(0.05)
+            .on("pointerover", () => {
+                this.back.setScale(0.07);
+            })
+            .on("pointerout", () => {
+                this.back.setScale(0.05);
+            })
+            .on("pointerdown", () => {
+                that.scene.wake('EscenaPausa');
+                that.scene.sleep();
+            });
     }
 
 
