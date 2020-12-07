@@ -4,7 +4,7 @@ class Barreras extends Phaser.Physics.Arcade.Group{
         super(scene.physics.world, scene);
 
         this.createMultiple({
-            frameQuantity: 50,
+            frameQuantity: 1,
             key: 'barrier',
             active: false,
             visible: false,
@@ -42,6 +42,7 @@ class Barreras extends Phaser.Physics.Arcade.Group{
 class Barrera extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y){
         super(scene, x, y, 'barrera');
+        
         // scene.add.existing(this);
         // scene.physics.world.enable(this);
     }
@@ -50,6 +51,7 @@ class Barrera extends Phaser.Physics.Arcade.Sprite{
         this.body.reset(x, y);
         this.setActive(true);
         this.setVisible(true);
+        this.body.immovable = true;
 
         //this.setVelocityX(xDir)
         //this.setVelocityY(yDir);
@@ -69,6 +71,7 @@ class Barrera extends Phaser.Physics.Arcade.Sprite{
     die(){
         this.setActive(false);
         this.setVisible(false);
+        this.destroy();
     }
     
 }

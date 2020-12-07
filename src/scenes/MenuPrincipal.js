@@ -4,11 +4,28 @@ export default class MenuPrincipal extends Phaser.Scene {
     }
 
     create() {
+
+        //Musica
+        this.musica = this.sound.add("musicaFondo");
+       
+        var musicConfig = {
+            mute: false,
+            volume: 0.3,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+        var that = this;
+        this.musica.play(musicConfig);
+
         //Renderizamos el fondo
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
         
+
         //Renderizamos la primera imagen del SpriteSheet
-        this.imagen = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'anim_intro', 'SpriteIntro_0001.png').setInteractive();
+        this.imagen = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'anim_intro', 'SpriteIntro_0001.png').setInteractive({ useHandCursor: true });
 
         //Variables que usaremos para controlar animaciones
         this.animable = true;
@@ -23,6 +40,8 @@ export default class MenuPrincipal extends Phaser.Scene {
             suffix: '.png',
             zeroPad: 4
         });
+
+
 
         //se inicia la primera animación
         this.anims.create({ key: 'anim', frames: frameNames, frameRate: 10, repeat: 0 });
@@ -43,7 +62,7 @@ export default class MenuPrincipal extends Phaser.Scene {
             if (this.seClicka == true) {
                 //hacemos que se vuelva invisible la primera animación
                 this.imagen.setVisible(false);
-                
+
 
                 //Iniciamos la segunda animación
                 this.imagenApertura = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'anim_apertura', 'SpriteApertura_0001.png').setInteractive();
@@ -63,7 +82,7 @@ export default class MenuPrincipal extends Phaser.Scene {
                 //añado timer para que comience la tercera animación
                 this.seAnimaBoton = this.time.addEvent({
                     delay: 250, callback: () => {
-                        this.imagenBoton = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'anim_boton', 'AnimBoton_0001.png').setInteractive();
+                        this.imagenBoton = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'anim_boton', 'AnimBoton_0001.png').setInteractive({ useHandCursor: true });
                         this.imagenBoton.setScale(1, 1);
                         var framesBoton = this.anims.generateFrameNames('anim_boton', {
                             start: 0,
@@ -81,6 +100,8 @@ export default class MenuPrincipal extends Phaser.Scene {
                             //lo que ocurrirá al pulsar el botón
                             console.log("hola");
                             this.scene.start('scene_Play');
+                            this.scene.start("EscenaPausa", { musica: that.musica });
+                            this.scene.start("EscenaSonido", { musica: that.musica });
 
                         })
                     }, callbackScope: this
