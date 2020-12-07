@@ -117,6 +117,8 @@ class scene_Play extends Phaser.Scene {
         this.physics.add.collider(this.bullets, this.enemies, bulletEnemy);  //colision con una bala
         this.physics.add.overlap(this.lasers, this.enemies, laserEnemy);    //colision con el laser
         this.physics.add.overlap(this.player1, this.enemyBullets, playerHit);
+        this.physics.add.overlap(this.barreras, this.enemyBullets, barrera);
+        this.physics.add.overlap(this.barreras, this.enemies, barrera);
 
 
         this.timerSpawn = this.time.addEvent({ delay: 4000, callback: spawnerFunc, callbackScope: this, loop: true });
@@ -281,6 +283,10 @@ function enemyShoot() {
         }
         this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
     }
+}
+
+function barrera(barrera, bala){
+    bala.die();
 }
 
 export default scene_Play;
