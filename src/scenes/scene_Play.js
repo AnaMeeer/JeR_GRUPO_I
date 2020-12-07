@@ -115,9 +115,7 @@ class scene_Play extends Phaser.Scene {
         this.barraDash = new Barra(this, 0xff7514);
         this.barraDash.createBar(20, 465, 0);   //Naranja. Empieza llena.
 
-        //puntuacion
-        this.puntos = 0;
-        this.puntuacionText = this.add.bitmapText(16, 16, 'font', 'Score: 0', 18);
+        
 
         this.input.keyboard.on("keydown_T", () => {     //cambiar por una colision
             this.puntos += 10;
