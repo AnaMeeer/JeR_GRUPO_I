@@ -7,10 +7,8 @@ import Vidas from '../gameObjects/vidas.js';
 import Barra from '../gameObjects/barra.js';
 
 //variables
-var tiempoActual;
-var amountDamageBullet = 1; //una bala normal les hace 1 de daño.
-var amountDamageLaser = 50; //el laser hace 50 de daño
-var amountDamageElec = 0.5; //el rayo electrificante reduce la vida a la mitad
+var amountDamageBullet = 50; //una bala normal les hace 1 de daño.
+var amountDamageLaser = 10; //el laser hace 50 de daño
 var amountDamageEnemy = 100;
 
 class scene_Play extends Phaser.Scene {
@@ -54,7 +52,8 @@ class scene_Play extends Phaser.Scene {
         this.cursor_u = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);//power up
 
         //Balas
-        this.bullets = new Balas(this);
+        this.bulletsP1 = new Balas(this);
+        this.bulletsP2 = new Balas(this);
 
         this.payerBulletYSpeed = -300;
 
@@ -72,28 +71,46 @@ class scene_Play extends Phaser.Scene {
         that.muerteEnemigoSound.setVolume(0.1);
         this.muerteEnemigoSound.setMute(true);
 
+        //Colisión Bala-Jugador
         function playerHit(player, bullet) {
             bullet.die();
             that.sistemaVida.damage(amountDamageEnemy);
         }
-        function bulletEnemy(bullet, enemy) {
-            enemy.damageEnemy(amountDamageBullet);
+
+        //Colisión BalaP1-Enemigo
+        function bullet1Enemy(bullet, enemy) {
             bullet.die();
-            enemy.die();
 
             if (that.primeravez) {
-                that.score -= 245;
+                that.score -= 250;
                 that.primeravez = false;
 
             }
             else {
+                if (enemy.damageEnemy(amountDamageBullet)) {
+                    that.score += 5;
+                    that.count++;
+                    that.texto.text = "Puntos: " + that.score;
+                    console.log(that.primeravez)
+                }
+            }
+            if (that.count >= 51) {
+                that.barraEnergia.increasePowerUp(10);
+                that.muerteEnemigoSound.setMute(false);
+                that.muerteEnemigoSound.play();
+            }
+        }
+
+        //Colisión BalaP2-Enemigo
+        function bullet2Enemy(bullet, enemy) {
+            bullet.die();
+            if (enemy.damageEnemy(amountDamageBullet)) {
                 that.score += 5;
                 that.count++;
                 that.texto.text = "Puntos: " + that.score;
                 console.log(that.primeravez)
             }
             if (that.count >= 50) {
-                that.barraEnergia.increasePowerUp(10);
                 that.barraEnergia2.increasePowerUp(10);
                 that.muerteEnemigoSound.setMute(false);
                 that.muerteEnemigoSound.play();
@@ -121,8 +138,9 @@ class scene_Play extends Phaser.Scene {
 
 
         //Colisiones 
-        this.physics.add.collider(this.bullets, this.enemies, bulletEnemy);  //colision con una bala
-        this.physics.add.overlap(this.lasers, this.enemies, laserEnemy);    //colision con el laser
+        this.physics.add.collider(this.bulletsP1, this.enemies, bullet1Enemy);  //colision con una bala
+        this.physics.add.collider(this.bulletsP2, this.enemies, bullet2Enemy);
+        this.physics.add.collider(this.lasers, this.enemies, laserEnemy);    //colision con el laser
         this.physics.add.overlap(this.player1, this.enemyBullets, playerHit);
         this.physics.add.overlap(this.barreras, this.enemyBullets, barrera);
         this.physics.add.overlap(this.barreras, this.enemies, barrera);
@@ -134,12 +152,13 @@ class scene_Play extends Phaser.Scene {
 
         //impacto del laser contra un enemigo
         function laserEnemy(laser, enemy) {
-            enemy.damageEnemy(amountDamageLaser);
-            enemy.die();
-            that.score += 5;
-            that.texto.text = "Puntos: " + that.score;
-            that.muerteEnemigoSound.setMute(false);
-            that.muerteEnemigoSound.play();
+            if (enemy.damageEnemy(amountDamageLaser)) {
+                that.score += 5;
+                that.count++;
+                that.texto.text = "Puntos: " + that.score;
+                that.muerteEnemigoSound.setMute(false);
+                that.muerteEnemigoSound.play();
+            }
         }
     }
 
@@ -155,7 +174,7 @@ class scene_Play extends Phaser.Scene {
         //PowerUp: Rezo desesperado
         if (this.cursor_u.isDown) {
             if (this.barraEnergia2.value === 100) {
-                this.barreras.crearBarrera(this.player1.x, (this.player1.y - 20));
+                this.barreras.crearBarrera(this.player2.x, (this.player2.y - 20));
             }
         }
         if (this.barreras.isAlive() == true) {
@@ -249,8 +268,8 @@ class scene_Play extends Phaser.Scene {
 
 
 function shootFunc() {
-    this.bullets.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);
-    this.bullets.fireBullet(this.player2.x, this.player2.y, 0, this.payerBulletYSpeed);
+    this.bulletsP1.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);
+    //this.bulletsP2.fireBullet(this.player2.x, this.player2.y, 0, this.payerBulletYSpeed);
 }
 
 

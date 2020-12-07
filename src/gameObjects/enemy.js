@@ -39,6 +39,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
 
         this.setVelocityX(xDir);
         this.setVelocityY(yDir);
+        this.body.immovable = true;
     }
 
     preUpdate (time, delta)
@@ -54,14 +55,11 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
     }
 
     damageEnemy(amount){
-    
-        this.hp.decrease(amount);
-
         if (this.hp.decrease(amount)) {
-            this.setActive(false);
-            this.setVisible(false);
-            this.alive = false;
+            this.destroy();
+            return true;
         }
+        return false;
     }
     die(){
         this.destroy();
