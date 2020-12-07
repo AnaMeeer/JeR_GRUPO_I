@@ -1,4 +1,3 @@
-//import Bala from "./bala";
 
 class Balas extends Phaser.Physics.Arcade.Group{
     constructor (scene)
@@ -16,7 +15,7 @@ class Balas extends Phaser.Physics.Arcade.Group{
 
     fireBullet (x, y, xDir, yDir)
     {
-        let bullet = this.getFirstDead(false);
+        let bullet = this.getFirstDead(true);
 
         if (bullet)
         {
@@ -49,12 +48,12 @@ class Bala extends Phaser.Physics.Arcade.Sprite{
         {
             this.setActive(false);
             this.setVisible(false);
+            this.destroy();
         }
     }
 
     die(){
-        this.setActive(false);
-        this.setVisible(false);
+        this.destroy();
     }
     
 }

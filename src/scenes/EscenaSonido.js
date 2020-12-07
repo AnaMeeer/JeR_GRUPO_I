@@ -63,7 +63,6 @@ export default class EscenaSonido extends Phaser.Scene {
                 }
                 else if (that.sonidoClickado) {
                     //el sonido
-                    
                     that.sonidoClickado = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);

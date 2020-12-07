@@ -19,13 +19,15 @@ class scene_Play extends Phaser.Scene {
 
 
     create() {
+        this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
+        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
 
+        var that = this;
         let center_width = this.sys.game.config.width / 2;
         //Lunara
         this.player1 = new Lunaran(this, center_width - 10, 350, "lunaran");
 
         this.player2 = new Lunaran(this, center_width + 10, 350, "lunaran2");
-
         //Controles
         //Jugador 1
         this.cursor_w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -46,10 +48,6 @@ class scene_Play extends Phaser.Scene {
         //Balas
         this.bullets = new Balas(this);
 
-        this.input.keyboard.on("keydown_SPACE", () => {
-            this.fireBullet(this.player1.x, this.player1.y);
-        })
-        this.fireRate = 4000;
         this.payerBulletYSpeed = -300;
 
         //PowerUps: Láser desintegrador.
@@ -65,7 +63,19 @@ class scene_Play extends Phaser.Scene {
 
         //Enemigos
         this.enemies = new Enemies(this);
-        this.enemies.spawnEnemy(100, 100);
+        this.muerteEnemigoSound = this.sound.add("muerteEnemigo");
+         function playerHit(player, bullet) {
+             bullet.die();
+             that.sistemaVida.damage(amountDamageEnemy);
+        }
+        function bulletEnemy(bullet, enemy) {
+            bullet.die();
+            enemy.die();
+            that.muerteEnemigoSound.play();
+        }
+
+        //Balas de Enemigos
+        this.enemyBullets = new Balas(this);
 
         //Vidas
         this.sistemaVida = new Vidas(this);
@@ -75,31 +85,31 @@ class scene_Play extends Phaser.Scene {
         })
 
         //Colisiones 
-        var that = this;
-        this.physics.add.overlap(this.bullets, this.enemies, bulletEnemy);  //colision con una bala
-        this.physics.add.overlap(this.lasers, this.enemies, laserEnemy);    //colision con el laser
 
+        this.physics.add.collider(this.bullets, this.enemies, bulletEnemy);  //colision con una bala
+
+        this.physics.add.overlap(this.lasers, this.enemies, laserEnemy);    //colision con el laser
+        this.physics.add.overlap(this.player1, this.enemyBullets, playerHit);
+
+
+        this.timerSpawn = this.time.addEvent({ delay: 4000, callback: spawnerFunc, callbackScope: this, loop: true });
+        this.timerDisparo = this.time.addEvent({ delay: 300, callback: shootFunc, callbackScope: this, loop: true });
+        this.timerDisparoEnemigo = this.time.addEvent({ delay: 5000, callback: enemyShoot, callbackScope: this, loop: true });
     }
 
     update(time, delta) {
-
-         if(time > this.fireRate){
-             this.bullets.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);    
-             this.fireRate += 300;
-         }
-
-         //CONTROLES
+        //CONTROLES
 
         //PowerUp: Laser desintegrador        
         if (this.cursor_q.isDown) {
-                this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);   
+            this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);
         }
 
         //PowerUp: Rezo desesperado
         if ((this.cursor_u.isDown) && (numBarreras < 1)) {
             this.barreras.crearBarrera(this.player1.x, (this.player1.y - 20));
             numBarreras += 1;
-            tiempoActual = time;         
+            tiempoActual = time;
         }
         if (time > (tiempoActual + 5000)) {
             this.barreras.killBarrier();
@@ -164,17 +174,86 @@ class scene_Play extends Phaser.Scene {
             this.player2.body.setVelocity(0);
         }
 
+
+
+
+        //Menu
+        this.iconoPausa.on('pointerdown', () => {
+            this.scene.sleep();
+        })
+        
+
+
     }
 }
 
-//impacto de una bala contra un enemigo
-function bulletEnemy(bullet, enemy){
-    bullet.die();
+//impacto del laser contra un enemigo
+function laserEnemy(laser, enemy) {
     enemy.die();
 }
-//impacto del laser contra un enemigo
-function laserEnemy(laser, enemy){
-    enemy.die();
+
+
+function shootFunc() {
+    this.bullets.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);
+    this.bullets.fireBullet(this.player2.x, this.player2.y, 0, this.payerBulletYSpeed);
+}
+
+
+function spawnerFunc() {
+    var y = Phaser.Math.Between(-50, 300);
+    var x;
+    var xDir;
+    var yDir;
+    if (y < 0) {
+        x = Phaser.Math.Between(200, 600);
+        xDir = Phaser.Math.Between(-20, 20);
+        yDir = 100;
+        for (var i = 0; i < 5; i++) {
+            this.enemies.spawnEnemy(x + (25 * i), y, xDir, yDir);
+        }
+    }
+    else {
+        if (y % 2) {
+            x = -130
+            xDir = 200
+            yDir = Phaser.Math.Between(-20, 20);
+            for (var i = 0; i < 3; i++) {
+                this.enemies.spawnEnemy(x + (40 * i), y, xDir, yDir);
+            }
+        }
+        else {
+            x = 930
+            xDir = -200
+            yDir = Phaser.Math.Between(-20, 20);
+            for (var i = 0; i < 3; i++) {
+                this.enemies.spawnEnemy(x - (40 * i), y, xDir, yDir);
+            }
+        }
+    }
+}
+
+function enemyShoot() {
+    var arrayEnemies = this.enemies.getChildren();
+    var enemigo;
+    var eX;
+    var eY;
+    var eXDir;
+    var eYDir;
+    for (let i = 0; i < arrayEnemies.length; i++) {
+        enemigo = arrayEnemies[i]
+        eX = enemigo.body.position.x;
+        eY = enemigo.body.position.y;
+
+        if (i % 2) {
+            eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
+            eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
+        }
+        else {
+            eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
+            eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
+        }
+        this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
+    }
 }
 
 export default scene_Play;

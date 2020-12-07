@@ -12,21 +12,14 @@ class Enemies extends Phaser.Physics.Arcade.Group{
             classType: Enemy
         });
     }
-    spawnEnemy (x, y)
+    spawnEnemy (x, y, xDir, yDir)
     {
         let enemy = this.getFirstDead(true);
 
         if (enemy)
         {
-            enemy.spawn(x,y);
+            enemy.spawn(x,y,xDir,yDir);
     
-        }
-    }
-    killEnemy(){
-        let enemy = this.getFirstAlive();
-
-        if (enemy){
-            enemy.die();
         }
     }
 }
@@ -34,27 +27,27 @@ class Enemies extends Phaser.Physics.Arcade.Group{
 class Enemy extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y){
         super(scene, x, y, 'enemigo');
-        //scene.add.existing(this);
-        //scene.physics.world.enable(this);
-        //this.body.immovable = true;
     }
 
-    spawn(x,y){
+    spawn(x,y, xDir, yDir){
+        
         this.body.reset(x, y);
         this.setActive(true);
         this.setVisible(true);
 
-        //this.setVelocityX(100);
+        this.setVelocityX(xDir);
+        this.setVelocityY(yDir);
     }
 
     preUpdate (time, delta)
     {
         super.preUpdate(time, delta);
 
-        if (this.x <= -10 || this.x >= 810)
+        if (this.x <= -150 || this.x >= 950 || this.y < -60 || this.y > 500)
         {
             this.setActive(false);
             this.setVisible(false);
+            this.destroy();
         }
     }
 
