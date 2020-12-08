@@ -13,6 +13,10 @@ var amountDamageLaser = 10; //el laser hace 50 de daño
 var amountDamageEnemy = 100;
 var p1;
 var p2;
+var spawnRate = 1000;
+var fireRate = 100;
+var enemyFireRate = 5000;
+var diffbosstRate = 3000;
 
 class scene_Play extends Phaser.Scene {
     constructor() {
@@ -210,9 +214,10 @@ class scene_Play extends Phaser.Scene {
         this.physics.add.collider(this.player2, this.enemies, enemyPlayer2);
 
 
-        this.timerSpawn = this.time.addEvent({ delay: 1000, callback: spawnerFunc, callbackScope: this, loop: true });
-        this.timerDisparo = this.time.addEvent({ delay: 100, callback: shootFunc, callbackScope: this, loop: true });
-        this.timerDisparoEnemigo = this.time.addEvent({ delay: 5000, callback: enemyShoot, callbackScope: this, loop: true });
+        this.timerSpawn = this.time.addEvent({ delay: spawnRate, callback: spawnerFunc, callbackScope: this, loop: true });
+        this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
+        this.timerDisparoEnemigo = this.time.addEvent({ delay: enemyFireRate, callback: enemyShoot, callbackScope: this, loop: true });
+        this.dificultyBosst = this.time.addEvent({ delay: diffbosstRate, callback: difBoost, callbackScope: this, loop: true });
 
         //impacto del laser contra un enemigo
         function laserEnemy(laser, enemy) {
@@ -231,15 +236,15 @@ class scene_Play extends Phaser.Scene {
 
     update(time, delta) {
 
-        if (this.score === this.victoriaPTS) {
-            this.musicaInGame.stop();
-            this.scene.stop('scene_Play');
-            this.scene.stop('Bootloader');
-            this.scene.stop('MenuPrincipal');
-            this.scene.stop('EscenaSonido');
-            this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
-        }
+        // if (this.score === this.victoriaPTS) {
+        //     this.musicaInGame.stop();
+        //     this.scene.stop('scene_Play');
+        //     this.scene.stop('Bootloader');
+        //     this.scene.stop('MenuPrincipal');
+        //     this.scene.stop('EscenaSonido');
+        //     this.scene.stop('EscenaPausa');
+        //     this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
+        // }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
             p1 = false;
@@ -444,4 +449,15 @@ function barrera(barrera, bala) {
     bala.die();
 }
 
+function difBoost() {
+    if (spawnRate > 200) {
+        spawnRate -= 10;
+        this.timerSpawn.delay = spawnRate;
+    }
+    if (enemyFireRate > 500) {
+        enemyFireRate -= 10;
+        this.timerDisparoEnemigo.delay = enemyFireRate;
+    }
+
+}
 export default scene_Play;
