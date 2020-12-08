@@ -1,6 +1,5 @@
-class Barreras extends Phaser.Physics.Arcade.Group{
-    constructor (scene)
-    {
+class Barreras extends Phaser.Physics.Arcade.Group {
+    constructor(scene) {
         super(scene.physics.world, scene);
 
         this.createMultiple({
@@ -12,26 +11,24 @@ class Barreras extends Phaser.Physics.Arcade.Group{
         });
     }
 
-    crearBarrera (x, y)
-    {
+    crearBarrera(x, y) {
         let barrera = this.getFirstDead(true);
 
-        if (barrera)
-        {
-            barrera.createBarrier(x,y);
-    
+        if (barrera) {
+            barrera.createBarrier(x, y);
+
         }
     }
-    killBarrier(){
+    killBarrier() {
         let barrera = this.getFirstAlive();
 
-        if (barrera){
+        if (barrera) {
             barrera.die();
         }
     }
-    isAlive(){
+    isAlive() {
         let barrera = this.getFirstAlive();
-        
+
         if (barrera) {
             return true;
         } else {
@@ -39,16 +36,17 @@ class Barreras extends Phaser.Physics.Arcade.Group{
         }
     }
 }
-class Barrera extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene, x, y){
+class Barrera extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, x, y) {
         super(scene, x, y, 'barrera');
-        
+
         // scene.add.existing(this);
         // scene.physics.world.enable(this);
     }
 
-    createBarrier (x, y){
+    createBarrier(x, y) {
         this.body.reset(x, y);
+        this.body.enable = true;
         this.setActive(true);
         this.setVisible(true);
         this.body.immovable = true;
@@ -57,22 +55,20 @@ class Barrera extends Phaser.Physics.Arcade.Sprite{
         //this.setVelocityY(yDir);
     }
 
-    preUpdate (time, delta)
-    {
+    preUpdate(time, delta) {
         super.preUpdate(time, delta);
 
-        if (this.x <= -10 || this.x >= 810)
-        {
+        if (this.x <= -10 || this.x >= 810) {
             this.setActive(false);
             this.setVisible(false);
         }
     }
 
-    die(){
+    die() {
         this.setActive(false);
         this.setVisible(false);
         this.destroy();
     }
-    
+
 }
 export default Barreras;

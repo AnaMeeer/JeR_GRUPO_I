@@ -9,6 +9,7 @@ class Balas extends Phaser.Physics.Arcade.Group{
             key: 'bullet',
             active: false,
             visible: false,
+            enable: false,
             classType: Bala
         });
     }
@@ -33,6 +34,7 @@ class Bala extends Phaser.Physics.Arcade.Sprite{
 
     fire (x, y, xDir, yDir){
         this.body.reset(x, y);
+        this.body.enable = true;
         this.setActive(true);
         this.setVisible(true);
 

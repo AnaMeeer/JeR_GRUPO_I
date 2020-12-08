@@ -10,6 +10,7 @@ class Enemies extends Phaser.Physics.Arcade.Group{
             key: 'enemy',
             active: false,
             visible: false,
+            enable: false,
             classType: Enemy
         });
     }
@@ -36,6 +37,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         this.body.reset(x, y);
         this.setActive(true);
         this.setVisible(true);
+        this.body.enable = true;
 
         this.setVelocityX(xDir);
         this.setVelocityY(yDir);

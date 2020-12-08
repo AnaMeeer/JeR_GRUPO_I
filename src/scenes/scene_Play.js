@@ -10,8 +10,8 @@ import Barra from '../gameObjects/barra.js';
 var amountDamageBullet = 50; //una bala normal les hace 1 de daño.
 var amountDamageLaser = 10; //el laser hace 50 de daño
 var amountDamageEnemy = 100;
-var p1 = true;
-var p2 = true;
+var p1;
+var p2;
 
 class scene_Play extends Phaser.Scene {
     constructor() {
@@ -20,6 +20,8 @@ class scene_Play extends Phaser.Scene {
 
 
     create() {
+        p1 = true;
+        p2 = true;
         var that = this;
         this.primeravez = true;
         this.count = 0;
@@ -55,7 +57,17 @@ class scene_Play extends Phaser.Scene {
 
         //Balas
         this.bulletsP1 = new Balas(this);
+        this.balas1 = this.bulletsP1.getChildren(false);
+        for (let index = 0; index < this.balas1.length; index++) {
+            const element = this.balas1[index];
+            element.body.enable = false;
+        }
         this.bulletsP2 = new Balas(this);
+        this.balas2 = this.bulletsP2.getChildren(false);
+        for (let index = 0; index < this.balas2.length; index++) {
+            const element = this.balas2[index];
+            element.body.enable = false;
+        }
 
         this.payerBulletYSpeed = -300;
 
@@ -65,9 +77,15 @@ class scene_Play extends Phaser.Scene {
 
         //PowerUp - Rezo desesperado.
         this.barreras = new Barreras(this);
+        this.barrerasInit = this.barreras.getChildren(false);
+        for (let index = 0; index < this.barrerasInit.length; index++) {
+            const element = this.barrerasInit[index];
+            element.body.enable = false;
+        }
 
         //Enemigos
         this.enemies = new Enemies(this);
+        this.enemies.spawnEnemy(20,5,0,0);
 
         this.muerteEnemigoSound = this.sound.add("muerteEnemigo");
         that.muerteEnemigoSound.setVolume(0.1);
@@ -128,6 +146,18 @@ class scene_Play extends Phaser.Scene {
             }
         }
 
+        //Colisión Jugador1-Enemigo
+        function enemyPlayer1(player, enemy){
+            enemy.die();
+            that.sistemaVida.damage(amountDamageEnemy);
+        }
+
+        //Colisión Jugador2-Enemigo
+        function enemyPlayer2(player, enemy){
+            enemy.die();
+            that.sistemaVida2.damage(amountDamageEnemy);
+        }
+
         //Balas de Enemigos
         this.enemyBullets = new Balas(this);
 
@@ -156,6 +186,8 @@ class scene_Play extends Phaser.Scene {
         this.physics.add.overlap(this.player2, this.enemyBullets, player2Hit);
         this.physics.add.overlap(this.barreras, this.enemyBullets, barrera);
         this.physics.add.overlap(this.barreras, this.enemies, barrera);
+        this.physics.add.collider(this.player1, this.enemies, enemyPlayer1);
+        this.physics.add.collider(this.player2, this.enemies, enemyPlayer2);
 
 
         this.timerSpawn = this.time.addEvent({ delay: 1000, callback: spawnerFunc, callbackScope: this, loop: true });
@@ -187,14 +219,14 @@ class scene_Play extends Phaser.Scene {
         //CONTROLES
 
         //PowerUp: Laser desintegrador        
-        if (this.cursor_q.isDown && (this.barraEnergia.value > 0)) {
+        if (this.cursor_q.isDown && (this.barraEnergia.value > 0) && p1) {
             this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);
             this.barraEnergia.decrease(0.33);
         }
 
         //PowerUp: Rezo desesperado
         if (this.cursor_u.isDown) {
-            if (this.barraEnergia2.value === 100) {
+            if (this.barraEnergia2.value === 100 && p2) {
                 this.barreras.crearBarrera(this.player2.x, (this.player2.y - 20));
             }
         }
@@ -326,7 +358,7 @@ function spawnerFunc() {
             }
         }
         else {
-            x = 930
+            x = 1030
             xDir = -200
             yDir = Phaser.Math.Between(-20, 20);
             for (var i = 0; i < 3; i++) {
