@@ -20,13 +20,12 @@ class Bootloader extends Phaser.Scene {
         //Cosas que usa scene_Play
         this.load.image("lunaran", "./assets/nave.png");
         this.load.image("lunaran2", "./assets/nave2.png");
-        this.load.image("malo", "./assets/star.png");
         this.load.image("bala", "./assets/bala.png");
-        this.load.image("enemigo", "./assets/star.png");
+        this.load.image("enemigo", "./assets/enemigoBasico.png");
         this.load.image("laser", "./assets/bullet11.png");
         this.load.image("barrera", "./assets/barrera.png");
         this.load.image("corazon", "./assets/corazon.png");
-        this.load.image("fondoNegro", "./assets/fondoNegro.jpg");
+        this.load.image("fondoNegro", "./assets/backgroundSpace.png");
         this.load.image('iconPausa', "./assets/icon_pausa.png");
 
         //Cosas que usa EscenaPausa
@@ -51,7 +50,10 @@ class Bootloader extends Phaser.Scene {
         this.load.image("diez", "./assets/10.png");
         this.load.image("mute","./assets/muted.png");
         this.load.image("back","./assets/icon_back.png");
-        this.load.audio("musicaFondo","./assets/musicaFondo.mp3");
+        this.load.audio("musicaFondo","./assets/musicaMenu.ogg");
+        this.load.audio("musicaInGame","./assets/inGameMusica.ogg");
+        this.load.audio("click1","./assets/Click1.ogg");
+        this.load.audio("click2","./assets/Click2.ogg");
 
         //Cosas que usa EscenaFinal
         this.load.image("home", "./assets/icono_reinicio.png");

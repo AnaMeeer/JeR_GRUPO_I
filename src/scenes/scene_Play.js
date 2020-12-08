@@ -20,7 +20,25 @@ class scene_Play extends Phaser.Scene {
 
 
     create(data) {
-        this.musica = data.escena.musica;
+        //Musica
+       
+        var musicConfigInGame = {
+            mute: false,
+            volume: 0.3,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+
+        var that = this;
+        
+        this.musicaInGame=data.escena.musicaInGame;
+        this.musicaInGame.play(musicConfigInGame);
+
+        this.click1Sound = data.escena.click1Sound;
+        
         this.muerteEnemigoSound = data.escena.sonidos;
         this.iniciarEnemigoSoundDisparo1 = true;
         this.iniciarEnemigoSoundDisparo2 = true;
@@ -32,7 +50,7 @@ class scene_Play extends Phaser.Scene {
         this.primeravez = true;
         this.count = 0;
 
-        this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
+        this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(1.0);
         this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
         this.score = 0;
         this.texto.text = "Puntos: " + "0";
@@ -211,7 +229,7 @@ class scene_Play extends Phaser.Scene {
     update(time, delta) {
 
         if (this.score === 100) {
-            this.musica.stop();
+            this.musicaInGame.stop();
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
@@ -325,6 +343,7 @@ class scene_Play extends Phaser.Scene {
 
         //Menu
         this.iconoPausa.on('pointerdown', () => {
+            this.click1Sound.play();
             this.scene.sleep();
         })
 

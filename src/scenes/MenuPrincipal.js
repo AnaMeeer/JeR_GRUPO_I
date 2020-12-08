@@ -6,12 +6,15 @@ export default class MenuPrincipal extends Phaser.Scene {
     create() {
 
         //Musica
+        this.click1Sound = this.sound.add("click1");
+        this.click2Sound=this.sound.add("click2");
         this.musica = this.sound.add("musicaFondo");
+        this.musicaInGame = this.sound.add("musicaInGame");
        
         var musicConfig = {
             mute: false,
             volume: 0.3,
-            rate: 1,
+            rate: 1.5,
             detune: 0,
             seek: 0,
             loop: true,
@@ -73,6 +76,7 @@ export default class MenuPrincipal extends Phaser.Scene {
         //función al clickar en la primera animación
         this.imagen.on('pointerdown', () => {
             if (this.seClicka == true) {
+                this.click1Sound.play();
                 //hacemos que se vuelva invisible la primera animación
                 this.imagen.setVisible(false);
 
@@ -111,9 +115,11 @@ export default class MenuPrincipal extends Phaser.Scene {
                         this.imagenBoton.on('pointerdown', () => {
 
                             //lo que ocurrirá al pulsar el botón
+                            this.click2Sound.play();
+                            this.musica.stop();
                             console.log("hola");
-                            this.scene.start('scene_Play', { escena: this });
-                            this.scene.start("EscenaPausa", { musica: that.musica });
+                            this.scene.start('scene_Play', { escena: this});
+                            this.scene.start("EscenaPausa", { musica: that.musica, musica2: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound });
                             this.scene.start("EscenaSonido", { escena: this });
 
                         })
