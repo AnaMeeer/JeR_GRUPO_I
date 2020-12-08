@@ -16,10 +16,9 @@ var enemyFireRate = 5000;
 var p1;
 var p2;
 
-
-class scene_Play extends Phaser.Scene {
+class lvl_3 extends Phaser.Scene {
     constructor() {
-        super({ key: "scene_Play" });
+        super({ key: "lvl_3" });
     }
 
 
@@ -29,18 +28,21 @@ class scene_Play extends Phaser.Scene {
         this.iniciarEnemigoSoundDisparo1 = true;
         this.iniciarEnemigoSoundDisparo2 = true;
         this.iniciarEnemigoSoundDisparoLaser = true;
-        this.victoriaPTS = 500;
+        this.victoriaPts = 500;
 
         p1 = true;
         p2 = true;
         var that = this;
         this.primeravez = true;
         this.count = 0;
+        this.value = 60;
 
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
-        this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
+        //this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
+        this.tiempo = this.add.bitmapText(100, 75, 'NierFont', '', 15);
+
         this.score = 0;
-        this.texto.text = "Puntos: " + "0";
+       // this.texto.text = "Puntos: " + "0";
 
         this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
 
@@ -119,9 +121,8 @@ class scene_Play extends Phaser.Scene {
         function bullet1Enemy(bullet, enemy) {
             bullet.die();
             if (enemy.damageEnemy(amountDamageBullet)) {
-                that.score += 5;
-                that.count++;
-                that.texto.text = "Puntos: " + that.score;
+                //that.score += 5;
+                //that.texto.text = "Puntos: " + that.score;
                 console.log(that.primeravez);
                 that.barraEnergia.increasePowerUp(10);
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
@@ -136,9 +137,8 @@ class scene_Play extends Phaser.Scene {
         function bullet2Enemy(bullet, enemy) {
             bullet.die();
             if (enemy.damageEnemy(amountDamageBullet)) {
-                that.score += 5;
-                that.count++;
-                that.texto.text = "Puntos: " + that.score;
+                //that.score += 5;
+                //that.texto.text = "Puntos: " + that.score;
                 console.log(that.primeravez);
                 that.barraEnergia2.increasePowerUp(10);
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
@@ -201,9 +201,8 @@ class scene_Play extends Phaser.Scene {
         //impacto del laser contra un enemigo
         function laserEnemy(laser, enemy) {
             if (enemy.damageEnemy(amountDamageLaser)) {
-                that.score += 5;
-                that.count++;
-                that.texto.text = "Puntos: " + that.score;
+               // that.score += 5;
+               // that.texto.text = "Puntos: " + that.score;
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
                     that.muerteEnemigoSound.setVolume(0.1);
                     that.iniciarEnemigoSoundDisparo1 = false;
@@ -214,15 +213,17 @@ class scene_Play extends Phaser.Scene {
     }
 
     update(time, delta) {
+        this.tiempo.text = 'Tiempo: ' + this.value.toFixed(0);
+        this.value -= 0.01;
 
-        if (this.score === this.victoriaPTS) {
+        if (this.value <= 0) {
             this.musica.stop();
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
+            this.scene.start('PantallaFinal', { score: 0, condition: 0 });
         }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
@@ -340,7 +341,7 @@ class scene_Play extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
+            this.scene.start('PantallaFinal', { score: 0, condition: 1 });
         }
     }
 }
@@ -422,4 +423,4 @@ function barrera(barrera, bala) {
     bala.die();
 }
 
-export default scene_Play;
+export default lvl_3;

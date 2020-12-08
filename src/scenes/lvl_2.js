@@ -16,10 +16,9 @@ var enemyFireRate = 5000;
 var p1;
 var p2;
 
-
-class scene_Play extends Phaser.Scene {
+class lvl_2 extends Phaser.Scene {
     constructor() {
-        super({ key: "scene_Play" });
+        super({ key: "lvl_2" });
     }
 
 
@@ -29,16 +28,19 @@ class scene_Play extends Phaser.Scene {
         this.iniciarEnemigoSoundDisparo1 = true;
         this.iniciarEnemigoSoundDisparo2 = true;
         this.iniciarEnemigoSoundDisparoLaser = true;
-        this.victoriaPTS = 500;
+        this.victoriaPts = 500;
 
         p1 = true;
         p2 = true;
         var that = this;
         this.primeravez = true;
         this.count = 0;
+        this.value = 60;
 
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
         this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
+        this.tiempo = this.add.bitmapText(100, 75, 'NierFont', '', 15);
+
         this.score = 0;
         this.texto.text = "Puntos: " + "0";
 
@@ -214,15 +216,17 @@ class scene_Play extends Phaser.Scene {
     }
 
     update(time, delta) {
+        this.tiempo.text = 'Tiempo: ' + this.value.toFixed(0);
+        this.value -= 0.01;
 
-        if (this.score === this.victoriaPTS) {
+        if (this.score === this.victoriaPts) {
             this.musica.stop();
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
+            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPts });
         }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
@@ -333,7 +337,7 @@ class scene_Play extends Phaser.Scene {
             this.scene.sleep();
         })
 
-        if (!p1 && !p2) {
+        if (!p1 && !p2 || this.value <= 0) {
             this.musica.stop();
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
@@ -422,4 +426,4 @@ function barrera(barrera, bala) {
     bala.die();
 }
 
-export default scene_Play;
+export default lvl_2;

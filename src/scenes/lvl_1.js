@@ -16,10 +16,9 @@ var enemyFireRate = 5000;
 var p1;
 var p2;
 
-
-class scene_Play extends Phaser.Scene {
+class lvl_1 extends Phaser.Scene {
     constructor() {
-        super({ key: "scene_Play" });
+        super({ key: "lvl_1" });
     }
 
 
@@ -217,7 +216,7 @@ class scene_Play extends Phaser.Scene {
 
         if (this.score === this.victoriaPTS) {
             this.musica.stop();
-            this.scene.stop('scene_Play');
+            this.scene.stop('lvl_1');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
@@ -422,4 +421,4 @@ function barrera(barrera, bala) {
     bala.die();
 }
 
-export default scene_Play;
+export default lvl_1;
