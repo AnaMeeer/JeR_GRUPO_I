@@ -15,6 +15,7 @@ class Bootloader extends Phaser.Scene {
         this.load.atlas('anim_boton', 'assets/Anim_Boton.png', './assets/Anim_Boton.json');
         this.load.image('fondo', './assets/white-background-2.jpg');
         this.load.bitmapFont('NierFont','./assets/font.png','./assets/font.fnt');
+        this.load.bitmapFont('NierFontBlack', './assets/font2.png', './assets/font2.fnt');
 
         //Cosas que usa scene_Play
         this.load.image("lunaran", "./assets/nave.png");
@@ -52,6 +53,9 @@ class Bootloader extends Phaser.Scene {
         this.load.image("back","./assets/icon_back.png");
         this.load.audio("musicaFondo","./assets/musicaFondo.mp3");
 
+        //Cosas que usa EscenaFinal
+        this.load.image("home", "./assets/icono_reinicio.png");
+        
         this.load.audio('muerteEnemigo','./assets/muerteEnemigo.ogg');
         console.log("Se ha cargado la escena bootloader");
     }

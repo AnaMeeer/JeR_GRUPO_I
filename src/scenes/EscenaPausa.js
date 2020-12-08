@@ -11,7 +11,7 @@ export default class EscenaPausa extends Phaser.Scene {
 
         this.pausa = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'ImagenPausa');
         this.quit = this.add.image(this.sys.game.config.width / 2 + 1, this.sys.game.config.height / 2 + 9, 'quit');
-        this.sfx = this.add.image(this.sys.game.config.width / 2 - 80, this.sys.game.config.height / 2 - 72.5, 'sfx').setInteractive({ useHandCursor: true }).on('pointerup',function(){
+        this.sfx = this.add.image(this.sys.game.config.width / 2 - 80, this.sys.game.config.height / 2 - 72.5, 'sfx').setInteractive({ useHandCursor: true }).on('pointerup', function () {
             that.scene.sleep();
             that.scene.wake('EscenaSonido');
         });
@@ -21,10 +21,12 @@ export default class EscenaPausa extends Phaser.Scene {
             that.scene.stop('scene_Play');
             that.scene.stop('Bootloader');
             that.scene.stop('MenuPrincipal');
-            that.scene.stop();
+            that.scene.stop('PantallaFinal');
+            that.scene.stop('EscenaSonido');
+
             that.scene.start('Bootloader');
             that.scene.start('MenuPrincipal');
-            
+
         });
 
 

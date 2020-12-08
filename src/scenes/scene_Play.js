@@ -19,7 +19,13 @@ class scene_Play extends Phaser.Scene {
     }
 
 
-    create() {
+    create(data) {
+        this.musica = data.escena.musica;
+        this.muerteEnemigoSound = data.escena.sonidos;
+        this.iniciarEnemigoSoundDisparo1 = true;
+        this.iniciarEnemigoSoundDisparo2 = true;
+        this.iniciarEnemigoSoundDisparoLaser = true;
+
         p1 = true;
         p2 = true;
         var that = this;
@@ -92,9 +98,6 @@ class scene_Play extends Phaser.Scene {
         //Enemigos
         this.enemies = new Enemies(this);
 
-        this.muerteEnemigoSound = this.sound.add("muerteEnemigo");
-        that.muerteEnemigoSound.setVolume(0.1);
-        this.muerteEnemigoSound.setMute(true);
 
         //Colisión Bala-Jugador1
         function player1Hit(player, bullet) {
@@ -116,7 +119,10 @@ class scene_Play extends Phaser.Scene {
                 that.texto.text = "Puntos: " + that.score;
                 console.log(that.primeravez);
                 that.barraEnergia.increasePowerUp(10);
-                that.muerteEnemigoSound.setMute(false);
+                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                    that.muerteEnemigoSound.setVolume(0.1);
+                    that.iniciarEnemigoSoundDisparoLaser = false;
+                }
                 that.muerteEnemigoSound.play();
             }
         }
@@ -130,7 +136,11 @@ class scene_Play extends Phaser.Scene {
                 that.texto.text = "Puntos: " + that.score;
                 console.log(that.primeravez);
                 that.barraEnergia2.increasePowerUp(10);
-                that.muerteEnemigoSound.setMute(false);
+                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                    that.muerteEnemigoSound.setVolume(0.1);
+                    that.iniciarEnemigoSoundDisparo2 = false;
+                }
+
                 that.muerteEnemigoSound.play();
             }
         }
@@ -189,7 +199,10 @@ class scene_Play extends Phaser.Scene {
                 that.score += 5;
                 that.count++;
                 that.texto.text = "Puntos: " + that.score;
-                that.muerteEnemigoSound.setMute(false);
+                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                    that.muerteEnemigoSound.setVolume(0.1);
+                    that.iniciarEnemigoSoundDisparo1 = false;
+                }
                 that.muerteEnemigoSound.play();
             }
         }
@@ -197,6 +210,15 @@ class scene_Play extends Phaser.Scene {
 
     update(time, delta) {
 
+        if (this.score === 100) {
+            this.musica.stop();
+            this.scene.stop('scene_Play');
+            this.scene.stop('Bootloader');
+            this.scene.stop('MenuPrincipal');
+            this.scene.stop('EscenaSonido');
+            this.scene.stop('EscenaPausa');
+            this.scene.start('PantallaFinal', { score: this.score });
+        }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
             p1 = false;

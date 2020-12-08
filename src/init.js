@@ -4,6 +4,7 @@ import MenuPrincipal from './scenes/MenuPrincipal.js'
 import scene_Play from './scenes/scene_Play.js'
 import EscenaPausa from './scenes/EscenaPausa.js'
 import EscenaSonido from './scenes/EscenaSonido.js'
+import PantallaFinal from './scenes/PantallaFinal.js'
 const config = {
     type: Phaser.CANVAS,
     scale: {
@@ -20,7 +21,7 @@ const config = {
         }
 
     },
-    scene: [Bootloader, EscenaSonido, EscenaPausa, scene_Play, MenuPrincipal]
+    scene: [Bootloader, PantallaFinal,EscenaSonido, EscenaPausa, scene_Play, MenuPrincipal]
 };
 
 new Phaser.Game(config);

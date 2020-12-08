@@ -20,6 +20,19 @@ export default class MenuPrincipal extends Phaser.Scene {
         var that = this;
         this.musica.play(musicConfig);
 
+        //Sonidos
+        this.sonidos = this.sound.add("muerteEnemigo");
+        var sonidoConfig = {
+            mute: false,
+            volume: 0,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0
+        }
+        this.sonidos.play(sonidoConfig);
+
         //Renderizamos el fondo
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
         
@@ -99,9 +112,9 @@ export default class MenuPrincipal extends Phaser.Scene {
 
                             //lo que ocurrirá al pulsar el botón
                             console.log("hola");
-                            this.scene.start('scene_Play');
+                            this.scene.start('scene_Play', { escena: this });
                             this.scene.start("EscenaPausa", { musica: that.musica });
-                            this.scene.start("EscenaSonido", { musica: that.musica });
+                            this.scene.start("EscenaSonido", { escena: this });
 
                         })
                     }, callbackScope: this
