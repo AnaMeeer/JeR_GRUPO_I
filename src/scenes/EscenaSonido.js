@@ -11,12 +11,13 @@ export default class EscenaSonido extends Phaser.Scene {
         this.click2Sound = data.escena.click2Sound;
         this.musicaClickada = false;
         this.sonidoClickado = false;
-        
+
         this.musica = data.escena.musica;
         this.musicaInGame = data.escena.musicaInGame;
         this.click1Sound = data.escena.click1Sound;
         this.click2Sound = data.escena.click2Sound;
         this.sonidos = data.escena.sonidos;
+
         console.log(this.musicaClickada);
         this.fondo = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
         this.iconMusica = this.add.image(this.sys.game.config.width / 2 - 100, this.sys.game.config.height / 2, 'musica').setInteractive({ useHandCursor: true }).setScale(0.10)
@@ -35,7 +36,7 @@ export default class EscenaSonido extends Phaser.Scene {
                 that.sonidoClickado = false;
                 this.iconMusica.setAlpha(1);
                 that.iconSonidos.setAlpha(0.3);
-              
+
             });
 
         this.iconSonidos = this.add.image(this.sys.game.config.width / 2 + 100, this.sys.game.config.height / 2, 'sonidos').setInteractive({ useHandCursor: true }).setScale(0.15)
@@ -51,7 +52,7 @@ export default class EscenaSonido extends Phaser.Scene {
                 that.sonidoClickado = true;
                 that.iconMusica.setAlpha(0.3);
                 this.iconSonidos.setAlpha(1);
-                
+
             });
 
 

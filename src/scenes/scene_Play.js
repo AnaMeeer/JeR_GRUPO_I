@@ -43,6 +43,7 @@ class scene_Play extends Phaser.Scene {
         this.iniciarEnemigoSoundDisparo1 = true;
         this.iniciarEnemigoSoundDisparo2 = true;
         this.iniciarEnemigoSoundDisparoLaser = true;
+        this.victoriaPTS = 50;
 
         p1 = true;
         p2 = true;
@@ -228,14 +229,14 @@ class scene_Play extends Phaser.Scene {
 
     update(time, delta) {
 
-        if (this.score === 100) {
+        if (this.score === this.victoriaPTS) {
             this.musicaInGame.stop();
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: this.score });
+            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
         }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
@@ -348,7 +349,13 @@ class scene_Play extends Phaser.Scene {
         })
 
         if (!p1 && !p2) {
-            this.physics.pause();
+            this.musica.stop();
+            this.scene.stop('scene_Play');
+            this.scene.stop('Bootloader');
+            this.scene.stop('MenuPrincipal');
+            this.scene.stop('EscenaSonido');
+            this.scene.stop('EscenaPausa');
+            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
         }
     }
 }

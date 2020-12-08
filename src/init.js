@@ -21,7 +21,7 @@ const config = {
         }
 
     },
-    scene: [Bootloader, PantallaFinal,EscenaSonido, EscenaPausa, scene_Play, MenuPrincipal]
+    scene: [Bootloader, PantallaFinal, EscenaSonido, EscenaPausa, scene_Play, MenuPrincipal]
 };
 
 new Phaser.Game(config);
