@@ -1,5 +1,6 @@
 import Lunaran from '../gameObjects/lunaran.js';
 import Balas from '../gameObjects/balas.js';
+import BalasEnemigos from '../gameObjects/balasEnemigos.js';
 import Enemies from '../gameObjects/enemy.js';
 import Lasers from '../gameObjects/laser.js';
 import Barreras from '../gameObjects/barrera.js';
@@ -21,7 +22,7 @@ class scene_Play extends Phaser.Scene {
 
     create(data) {
         //Musica
-       
+
         var musicConfigInGame = {
             mute: false,
             volume: 0.3,
@@ -33,12 +34,12 @@ class scene_Play extends Phaser.Scene {
         }
 
         var that = this;
-        
-        this.musicaInGame=data.escena.musicaInGame;
+
+        this.musicaInGame = data.escena.musicaInGame;
         this.musicaInGame.play(musicConfigInGame);
 
         this.click1Sound = data.escena.click1Sound;
-        
+
         this.muerteEnemigoSound = data.escena.sonidos;
         this.iniciarEnemigoSoundDisparo1 = true;
         this.iniciarEnemigoSoundDisparo2 = true;
@@ -81,13 +82,14 @@ class scene_Play extends Phaser.Scene {
         this.cursor_u = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);//power up
 
         //Balas
-        this.bulletsP1 = new Balas(this);
+        this.bulletsP1 = new Balas(this, "bala");
+        console.log(this.bulletsP1);
         this.balas1 = this.bulletsP1.getChildren(false);
         for (let index = 0; index < this.balas1.length; index++) {
             let element = this.balas1[index];
             element.body.enable = false;
         }
-        this.bulletsP2 = new Balas(this);
+        this.bulletsP2 = new Balas(this, "bala");
         this.balas2 = this.bulletsP2.getChildren(false);
         for (let index = 0; index < this.balas2.length; index++) {
             let element = this.balas2[index];
@@ -177,7 +179,7 @@ class scene_Play extends Phaser.Scene {
         }
 
         //Balas de Enemigos
-        this.enemyBullets = new Balas(this);
+        this.enemyBullets = new BalasEnemigos(this);
 
         //Vidas
         this.sistemaVida = new Vidas(this);
@@ -349,7 +351,7 @@ class scene_Play extends Phaser.Scene {
         })
 
         if (!p1 && !p2) {
-            this.musica.stop();
+            this.musicaInGame.stop();
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
@@ -413,23 +415,28 @@ function enemyShoot() {
     var eXDir;
     var eYDir;
     for (let i = 0; i < arrayEnemies.length; i++) {
-        enemigo = arrayEnemies[i]
+        enemigo = arrayEnemies[i];
+        var active = enemigo.active;
         eX = enemigo.body.position.x;
         eY = enemigo.body.position.y;
 
-        if (i % 2 && p1) {
-            eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
-            eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
+        if (active) {
+
+
+            if (i % 2 && p1) {
+                eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
+                eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
+            }
+            else if (p2) {
+                eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
+                eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
+            }
+            else {
+                eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
+                eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
+            }
+            this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
         }
-        else if (p2) {
-            eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
-            eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
-        }
-        else {
-            eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
-            eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
-        }
-        this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
     }
 }
 
