@@ -25,7 +25,7 @@ export default class SelectorNiveles extends Phaser.Scene {
             .on("pointerdown", () => {
                 this.scene.start("EscenaSonido", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos });
                 this.scene.start("EscenaPausa", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos, escena: 1 });
-                this.scene.start("lvl_1", { click1: that.click1Sound });
+                this.scene.start("lvl_1", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos });
             });
         this.nivel2 = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2 - 100, 'Nivel2').setInteractive({ useHandCursor: true }).setScale(0.6)
             .on("pointerover", () => {
@@ -37,7 +37,7 @@ export default class SelectorNiveles extends Phaser.Scene {
             .on("pointerdown", () => {
                 this.scene.start("EscenaSonido", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos });
                 this.scene.start("EscenaPausa", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos, escena: 2 });
-                this.scene.start("lvl_2", { click1: that.click1Sound });
+                this.scene.start("lvl_2", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos });
             });
         this.nivel3 = this.add.image(this.sys.game.config.width / 2 + 100, this.sys.game.config.height / 2 - 100, 'Nivel3').setInteractive({ useHandCursor: true }).setScale(0.6)
             .on("pointerover", () => {
@@ -49,7 +49,7 @@ export default class SelectorNiveles extends Phaser.Scene {
             .on("pointerdown", () => {
                 this.scene.start("EscenaSonido", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos });
                 this.scene.start("EscenaPausa", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos, escena: 3 });
-                this.scene.start("lvl_3", { click1: that.click1Sound });
+                this.scene.start("lvl_3", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos });
             });
         this.nivel4 = this.add.image(this.sys.game.config.width / 2 - 100, this.sys.game.config.height / 2 - 50, 'Nivel4').setInteractive({ useHandCursor: true }).setScale(0.6)
             .on("pointerover", () => {
@@ -61,7 +61,7 @@ export default class SelectorNiveles extends Phaser.Scene {
             .on("pointerdown", () => {
                 this.scene.start("EscenaSonido", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos });
                 this.scene.start("EscenaPausa", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos, escena: 4 });
-                this.scene.start("lvl_4", { click1: that.click1Sound });
+                this.scene.start("lvl_4", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos });
             });
         this.nivel5 = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2 - 50, 'Nivel5').setInteractive({ useHandCursor: true }).setScale(0.6)
             .on("pointerover", () => {
@@ -73,7 +73,7 @@ export default class SelectorNiveles extends Phaser.Scene {
             .on("pointerdown", () => {
                 this.scene.start("EscenaSonido", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos });
                 this.scene.start("EscenaPausa", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos, escena: 5 });
-                this.scene.start("lvl_5", { click1: that.click1Sound });
+                this.scene.start("lvl_5", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos });
             });
         this.nivelInf = this.add.image(this.sys.game.config.width / 2 + 100, this.sys.game.config.height / 2 - 50, 'NivelInfinito').setInteractive({ useHandCursor: true }).setScale(0.6)
             .on("pointerover", () => {

@@ -26,7 +26,7 @@ class lvl_5 extends Phaser.Scene {
 
 
     create(data) {
-      this.click1Sound = data.click1;
+        this.click1Sound = data.click1;
         this.nombreEscena = 'lvl_5';
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(1.0);
         this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
@@ -36,9 +36,9 @@ class lvl_5 extends Phaser.Scene {
             this.click1Sound.play();
             this.scene.sleep();
         })
-      
-      //  this.musica = data.escena.musica;
-        //this.muerteEnemigoSound = data.escena.sonidos;
+
+
+        this.muerteEnemigoSound = data.sonidos;
         this.iniciarEnemigoSoundDisparo1 = true;
         this.iniciarEnemigoSoundDisparo2 = true;
         this.iniciarEnemigoSoundDisparoLaser = true;
@@ -183,12 +183,12 @@ class lvl_5 extends Phaser.Scene {
             enemy.die();
             that.sistemaVida2.damage(amountDamageEnemy);
         }
-        
-        function wideEnemyPlayer1(player, enemy){
+
+        function wideEnemyPlayer1(player, enemy) {
             that.sistemaVida.damage(300);
         }
 
-        function wideEnemyPlayer2(player, enemy){
+        function wideEnemyPlayer2(player, enemy) {
             that.sistemaVida2.damage(300);
         }
 
@@ -250,7 +250,7 @@ class lvl_5 extends Phaser.Scene {
         this.value -= 0.01;
 
         if (this.value <= 0) {
-            this.musica.stop();
+
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
@@ -368,7 +368,7 @@ class lvl_5 extends Phaser.Scene {
         })
 
         if (!p1 && !p2) {
-            this.musica.stop();
+
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
@@ -424,10 +424,10 @@ function spawnerFunc() {
     }
 }
 
-function swipeFunc(){
+function swipeFunc() {
     let aux1 = this.sys.game.config.width / 6;
     let aux2 = this.sys.game.config.width / 3;
-    let ran = Phaser.Math.Between(0,2);
+    let ran = Phaser.Math.Between(0, 2);
     let x = aux1 + aux2 * ran;
     this.wideEnemies.spawnEnemy(x, 0);
 }

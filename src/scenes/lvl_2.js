@@ -24,19 +24,18 @@ class lvl_2 extends Phaser.Scene {
 
 
     create(data) {
-       this.click1Sound = data.click1;
+        this.click1Sound = data.click1;
         this.nombreEscena = 'lvl_2';
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(1.0);
         this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
         console.log(this.nombreEscena);
-        
+
         this.iconoPausa.on('pointerdown', () => {
             this.click1Sound.play();
             this.scene.sleep();
         })
-      
-        //this.musica = data.escena.musica;
-        //this.muerteEnemigoSound = data.escena.sonidos;
+
+        this.muerteEnemigoSound = data.sonidos;
         this.iniciarEnemigoSoundDisparo1 = true;
         this.iniciarEnemigoSoundDisparo2 = true;
         this.iniciarEnemigoSoundDisparoLaser = true;
@@ -232,7 +231,7 @@ class lvl_2 extends Phaser.Scene {
         this.value -= 0.01;
 
         if (this.score === this.victoriaPts) {
-            this.musica.stop();
+
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
@@ -350,7 +349,7 @@ class lvl_2 extends Phaser.Scene {
         })
 
         if (!p1 && !p2 || this.value <= 0) {
-            this.musica.stop();
+
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
