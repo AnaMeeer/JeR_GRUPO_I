@@ -16,7 +16,6 @@ var p2;
 var spawnRate = 1000;
 var fireRate = 100;
 var enemyFireRate = 5000;
-var diffbosstRate = 3000;
 
 class scene_Play extends Phaser.Scene {
     constructor() {
@@ -49,6 +48,7 @@ class scene_Play extends Phaser.Scene {
         this.iniciarEnemigoSoundDisparo2 = true;
         this.iniciarEnemigoSoundDisparoLaser = true;
         this.victoriaPTS = 50;
+        this.diffbosstRate = 300;
 
         p1 = true;
         p2 = true;
@@ -217,7 +217,6 @@ class scene_Play extends Phaser.Scene {
         this.timerSpawn = this.time.addEvent({ delay: spawnRate, callback: spawnerFunc, callbackScope: this, loop: true });
         this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
         this.timerDisparoEnemigo = this.time.addEvent({ delay: enemyFireRate, callback: enemyShoot, callbackScope: this, loop: true });
-        this.dificultyBosst = this.time.addEvent({ delay: diffbosstRate, callback: difBoost, callbackScope: this, loop: true });
 
         //impacto del laser contra un enemigo
         function laserEnemy(laser, enemy) {
@@ -232,6 +231,19 @@ class scene_Play extends Phaser.Scene {
                 that.muerteEnemigoSound.play();
             }
         }
+
+        //Función de control de dificultad
+        this. dificulty = function difBoost() {
+            if (spawnRate > 200) {
+                spawnRate -= 10;
+                that.timerSpawn.delay = spawnRate;
+            }
+            if (enemyFireRate > 1000) {
+                enemyFireRate -= 20;
+                that.timerDisparoEnemigo.delay = enemyFireRate;
+            }
+        
+        }
     }
 
     update(time, delta) {
@@ -245,6 +257,10 @@ class scene_Play extends Phaser.Scene {
         //     this.scene.stop('EscenaPausa');
         //     this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
         // }
+        if (this.score >= this.diffbosstRate){
+            this.dificulty();
+            this.diffbosstRate += 300;
+        }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
             p1 = false;
@@ -449,15 +465,5 @@ function barrera(barrera, bala) {
     bala.die();
 }
 
-function difBoost() {
-    if (spawnRate > 200) {
-        spawnRate -= 10;
-        this.timerSpawn.delay = spawnRate;
-    }
-    if (enemyFireRate > 500) {
-        enemyFireRate -= 10;
-        this.timerDisparoEnemigo.delay = enemyFireRate;
-    }
 
-}
 export default scene_Play;
