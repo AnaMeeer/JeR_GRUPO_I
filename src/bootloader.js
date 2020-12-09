@@ -17,16 +17,26 @@ class Bootloader extends Phaser.Scene {
         this.load.bitmapFont('NierFont','./assets/font.png','./assets/font.fnt');
         this.load.bitmapFont('NierFontBlack', './assets/font2.png', './assets/font2.fnt');
 
+
+        //Cosas que usa el Selector de niveles
+        this.load.image("Nivel1", "./assets/Nivel1.png");
+        this.load.image("Nivel2", "./assets/Nivel2.png");
+        this.load.image("Nivel3", "./assets/Nivel3.png");
+        this.load.image("Nivel4", "./assets/Nivel4.png");
+        this.load.image("Nivel5", "./assets/Nivel5.png");
+        this.load.image("NivelInfinito", "./assets/Infinitus.png");
+        this.load.image("Tutorial", "./assets/Tutorial.png");
+
         //Cosas que usa scene_Play
         this.load.image("lunaran", "./assets/nave.png");
         this.load.image("lunaran2", "./assets/nave2.png");
-        this.load.image("malo", "./assets/star.png");
         this.load.image("bala", "./assets/bala.png");
-        this.load.image("enemigo", "./assets/star.png");
-        this.load.image("laser", "./assets/bullet11.png");
+        this.load.image("balaEnemigo", "./assets/balaEnemigo.png");
+        this.load.image("enemigo", "./assets/enemigoBasico.png");
+        this.load.image("laser", "./assets/laser.png");
         this.load.image("barrera", "./assets/barrera.png");
         this.load.image("corazon", "./assets/corazon.png");
-        this.load.image("fondoNegro", "./assets/fondoNegro.jpg");
+        this.load.image("fondoNegro", "./assets/backgroundSpace.png");
         this.load.image('iconPausa', "./assets/icon_pausa.png");
         this.load.image('enemigoAncho', "./assets/enemigoAncho.png");
 
@@ -52,7 +62,10 @@ class Bootloader extends Phaser.Scene {
         this.load.image("diez", "./assets/10.png");
         this.load.image("mute","./assets/muted.png");
         this.load.image("back","./assets/icon_back.png");
-        this.load.audio("musicaFondo","./assets/musicaFondo.mp3");
+        this.load.audio("musicaFondo","./assets/musicaMenu.ogg");
+        this.load.audio("musicaInGame","./assets/inGameMusica.ogg");
+        this.load.audio("click1","./assets/Click1.ogg");
+        this.load.audio("click2","./assets/Click2.ogg");
 
         //Cosas que usa EscenaFinal
         this.load.image("home", "./assets/icono_reinicio.png");

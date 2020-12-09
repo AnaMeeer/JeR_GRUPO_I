@@ -5,9 +5,11 @@ import scene_Play from './scenes/scene_Play.js'
 import EscenaPausa from './scenes/EscenaPausa.js'
 import EscenaSonido from './scenes/EscenaSonido.js'
 import PantallaFinal from './scenes/PantallaFinal.js'
+import SelectorNiveles from './scenes/SelectorNiveles.js'
 import lvl_1 from './scenes/lvl_1.js'
 import lvl_2 from './scenes/lvl_2.js'
 import lvl_3 from './scenes/lvl_3.js'
+import lvl_4 from './scenes/lvl_4.js'
 import lvl_5 from './scenes/lvl_5.js'
 
 const config = {
@@ -22,11 +24,11 @@ const config = {
     physics: {
         default: "arcade",
         arcade: {
-            debug: true
+            debug: false
         }
 
     },
-    scene: [Bootloader, PantallaFinal,EscenaSonido, EscenaPausa, lvl_5, MenuPrincipal]
+    scene: [Bootloader, PantallaFinal, EscenaSonido, EscenaPausa, scene_Play, lvl_5, lvl_4, lvl_3, lvl_2, lvl_1, SelectorNiveles, MenuPrincipal]
 };
 
 new Phaser.Game(config);

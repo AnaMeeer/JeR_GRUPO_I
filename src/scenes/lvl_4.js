@@ -1,3 +1,4 @@
+
 import Lunaran from '../gameObjects/lunaran.js';
 import Balas from '../gameObjects/balas.js';
 import Enemies from '../gameObjects/enemy.js';
@@ -24,8 +25,19 @@ class lvl_4 extends Phaser.Scene {
 
 
     create(data) {
-        this.musica = data.escena.musica;
-        this.muerteEnemigoSound = data.escena.sonidos;
+      this.click1Sound = data.click1;
+        this.nombreEscena = 'lvl_4';
+        this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(1.0);
+        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
+        console.log(this.nombreEscena);
+
+        this.iconoPausa.on('pointerdown', () => {
+            this.click1Sound.play();
+            this.scene.sleep();
+        })
+      
+      //  this.musica = data.escena.musica;
+        //this.muerteEnemigoSound = data.escena.sonidos;
         this.iniciarEnemigoSoundDisparo1 = true;
         this.iniciarEnemigoSoundDisparo2 = true;
         this.iniciarEnemigoSoundDisparoLaser = true;
@@ -407,3 +419,4 @@ function barrera(barrera, bala) {
 }
 
 export default lvl_4;
+

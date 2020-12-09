@@ -7,11 +7,17 @@ export default class EscenaSonido extends Phaser.Scene {
     // 
     create(data) {
         var that = this;
+        this.click1Sound = data.click1Sound;
+        this.click2Sound = data.click2Sound;
         this.musicaClickada = false;
         this.sonidoClickado = false;
-        
-        this.musica = data.escena.musica;
-        this.sonidos = data.escena.sonidos;
+
+        this.musica = data.musica;
+        this.musicaInGame = data.musicaInGame;
+        this.click1Sound = data.click1;
+        this.click2Sound = data.click2;
+        this.sonidos = data.sonidos;
+
         console.log(this.musicaClickada);
         this.fondo = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
         this.iconMusica = this.add.image(this.sys.game.config.width / 2 - 100, this.sys.game.config.height / 2, 'musica').setInteractive({ useHandCursor: true }).setScale(0.10)
@@ -25,11 +31,12 @@ export default class EscenaSonido extends Phaser.Scene {
 
             })
             .on("pointerdown", () => {
+                that.click1Sound.play();
                 that.musicaClickada = true;
                 that.sonidoClickado = false;
                 this.iconMusica.setAlpha(1);
                 that.iconSonidos.setAlpha(0.3);
-              
+
             });
 
         this.iconSonidos = this.add.image(this.sys.game.config.width / 2 + 100, this.sys.game.config.height / 2, 'sonidos').setInteractive({ useHandCursor: true }).setScale(0.15)
@@ -40,11 +47,12 @@ export default class EscenaSonido extends Phaser.Scene {
                 this.iconSonidos.setScale(0.15);
             })
             .on("pointerdown", () => {
+                that.click1Sound.play();
                 that.musicaClickada = false;
                 that.sonidoClickado = true;
                 that.iconMusica.setAlpha(0.3);
                 this.iconSonidos.setAlpha(1);
-                
+
             });
 
 
@@ -56,16 +64,24 @@ export default class EscenaSonido extends Phaser.Scene {
                 this.uno.setScale(0.4);
             })
             .on("pointerdown", () => {
+                that.click2Sound.play();
                 if (that.musicaClickada) {
                     that.musica.setMute(false);
                     that.musica.setVolume(0.1);
+                    that.musicaInGame.setMute(false);
+                    that.musicaInGame.setVolume(0.1);
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
                 }
                 else if (that.sonidoClickado) {
                     //el sonido
+                    
                     that.sonidos.setMute(false);
+                    that.click1Sound.setMute(false);
+                    that.click2Sound.setMute(false);
+                    that.click1Sound.setVolume(0.1);
+                    that.click2Sound.setVolume(0.1);
                     that.sonidos.setVolume(0.1);
                     that.sonidoClickado = false;
                     that.iconMusica.setAlpha(1);
@@ -81,9 +97,12 @@ export default class EscenaSonido extends Phaser.Scene {
                 this.dos.setScale(0.4);
             })
             .on("pointerdown", () => {
+                that.click2Sound.play();
                 if (that.musicaClickada) {
                     that.musica.setMute(false);
                     that.musica.setVolume(0.2);
+                    that.musicaInGame.setMute(false);
+                    that.musicaInGame.setVolume(0.2);
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -91,7 +110,11 @@ export default class EscenaSonido extends Phaser.Scene {
                 else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
+                    that.click1Sound.setMute(false);
+                    that.click2Sound.setMute(false);
                     that.sonidos.setVolume(0.2);
+                    that.click1Sound.setVolume(0.2);
+                    that.click2Sound.setVolume(0.2);
                     that.sonidoClickado = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -106,9 +129,12 @@ export default class EscenaSonido extends Phaser.Scene {
                 this.tres.setScale(0.4);
             })
             .on("pointerdown", () => {
+                that.click2Sound.play();
                 if (that.musicaClickada) {
                     that.musica.setMute(false);
                     that.musica.setVolume(0.3);
+                    that.musicaInGame.setMute(false);
+                    that.musicaInGame.setVolume(0.3);
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -116,7 +142,11 @@ export default class EscenaSonido extends Phaser.Scene {
                 else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
+                    that.click1Sound.setMute(false);
+                    that.click2Sound.setMute(false);
                     that.sonidos.setVolume(0.3);
+                    that.click1Sound.setVolume(0.3);
+                    that.click2Sound.setVolume(0.3);
                     that.sonidoClickado = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -131,9 +161,12 @@ export default class EscenaSonido extends Phaser.Scene {
                 this.cuatro.setScale(0.4);
             })
             .on("pointerdown", () => {
+                that.click2Sound.play();
                 if (that.musicaClickada) {
                     that.musica.setMute(false);
                     that.musica.setVolume(0.4);
+                    that.musicaInGame.setMute(false);
+                    that.musicaInGame.setVolume(0.4);
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -141,7 +174,11 @@ export default class EscenaSonido extends Phaser.Scene {
                 else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
+                    that.click1Sound.setMute(false);
+                    that.click2Sound.setMute(false);
                     that.sonidos.setVolume(0.4);
+                    that.click1Sound.setVolume(0.4);
+                    that.click2Sound.setVolume(0.4);
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
                     that.sonidoClickado = false;
@@ -156,9 +193,12 @@ export default class EscenaSonido extends Phaser.Scene {
                 this.cinco.setScale(0.4);
             })
             .on("pointerdown", () => {
+                that.click2Sound.play();
                 if (that.musicaClickada) {
                     that.musica.setMute(false);
                     that.musica.setVolume(0.5);
+                    that.musicaInGame.setMute(false);
+                    that.musicaInGame.setVolume(0.5);
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -166,7 +206,11 @@ export default class EscenaSonido extends Phaser.Scene {
                 else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
+                    that.click1Sound.setMute(false);
+                    that.click2Sound.setMute(false);
                     that.sonidos.setVolume(0.5);
+                    that.click1Sound.setVolume(0.5);
+                    that.click2Sound.setVolume(0.5);
                     that.sonidoClickado = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -181,9 +225,12 @@ export default class EscenaSonido extends Phaser.Scene {
                 this.seis.setScale(0.4);
             })
             .on("pointerdown", () => {
+                that.click2Sound.play();
                 if (that.musicaClickada) {
                     that.musica.setMute(false);
                     that.musica.setVolume(0.6);
+                    that.musicaInGame.setMute(false);
+                    that.musicaInGame.setVolume(0.6);
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -191,7 +238,11 @@ export default class EscenaSonido extends Phaser.Scene {
                 else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
+                    that.click1Sound.setMute(false);
+                    that.click2Sound.setMute(false);
                     that.sonidos.setVolume(0.6);
+                    that.click1Sound.setVolume(0.6);
+                    that.click2Sound.setVolume(0.6);
                     that.sonidoClickado = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -206,9 +257,12 @@ export default class EscenaSonido extends Phaser.Scene {
                 this.siete.setScale(0.4);
             })
             .on("pointerdown", () => {
+                that.click2Sound.play();
                 if (that.musicaClickada) {
                     that.musica.setMute(false);
                     that.musica.setVolume(0.7);
+                    that.musicaInGame.setMute(false);
+                    that.musicaInGame.setVolume(0.7);
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -216,7 +270,11 @@ export default class EscenaSonido extends Phaser.Scene {
                 else if (that.sonidoClickado) {
                     //el sonido 
                     that.sonidos.setMute(false);
+                    that.click1Sound.setMute(false);
+                    that.click2Sound.setMute(false);
                     that.sonidos.setVolume(0.7);
+                    that.click1Sound.setVolume(0.7);
+                    that.click2Sound.setVolume(0.7);
                     that.sonidoClickado = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -231,9 +289,12 @@ export default class EscenaSonido extends Phaser.Scene {
                 this.ocho.setScale(0.4);
             })
             .on("pointerdown", () => {
+                that.click2Sound.play();
                 if (that.musicaClickada) {
                     that.musica.setMute(false);
                     that.musica.setVolume(0.8);
+                    that.musicaInGame.setMute(false);
+                    that.musicaInGame.setVolume(0.8);
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -241,7 +302,11 @@ export default class EscenaSonido extends Phaser.Scene {
                 else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
+                    that.click1Sound.setMute(false);
+                    that.click2Sound.setMute(false);
                     that.sonidos.setVolume(0.8);
+                    that.click1Sound.setVolume(0.8);
+                    that.click2Sound.setVolume(0.8);
                     that.sonidoClickado = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -256,9 +321,12 @@ export default class EscenaSonido extends Phaser.Scene {
                 this.nueve.setScale(0.4);
             })
             .on("pointerdown", () => {
+                that.click2Sound.play();
                 if (that.musicaClickada) {
                     that.musica.setMute(false);
                     that.musica.setVolume(0.9);
+                    that.musicaInGame.setMute(false);
+                    that.musicaInGame.setVolume(0.9);
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -266,7 +334,11 @@ export default class EscenaSonido extends Phaser.Scene {
                 else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
+                    that.click1Sound.setMute(false);
+                    that.click2Sound.setMute(false);
                     that.sonidos.setVolume(0.9);
+                    that.click1Sound.setVolume(0.9);
+                    that.click2Sound.setVolume(0.9);
                     that.sonidoClickado = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -281,9 +353,12 @@ export default class EscenaSonido extends Phaser.Scene {
                 this.diez.setScale(0.4);
             })
             .on("pointerdown", () => {
+                that.click2Sound.play();
                 if (that.musicaClickada) {
                     that.musica.setMute(false);
                     that.musica.setVolume(1);
+                    that.musicaInGame.setMute(false);
+                    that.musicaInGame.setVolume(1);
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -291,7 +366,11 @@ export default class EscenaSonido extends Phaser.Scene {
                 else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
+                    that.click1Sound.setMute(false);
+                    that.click2Sound.setMute(false);
                     that.sonidos.setVolume(1);
+                    that.click1Sound.setVolume(1);
+                    that.click2Sound.setVolume(1);
                     that.sonidoClickado = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -306,8 +385,10 @@ export default class EscenaSonido extends Phaser.Scene {
                 this.iconMute.setScale(0.09);
             })
             .on("pointerdown", () => {
+                that.click2Sound.play();
                 if (that.musicaClickada) {
                     that.musica.setMute(true);
+                    that.musicaInGame.setMute(true);
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -315,6 +396,8 @@ export default class EscenaSonido extends Phaser.Scene {
                 else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(true);
+                    that.click1Sound.setMute(true);
+                    that.click2Sound.setMute(true);
                     that.sonidoClickado = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
@@ -322,12 +405,14 @@ export default class EscenaSonido extends Phaser.Scene {
             });
         this.back = this.add.image(this.sys.game.config.width / 2 - 300, this.sys.game.config.height / 2 - 200, 'back').setInteractive({ useHandCursor: true }).setScale(0.05)
             .on("pointerover", () => {
-                this.back.setScale(0.07);
+                this.back.setScale(0.06);
             })
             .on("pointerout", () => {
                 this.back.setScale(0.05);
             })
             .on("pointerdown", () => {
+                this.back.setScale(0.05);
+                that.click2Sound.play();
                 that.scene.wake('EscenaPausa');
                 that.scene.sleep();
             });

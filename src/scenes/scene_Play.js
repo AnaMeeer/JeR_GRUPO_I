@@ -1,5 +1,6 @@
 import Lunaran from '../gameObjects/lunaran.js';
 import Balas from '../gameObjects/balas.js';
+import BalasEnemigos from '../gameObjects/balasEnemigos.js';
 import Enemies from '../gameObjects/enemy.js';
 import Lasers from '../gameObjects/laser.js';
 import Barreras from '../gameObjects/barrera.js';
@@ -15,6 +16,9 @@ var spawnRate = 1000;
 var enemyFireRate = 5000;
 var p1;
 var p2;
+var spawnRate = 1000;
+var fireRate = 100;
+var enemyFireRate = 5000;
 
 
 class scene_Play extends Phaser.Scene {
@@ -24,12 +28,32 @@ class scene_Play extends Phaser.Scene {
 
 
     create(data) {
-        this.musica = data.escena.musica;
+        //Musica
+        this.nombreEscena = 'scene_Play';
+        var musicConfigInGame = {
+            mute: false,
+            volume: 0.3,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+
+        var that = this;
+
+        this.musicaInGame = data.escena.musicaInGame;
+        this.musicaInGame.play(musicConfigInGame);
+
+        this.click1Sound = data.escena.click1Sound;
+
         this.muerteEnemigoSound = data.escena.sonidos;
         this.iniciarEnemigoSoundDisparo1 = true;
         this.iniciarEnemigoSoundDisparo2 = true;
         this.iniciarEnemigoSoundDisparoLaser = true;
-        this.victoriaPTS = 500;
+
+        this.victoriaPTS = 50;
+        this.diffbosstRate = 300;
 
         p1 = true;
         p2 = true;
@@ -37,7 +61,7 @@ class scene_Play extends Phaser.Scene {
         this.primeravez = true;
         this.count = 0;
 
-        this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
+        this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(1.0);
         this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
         this.score = 0;
         this.texto.text = "Puntos: " + "0";
@@ -67,13 +91,14 @@ class scene_Play extends Phaser.Scene {
         this.cursor_u = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);//power up
 
         //Balas
-        this.bulletsP1 = new Balas(this);
+        this.bulletsP1 = new Balas(this, "bala");
+        console.log(this.bulletsP1);
         this.balas1 = this.bulletsP1.getChildren(false);
         for (let index = 0; index < this.balas1.length; index++) {
             let element = this.balas1[index];
             element.body.enable = false;
         }
-        this.bulletsP2 = new Balas(this);
+        this.bulletsP2 = new Balas(this, "bala");
         this.balas2 = this.bulletsP2.getChildren(false);
         for (let index = 0; index < this.balas2.length; index++) {
             let element = this.balas2[index];
@@ -163,7 +188,7 @@ class scene_Play extends Phaser.Scene {
         }
 
         //Balas de Enemigos
-        this.enemyBullets = new Balas(this);
+        this.enemyBullets = new BalasEnemigos(this);
 
         //Vidas
         this.sistemaVida = new Vidas(this);
@@ -211,18 +236,35 @@ class scene_Play extends Phaser.Scene {
                 that.muerteEnemigoSound.play();
             }
         }
+
+        //Función de control de dificultad
+        this. dificulty = function difBoost() {
+            if (spawnRate > 200) {
+                spawnRate -= 10;
+                that.timerSpawn.delay = spawnRate;
+            }
+            if (enemyFireRate > 1000) {
+                enemyFireRate -= 20;
+                that.timerDisparoEnemigo.delay = enemyFireRate;
+            }
+        
+        }
     }
 
     update(time, delta) {
+        // if (this.score === this.victoriaPTS) {
+        //     this.musicaInGame.stop();
+        //     this.scene.stop('scene_Play');
+        //     this.scene.stop('Bootloader');
+        //     this.scene.stop('MenuPrincipal');
+        //     this.scene.stop('EscenaSonido');
+        //     this.scene.stop('EscenaPausa');
+        //     this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
+        // }
+        if (this.score >= this.diffbosstRate){
+            this.dificulty();
+            this.diffbosstRate += 300;
 
-        if (this.score === this.victoriaPTS) {
-            this.musica.stop();
-            this.scene.stop('scene_Play');
-            this.scene.stop('Bootloader');
-            this.scene.stop('MenuPrincipal');
-            this.scene.stop('EscenaSonido');
-            this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
         }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
@@ -330,11 +372,14 @@ class scene_Play extends Phaser.Scene {
 
         //Menu
         this.iconoPausa.on('pointerdown', () => {
+            this.click1Sound.play();
             this.scene.sleep();
         })
 
         if (!p1 && !p2) {
-            this.musica.stop();
+
+            this.musicaInGame.stop();
+
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
@@ -398,28 +443,34 @@ function enemyShoot() {
     var eXDir;
     var eYDir;
     for (let i = 0; i < arrayEnemies.length; i++) {
-        enemigo = arrayEnemies[i]
+        enemigo = arrayEnemies[i];
+        var active = enemigo.active;
         eX = enemigo.body.position.x;
         eY = enemigo.body.position.y;
 
-        if (i % 2 && p1) {
-            eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
-            eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
+        if (active) {
+
+
+            if (i % 2 && p1) {
+                eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
+                eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
+            }
+            else if (p2) {
+                eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
+                eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
+            }
+            else {
+                eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
+                eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
+            }
+            this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
         }
-        else if (p2) {
-            eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
-            eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
-        }
-        else {
-            eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
-            eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
-        }
-        this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
     }
 }
 
 function barrera(barrera, bala) {
     bala.die();
 }
+
 
 export default scene_Play;
