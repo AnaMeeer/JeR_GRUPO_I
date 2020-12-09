@@ -28,7 +28,7 @@ class BounceEnemies extends Phaser.Physics.Arcade.Group{
 
 class BounceEnemy extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y){
-        super(scene, x, y, 'enemigo');
+        super(scene, x, y, 'enemigoRebote');
         this.hp = new HealthBar(this.scene);
     }
 

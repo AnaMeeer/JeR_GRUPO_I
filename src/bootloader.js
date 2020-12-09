@@ -39,6 +39,7 @@ class Bootloader extends Phaser.Scene {
         this.load.image("fondoNegro", "./assets/backgroundSpace.png");
         this.load.image('iconPausa', "./assets/icon_pausa.png");
         this.load.image('enemigoAncho', "./assets/enemigoAncho.png");
+        this.load.image('enemigoRebote', "./assets/EnemigoRebote.png");
 
         //Cosas que usa EscenaPausa
         this.load.image("ImagenPausa", "./assets/Interfaz_Pausa.jpg");

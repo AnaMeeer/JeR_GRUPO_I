@@ -165,7 +165,12 @@ class scene_Play extends Phaser.Scene {
                 that.count++;
                 that.texto.text = "Puntos: " + that.score;
                 console.log(that.primeravez);
-                that.barraEnergia2.increasePowerUp(10);
+                if (that.barreras.isAlive()) {
+                    that.barraEnergia2.increasePowerUp(1);
+                }
+                else {
+                    that.barraEnergia2.increasePowerUp(10);
+                }
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
                     that.muerteEnemigoSound.setVolume(0.1);
                     that.iniciarEnemigoSoundDisparo2 = false;
@@ -238,7 +243,7 @@ class scene_Play extends Phaser.Scene {
         }
 
         //Función de control de dificultad
-        this. dificulty = function difBoost() {
+        this.dificulty = function difBoost() {
             if (spawnRate > 200) {
                 spawnRate -= 10;
                 that.timerSpawn.delay = spawnRate;
@@ -247,7 +252,7 @@ class scene_Play extends Phaser.Scene {
                 enemyFireRate -= 20;
                 that.timerDisparoEnemigo.delay = enemyFireRate;
             }
-        
+
         }
     }
 
@@ -261,7 +266,7 @@ class scene_Play extends Phaser.Scene {
         //     this.scene.stop('EscenaPausa');
         //     this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
         // }
-        if (this.score >= this.diffbosstRate){
+        if (this.score >= this.diffbosstRate) {
             this.dificulty();
             this.diffbosstRate += 300;
 

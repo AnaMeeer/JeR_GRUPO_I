@@ -6,6 +6,7 @@ import Lasers from '../gameObjects/laser.js';
 import Barreras from '../gameObjects/barrera.js';
 import Vidas from '../gameObjects/vidas.js';
 import Barra from '../gameObjects/barra.js';
+import BalasEnemigos from '../gameObjects/balasEnemigos.js';
 
 //variables
 var amountDamageBullet = 50; //una bala normal les hace 1 de daño.
@@ -13,7 +14,7 @@ var amountDamageLaser = 10; //el laser hace 50 de daño
 var amountDamageEnemy = 100;
 var fireRate = 100;
 var spawnRate = 1000;
-var enemyFireRate = 5000;
+var enemyFireRate = 2000;
 var p1;
 var p2;
 
@@ -153,7 +154,12 @@ class lvl_2 extends Phaser.Scene {
                 that.count++;
                 that.texto.text = "Puntos: " + that.score;
                 console.log(that.primeravez);
-                that.barraEnergia2.increasePowerUp(10);
+                if (that.barreras.isAlive()) {
+                    that.barraEnergia2.increasePowerUp(1);
+                }
+                else {
+                    that.barraEnergia2.increasePowerUp(10);
+                }
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
                     that.muerteEnemigoSound.setVolume(0.1);
                     that.iniciarEnemigoSoundDisparo2 = false;
@@ -176,7 +182,7 @@ class lvl_2 extends Phaser.Scene {
         }
 
         //Balas de Enemigos
-        this.enemyBullets = new Balas(this);
+        this.enemyBullets = new BalasEnemigos(this);
 
         //Vidas
         this.sistemaVida = new Vidas(this);
