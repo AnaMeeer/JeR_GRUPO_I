@@ -65,12 +65,9 @@ class lvl_3 extends Phaser.Scene {
         this.value = 60;
 
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
-        //this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
-        this.tiempo = this.add.bitmapText(100, 75, 'NierFont', '', 15);
-        this.texto2 = this.add.bitmapText(100, 25, 'NierFont', "Survive", 15);
+        this.tiempo = this.add.bitmapText(100, 50, 'NierFont', '', 15);
 
         this.score = 0;
-        // this.texto.text = "Points: " + "0";
 
         this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
 
@@ -231,8 +228,6 @@ class lvl_3 extends Phaser.Scene {
         //impacto del laser contra un enemigo
         function laserEnemy(laser, enemy) {
             if (enemy.damageEnemy(amountDamageLaser)) {
-                // that.score += 5;
-                // that.texto.text = "Points: " + that.score;
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
                     that.muerteEnemigoSound.setVolume(0.1);
                     that.iniciarEnemigoSoundDisparo1 = false;

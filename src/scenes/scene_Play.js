@@ -71,7 +71,7 @@ class scene_Play extends Phaser.Scene {
 
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(1.0);
         this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
-        this.texto2 = this.add.bitmapText(100, 25, 'NierFont', "Play as much as you want", 15);
+        this.texto2 = this.add.bitmapText(100, 25, 'NierFont', "How far con you get?", 15);
         this.score = 0;
         this.texto.text = "Points: " + "0";
 

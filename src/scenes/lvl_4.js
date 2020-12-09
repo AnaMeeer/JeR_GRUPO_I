@@ -67,7 +67,6 @@ class lvl_4 extends Phaser.Scene {
 
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
         this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
-        this.texto2 = this.add.bitmapText(100, 25, 'NierFont', "Try to survive", 15);
         this.tiempo = this.add.bitmapText(100, 75, 'NierFont', '', 15);
 
         this.score = 0;

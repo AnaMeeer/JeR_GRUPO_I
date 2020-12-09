@@ -249,7 +249,7 @@ class lvl_2 extends Phaser.Scene {
     }
 
     update(time, delta) {
-        this.tiempo.text = 'Tiempo: ' + this.value.toFixed(0);
+        this.tiempo.text = 'Time: ' + this.value.toFixed(0);
         this.value -= 0.01;
 
         if (this.score === this.victoriaPts) {
