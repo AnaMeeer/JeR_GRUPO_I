@@ -513,7 +513,7 @@ Una vez accedamos a esta opción debemos hacer click para pasar a la siguiente p
     
 ### 4.6.1 Descripción
 
-Esta será la interfaz HUD que el jugador verá al estar jugando por los niveles del juego.
+Esta será la interfaz HUD que el jugador verá al estar jugando por los niveles del juego. Tal y como puede apreciarse, la interfaz cuenta con un sistema de vidas, una barra para indicar la energía del dash, otra barra para indicar la energía del power up y una puntuación. Ocasionalmente, también habrá un temporizador que nos indique cuanto tiempo debemos sobrevivir en el nivel para completarlo.
 
     
 ### 4.6.2 Estados de juego
@@ -1162,12 +1162,10 @@ Algunos de los assets que se han incluido en el videojuego muestran el siguiente
 ![](https://i.imgur.com/6GCMZza.png)
 
 
+El diagrama de navegación de nuestro juego es el siguiente: 
+
+![](https://i.imgur.com/L5BDRwB.jpg)
+
 # 14. Miembros del equipo
 
 Ana Mercedes García, Paloma Leiva, Miguel Vidal y Bozhidar Petrov.
-
-
-
-# 15.Créditos
-
-(En desarrollo).
