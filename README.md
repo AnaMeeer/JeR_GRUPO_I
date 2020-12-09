@@ -1162,9 +1162,10 @@ Algunos de los assets que se han incluido en el videojuego muestran el siguiente
 ![](https://i.imgur.com/6GCMZza.png)
 
 
-El diagrama de navegación de nuestro juego es el siguiente: 
+### El diagrama de navegación de nuestro juego es el siguiente: 
 
 ![](https://i.imgur.com/L5BDRwB.jpg)
+
 
 # 14. Miembros del equipo
 
