@@ -105,13 +105,14 @@ export default class SelectorNiveles extends Phaser.Scene {
             })
             .on("pointerdown", () => {
                 this.controles = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'controles').setInteractive({ useHandCursor: true })
-                .on("pointerdown",()=>{
-                    that.controles.destroy();
-                    this.imagenNiveles = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'TutorialLevels').setInteractive({ useHandCursor: true })
-                    .on("pointerdown",()=>{
-                        this.imagenNiveles.destroy();
+                    .on("pointerdown", () => {
+                        that.controles.destroy();
+                        this.imagenNiveles = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'TutorialLevels').setInteractive({ useHandCursor: true })
+                            .on("pointerdown", () => {
+                                this.imagenNiveles.destroy();
+                            })
                     })
-                })
             });
+        this.logoJuego = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2 + 120, 'Juego').setScale(0.5);
     }
 }
