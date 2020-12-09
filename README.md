@@ -297,17 +297,14 @@ Game Document Design del grupo I para la asignatura de Juegos en Red
 
 9. Armas 
 
-10. Ítems 
+10. Música y sonido 
 
-11. Guion 
+11. Imágenes de concepto 
 
-12. Música y sonido 
+12. Diagrama de navegación
 
-13. Imágenes de concepto 
+13. Miembros del equipo 
 
-14. Miembros del equipo 
-
-15. Créditos 
 
 
 
@@ -1144,13 +1141,13 @@ _Ametralladoras K-2073-Salvation_: abreviadas como las KS-73, se crearon al poco
 Lunaran: vehículo aéreo de combate creado para enfrentarse a los alienígenas. Fueron creados por MechaSoft para aprovechar las habilidades superhumanas de las personas con las que habían experimentado. El vehículo les permite sacar sus poderes especiales.
 
 
-# 12. Música y sonido
+# 10. Música y sonido
 
 Se utilizará música de estilo 8bits. Serán melodías futuristas con un estilo de rock, adecuado para batallas o juegos arcade.
 En concreto, las melodías utilizadas serán Never Surrender para el menú e Intergalactic Oddysey dentro del juego.
 
 
-# 13. Imágenes de concepto
+# 11. Imágenes de concepto
 
 El estilo de nuestros personajes protagonistas será manga. Sin embargo, el juego utilizará sprites inspirados en videojuegos arcade clásicos como Space Invaders.
 Algunos ejemplos de los primeros serán los siguientes:
@@ -1162,11 +1159,12 @@ Algunos de los assets que se han incluido en el videojuego muestran el siguiente
 ![](https://i.imgur.com/6GCMZza.png)
 
 
-### El diagrama de navegación de nuestro juego es el siguiente: 
+# 12. Diagrama de navegación
+## El diagrama de navegación de nuestro juego es el siguiente: 
 
 ![](https://i.imgur.com/L5BDRwB.jpg)
 
 
-# 14. Miembros del equipo
+# 13. Miembros del equipo
 
 Ana Mercedes García, Paloma Leiva, Miguel Vidal y Bozhidar Petrov.
