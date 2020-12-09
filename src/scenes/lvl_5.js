@@ -267,7 +267,7 @@ class lvl_5 extends Phaser.Scene {
     }
 
     update(time, delta) {
-        this.tiempo.text = 'Tiempo: ' + this.value.toFixed(0);
+        this.tiempo.text = 'Survive: ' + this.value.toFixed(0);
         this.value -= 0.01;
 
         if (this.value <= 0) {
