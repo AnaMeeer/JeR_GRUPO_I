@@ -25,11 +25,25 @@ class lvl_3 extends Phaser.Scene {
 
 
     create(data) {
+        var musicConfigInGame = {
+            mute: false,
+            volume: 0.1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+
+        var that = this;
+
+        this.musicaInGame = data.musicaInGame;
+        this.musicaInGame.play(musicConfigInGame);
         this.click1Sound = data.click1;
         this.nombreEscena = 'lvl_3';
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(1.0);
         this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
-        console.log(this.nombreEscena);
+        
 
         this.iconoPausa.on('pointerdown', () => {
             this.click1Sound.play();
@@ -53,9 +67,10 @@ class lvl_3 extends Phaser.Scene {
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
         //this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
         this.tiempo = this.add.bitmapText(100, 75, 'NierFont', '', 15);
+        this.texto2 = this.add.bitmapText(100, 25, 'NierFont', "Survive", 15);
 
         this.score = 0;
-        // this.texto.text = "Puntos: " + "0";
+        // this.texto.text = "Points: " + "0";
 
         this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
 
@@ -134,9 +149,7 @@ class lvl_3 extends Phaser.Scene {
         function bullet1Enemy(bullet, enemy) {
             bullet.die();
             if (enemy.damageEnemy(amountDamageBullet)) {
-                //that.score += 5;
-                //that.texto.text = "Puntos: " + that.score;
-                console.log(that.primeravez);
+                
                 that.barraEnergia.increasePowerUp(10);
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
                     that.muerteEnemigoSound.setVolume(0.1);
@@ -150,9 +163,8 @@ class lvl_3 extends Phaser.Scene {
         function bullet2Enemy(bullet, enemy) {
             bullet.die();
             if (enemy.damageEnemy(amountDamageBullet)) {
-                //that.score += 5;
-                //that.texto.text = "Puntos: " + that.score;
-                console.log(that.primeravez);
+                
+                
                 if (that.barreras.isAlive()) {
                     that.barraEnergia2.increasePowerUp(1);
                 }
@@ -220,7 +232,7 @@ class lvl_3 extends Phaser.Scene {
         function laserEnemy(laser, enemy) {
             if (enemy.damageEnemy(amountDamageLaser)) {
                 // that.score += 5;
-                // that.texto.text = "Puntos: " + that.score;
+                // that.texto.text = "Points: " + that.score;
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
                     that.muerteEnemigoSound.setVolume(0.1);
                     that.iniciarEnemigoSoundDisparo1 = false;
@@ -235,7 +247,7 @@ class lvl_3 extends Phaser.Scene {
         this.value -= 0.01;
 
         if (this.value <= 0) {
-
+            this.musicaInGame.stop();
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
@@ -353,7 +365,7 @@ class lvl_3 extends Phaser.Scene {
         })
 
         if (!p1 && !p2) {
-
+            this.musicaInGame.stop();
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');

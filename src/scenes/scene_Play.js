@@ -32,7 +32,7 @@ class scene_Play extends Phaser.Scene {
         this.nombreEscena = 'scene_Play';
         var musicConfigInGame = {
             mute: false,
-            volume: 0.3,
+            volume: 0.1,
             rate: 1,
             detune: 0,
             seek: 0,
@@ -63,8 +63,9 @@ class scene_Play extends Phaser.Scene {
 
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(1.0);
         this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
+        this.texto2 = this.add.bitmapText(100, 25, 'NierFont', "Play as much as you want", 15);
         this.score = 0;
-        this.texto.text = "Puntos: " + "0";
+        this.texto.text = "Points: " + "0";
 
         this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
 
@@ -146,7 +147,7 @@ class scene_Play extends Phaser.Scene {
             if (enemy.damageEnemy(amountDamageBullet)) {
                 that.score += 5;
                 that.count++;
-                that.texto.text = "Puntos: " + that.score;
+                that.texto.text = "Points: " + that.score;
                 console.log(that.primeravez);
                 that.barraEnergia.increasePowerUp(10);
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
@@ -163,7 +164,7 @@ class scene_Play extends Phaser.Scene {
             if (enemy.damageEnemy(amountDamageBullet)) {
                 that.score += 5;
                 that.count++;
-                that.texto.text = "Puntos: " + that.score;
+                that.texto.text = "Points: " + that.score;
                 console.log(that.primeravez);
                 if (that.barreras.isAlive()) {
                     that.barraEnergia2.increasePowerUp(1);
@@ -233,7 +234,7 @@ class scene_Play extends Phaser.Scene {
             if (enemy.damageEnemy(amountDamageLaser)) {
                 that.score += 5;
                 that.count++;
-                that.texto.text = "Puntos: " + that.score;
+                that.texto.text = "Points: " + that.score;
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
                     that.muerteEnemigoSound.setVolume(0.1);
                     that.iniciarEnemigoSoundDisparo1 = false;
@@ -257,15 +258,7 @@ class scene_Play extends Phaser.Scene {
     }
 
     update(time, delta) {
-        // if (this.score === this.victoriaPTS) {
-        //     this.musicaInGame.stop();
-        //     this.scene.stop('scene_Play');
-        //     this.scene.stop('Bootloader');
-        //     this.scene.stop('MenuPrincipal');
-        //     this.scene.stop('EscenaSonido');
-        //     this.scene.stop('EscenaPausa');
-        //     this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
-        // }
+       
         if (this.score >= this.diffbosstRate) {
             this.dificulty();
             this.diffbosstRate += 300;

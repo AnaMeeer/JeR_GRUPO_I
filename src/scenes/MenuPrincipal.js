@@ -13,7 +13,7 @@ export default class MenuPrincipal extends Phaser.Scene {
        
         var musicConfig = {
             mute: false,
-            volume: 0.3,
+            volume: 0.1,
             rate: 1.5,
             detune: 0,
             seek: 0,
@@ -76,6 +76,7 @@ export default class MenuPrincipal extends Phaser.Scene {
         //función al clickar en la primera animación
         this.imagen.on('pointerdown', () => {
             if (this.seClicka == true) {
+                this.click1Sound.setVolume(0.1);
                 this.click1Sound.play();
                 //hacemos que se vuelva invisible la primera animación
                 this.imagen.setVisible(false);
@@ -115,8 +116,8 @@ export default class MenuPrincipal extends Phaser.Scene {
                         this.imagenBoton.on('pointerdown', () => {
 
                             //lo que ocurrirá al pulsar el botón
+                            this.click2Sound.setVolume(0.1);
                             this.click2Sound.play();
-                            this.musica.stop();
                             console.log("hola");
                             this.scene.start('SelectorNiveles', { escena: this });             
 

@@ -9,8 +9,7 @@ export default class EscenaPausa extends Phaser.Scene {
         this.musicaInGame = data.musicaInGame;
         this.click1Sound = data.click1;
         this.click2Sound = data.click2;
-        this.cursor_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-        this.render = false;
+        
         this.escenaSeleccionada = data.escena;
 
 

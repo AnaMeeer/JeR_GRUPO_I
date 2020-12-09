@@ -14,8 +14,10 @@ class Bootloader extends Phaser.Scene {
         this.load.atlas('anim_apertura', 'assets/Anim_Apertura.png', './assets/Anim_Apertura.json');
         this.load.atlas('anim_boton', 'assets/Anim_Boton.png', './assets/Anim_Boton.json');
         this.load.image('fondo', './assets/white-background-2.jpg');
-        this.load.bitmapFont('NierFont','./assets/font.png','./assets/font.fnt');
+        this.load.image('controles', './assets/Controles.png');
+        this.load.bitmapFont('NierFont', './assets/font.png', './assets/font.fnt');
         this.load.bitmapFont('NierFontBlack', './assets/font2.png', './assets/font2.fnt');
+        this.load.image('logo', "./assets/logo.png");
 
 
         //Cosas que usa el Selector de niveles
@@ -26,6 +28,7 @@ class Bootloader extends Phaser.Scene {
         this.load.image("Nivel5", "./assets/Nivel5.png");
         this.load.image("NivelInfinito", "./assets/Infinitus.png");
         this.load.image("Tutorial", "./assets/Tutorial.png");
+        this.load.image('TutorialLevels', "./assets/TutorialLevels.png");
 
         //Cosas que usa scene_Play
         this.load.image("lunaran", "./assets/nave.png");
@@ -50,7 +53,7 @@ class Bootloader extends Phaser.Scene {
 
         //Cosas que usa EscenaSonido
         this.load.image("musica", "./assets/musica.png");
-        this.load.image("sonidos","./assets/sonidos.png");
+        this.load.image("sonidos", "./assets/sonidos.png");
         this.load.image("uno", "./assets/1.png");
         this.load.image("dos", "./assets/2.png");
         this.load.image("tres", "./assets/3.png");
@@ -61,18 +64,28 @@ class Bootloader extends Phaser.Scene {
         this.load.image("ocho", "./assets/8.png");
         this.load.image("nueve", "./assets/9.png");
         this.load.image("diez", "./assets/10.png");
-        this.load.image("mute","./assets/muted.png");
-        this.load.image("back","./assets/icon_back.png");
-        this.load.audio("musicaFondo","./assets/musicaMenu.ogg");
-        this.load.audio("musicaInGame","./assets/inGameMusica.ogg");
-        this.load.audio("click1","./assets/Click1.ogg");
-        this.load.audio("click2","./assets/Click2.ogg");
+        this.load.image("mute", "./assets/muted.png");
+        this.load.image("back", "./assets/icon_back.png");
+        this.load.audio("musicaFondo", "./assets/musicaMenu.ogg");
+        this.load.audio("musicaInGame", "./assets/inGameMusica.ogg");
+        this.load.audio("click1", "./assets/Click1.ogg");
+        this.load.audio("click2", "./assets/Click2.ogg");
 
         //Cosas que usa EscenaFinal
         this.load.image("home", "./assets/icono_reinicio.png");
-        
-        this.load.audio('muerteEnemigo','./assets/muerteEnemigo.ogg');
-        console.log("Se ha cargado la escena bootloader");
+
+        this.load.audio('muerteEnemigo', './assets/muerteEnemigo.ogg');
+
+        this.loadingBar = this.add.graphics({
+            fillStyle: {
+                color: 0xffffff
+            }
+        })
+        this.load.on("progress", (percent) => {
+            this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2 - 100, 'logo').setScale(0.7);
+            this.loadingBar.fillRect(0, this.sys.game.config.height / 2, this.sys.game.config.width * percent, 50);
+        })
+
     }
 
 
