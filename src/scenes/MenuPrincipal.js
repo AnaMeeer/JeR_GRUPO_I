@@ -118,10 +118,7 @@ export default class MenuPrincipal extends Phaser.Scene {
                             this.click2Sound.play();
                             this.musica.stop();
                             console.log("hola");
-                            this.scene.start('SelectorNiveles', { escena: this });
-                            // this.scene.start('scene_Play', { escena: this});
-                            // this.scene.start("EscenaPausa", { musica: that.musica, musica2: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound });
-                            // this.scene.start("EscenaSonido", { escena: this });
+                            this.scene.start('SelectorNiveles', { escena: this });             
 
                         })
                     }, callbackScope: this

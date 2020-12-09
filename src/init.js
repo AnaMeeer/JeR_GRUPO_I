@@ -11,6 +11,7 @@ import lvl_2 from './scenes/lvl_2.js'
 import lvl_3 from './scenes/lvl_3.js'
 import lvl_4 from './scenes/lvl_4.js'
 import lvl_5 from './scenes/lvl_5.js'
+
 const config = {
     type: Phaser.CANVAS,
     scale: {

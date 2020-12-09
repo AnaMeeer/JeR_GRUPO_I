@@ -11,11 +11,15 @@ import Barra from '../gameObjects/barra.js';
 var amountDamageBullet = 50; //una bala normal les hace 1 de daño.
 var amountDamageLaser = 10; //el laser hace 50 de daño
 var amountDamageEnemy = 100;
+var fireRate = 100;
+var spawnRate = 1000;
+var enemyFireRate = 5000;
 var p1;
 var p2;
 var spawnRate = 1000;
 var fireRate = 100;
 var enemyFireRate = 5000;
+
 
 class scene_Play extends Phaser.Scene {
     constructor() {
@@ -47,6 +51,7 @@ class scene_Play extends Phaser.Scene {
         this.iniciarEnemigoSoundDisparo1 = true;
         this.iniciarEnemigoSoundDisparo2 = true;
         this.iniciarEnemigoSoundDisparoLaser = true;
+
         this.victoriaPTS = 50;
         this.diffbosstRate = 300;
 
@@ -247,7 +252,6 @@ class scene_Play extends Phaser.Scene {
     }
 
     update(time, delta) {
-
         // if (this.score === this.victoriaPTS) {
         //     this.musicaInGame.stop();
         //     this.scene.stop('scene_Play');
@@ -260,6 +264,7 @@ class scene_Play extends Phaser.Scene {
         if (this.score >= this.diffbosstRate){
             this.dificulty();
             this.diffbosstRate += 300;
+
         }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
@@ -372,7 +377,9 @@ class scene_Play extends Phaser.Scene {
         })
 
         if (!p1 && !p2) {
+
             this.musicaInGame.stop();
+
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');

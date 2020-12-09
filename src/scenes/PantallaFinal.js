@@ -6,9 +6,9 @@ export default class PantallaFinal extends Phaser.Scene {
     create(data) {
         this.fondo = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
         this.puntos = data.score;
-        this.final = data.condition;
+        this.victoriaPts = data.condition;
 
-        if (this.puntos === this.final) {
+        if (this.puntos === this.victoriaPts) {
             this.texto = this.add.bitmapText(this.fondo.x - 230, this.fondo.y - 20, 'NierFontBlack', "Felicidades, ganaste. Pulsa el boton para reiniciar", 20);
         }
         else {
