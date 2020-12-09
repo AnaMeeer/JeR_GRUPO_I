@@ -259,7 +259,7 @@ class lvl_2 extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPts });
+            this.scene.start('PantallaFinal', { score: 0, condition: 0 });
         }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
@@ -377,7 +377,7 @@ class lvl_2 extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS });
+            this.scene.start('PantallaFinal', { score: 0, condition: 1 });
         }
     }
 }

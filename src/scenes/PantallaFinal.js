@@ -9,10 +9,16 @@ export default class PantallaFinal extends Phaser.Scene {
         this.victoriaPts = data.condition;
 
         if (this.puntos === this.victoriaPts) {
-            this.texto = this.add.bitmapText(this.fondo.x -250, this.fondo.y - 20, 'NierFontBlack', "Congratulations, You won. Press the button to try again.", 20);
+            this.texto = this.add.bitmapText(this.fondo.x - 250, this.fondo.y - 20, 'NierFontBlack', "Congratulations, You won. Press the button to try again.", 20);
+            if (this.puntos > 0) {
+                this.texto = this.add.bitmapText(this.fondo.x - 250, this.fondo.y - 30, 'NierFontBlack', "Your Score: " + this.puntos, 20);
+            }
         }
         else {
             this.texto = this.add.bitmapText(this.fondo.x - 180, this.fondo.y - 20, 'NierFontBlack', "You lost. Press the button to try again.", 20);
+            if (this.puntos > 0) {
+                this.texto = this.add.bitmapText(this.fondo.x - 80, this.fondo.y - 50, 'NierFontBlack', "Your Score: " + this.puntos, 20);
+            }
         }
 
         this.icono = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2 + 50, 'home').setInteractive({ useHandCursor: true }).setScale(0.15)

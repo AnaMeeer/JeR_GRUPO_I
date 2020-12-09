@@ -259,7 +259,7 @@ class lvl_4 extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: 1, condition: 1 });
+            this.scene.start('PantallaFinal', { score: 0, condition: 0 });
         }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
