@@ -157,7 +157,6 @@ class scene_Play extends Phaser.Scene {
                 that.score += 5;
                 that.count++;
                 that.texto.text = "Points: " + that.score;
-                console.log(that.primeravez);
                 that.barraEnergia.increasePowerUp(10);
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
                     that.muerteEnemigoSound.setVolume(0.1);
@@ -174,7 +173,6 @@ class scene_Play extends Phaser.Scene {
                 that.score += 5;
                 that.count++;
                 that.texto.text = "Points: " + that.score;
-                console.log(that.primeravez);
                 if (that.barreras.isAlive()) {
                     that.barraEnergia2.increasePowerUp(1);
                 }

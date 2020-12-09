@@ -18,7 +18,6 @@ export default class EscenaSonido extends Phaser.Scene {
         this.click2Sound = data.click2;
         this.sonidos = data.sonidos;
 
-        console.log(this.musicaClickada);
         this.fondo = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
         this.iconMusica = this.add.image(this.sys.game.config.width / 2 - 100, this.sys.game.config.height / 2, 'musica').setInteractive({ useHandCursor: true }).setScale(0.10)
             .on("pointerover", () => {

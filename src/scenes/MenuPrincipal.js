@@ -118,7 +118,6 @@ export default class MenuPrincipal extends Phaser.Scene {
                             //lo que ocurrirá al pulsar el botón
                             this.click2Sound.setVolume(0.1);
                             this.click2Sound.play();
-                            console.log("hola");
                             this.scene.start('SelectorNiveles', { escena: this });             
 
                         })
