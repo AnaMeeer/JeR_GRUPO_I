@@ -6,11 +6,14 @@ export default class EscenaPausa extends Phaser.Scene {
     create(data) {
         var that = this;
         this.musica = data.musica;
-        this.musicaInGame = data.musica2;
+        this.musicaInGame = data.musicaInGame;
         this.click1Sound = data.click1;
         this.click2Sound = data.click2;
         this.cursor_ESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         this.render = false;
+        this.escenaSeleccionada = data.escena;
+
+
 
         this.pausa = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'ImagenPausa');
         this.quit = this.add.image(this.sys.game.config.width / 2 + 1, this.sys.game.config.height / 2 + 9, 'quit');
@@ -25,6 +28,12 @@ export default class EscenaPausa extends Phaser.Scene {
             that.musicaInGame.stop();
             that.click2Sound.play();
             that.scene.stop('scene_Play');
+            that.scene.stop('lvl_1');
+            that.scene.stop('lvl_2');
+            that.scene.stop('lvl_3');
+            that.scene.stop('lvl_4');
+            that.scene.stop('lvl_5');
+            that.scene.stop('SelectorNiveles');
             that.scene.stop('Bootloader');
             that.scene.stop('MenuPrincipal');
             that.scene.stop('PantallaFinal');
@@ -37,15 +46,40 @@ export default class EscenaPausa extends Phaser.Scene {
 
 
         this.no = this.add.image(this.sys.game.config.width / 2 + 82.5, this.sys.game.config.height / 2 + 87, 'no').setInteractive({ useHandCursor: true }).on('pointerup', function () {
-            that.scene.wake('scene_Play');
-            that.click2Sound.play();
+            switch (that.escenaSeleccionada) {
+                case 1:
+                    that.scene.wake('lvl_1');
+                    that.click2Sound.play();
+                    break;
+                case 2:
+                    that.scene.wake('lvl_2');
+                    that.click2Sound.play();
+                    break;
+                case 3:
+                    that.scene.wake('lvl_3');
+                    that.click2Sound.play();
+                    break;
+                case 4:
+                    that.scene.wake('lvl_4');
+                    that.click2Sound.play();
+                    break;
+                case 5:
+                    that.scene.wake('lvl_5');
+                    that.click2Sound.play();
+                    break;
+                case 6:
+                    that.scene.wake('scene_Play');
+                    that.click2Sound.play();
+                    break;
+            }
+           
 
         });
 
 
         //Boton NO
         this.no.on("pointerover", () => {
-            that.click1Sound.play();
+
             this.no.setScale(1.1, 1.1);
             this.no.setAlpha(0.7);
         })
@@ -58,7 +92,7 @@ export default class EscenaPausa extends Phaser.Scene {
 
         //Boton YES
         this.yes.on("pointerover", () => {
-            that.click1Sound.play();
+
             this.yes.setScale(1.1, 1.1);
             this.yes.setAlpha(0.7);
         })
@@ -68,7 +102,7 @@ export default class EscenaPausa extends Phaser.Scene {
 
         //Boton SFX
         this.sfx.on("pointerover", () => {
-            that.click1Sound.play();
+
             this.sfx.setScale(1.1, 1.1);
             this.sfx.setAlpha(0.7);
         })

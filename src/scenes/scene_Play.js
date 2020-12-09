@@ -25,7 +25,7 @@ class scene_Play extends Phaser.Scene {
 
     create(data) {
         //Musica
-
+        this.nombreEscena = 'scene_Play';
         var musicConfigInGame = {
             mute: false,
             volume: 0.3,

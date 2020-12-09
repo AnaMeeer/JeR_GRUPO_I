@@ -7,16 +7,16 @@ export default class EscenaSonido extends Phaser.Scene {
     // 
     create(data) {
         var that = this;
-        this.click1Sound = data.escena.click1Sound;
-        this.click2Sound = data.escena.click2Sound;
+        this.click1Sound = data.click1Sound;
+        this.click2Sound = data.click2Sound;
         this.musicaClickada = false;
         this.sonidoClickado = false;
 
-        this.musica = data.escena.musica;
-        this.musicaInGame = data.escena.musicaInGame;
-        this.click1Sound = data.escena.click1Sound;
-        this.click2Sound = data.escena.click2Sound;
-        this.sonidos = data.escena.sonidos;
+        this.musica = data.musica;
+        this.musicaInGame = data.musicaInGame;
+        this.click1Sound = data.click1;
+        this.click2Sound = data.click2;
+        this.sonidos = data.sonidos;
 
         console.log(this.musicaClickada);
         this.fondo = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
@@ -405,12 +405,13 @@ export default class EscenaSonido extends Phaser.Scene {
             });
         this.back = this.add.image(this.sys.game.config.width / 2 - 300, this.sys.game.config.height / 2 - 200, 'back').setInteractive({ useHandCursor: true }).setScale(0.05)
             .on("pointerover", () => {
-                this.back.setScale(0.07);
+                this.back.setScale(0.06);
             })
             .on("pointerout", () => {
                 this.back.setScale(0.05);
             })
             .on("pointerdown", () => {
+                this.back.setScale(0.05);
                 that.click2Sound.play();
                 that.scene.wake('EscenaPausa');
                 that.scene.sleep();

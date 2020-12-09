@@ -17,6 +17,16 @@ class Bootloader extends Phaser.Scene {
         this.load.bitmapFont('NierFont','./assets/font.png','./assets/font.fnt');
         this.load.bitmapFont('NierFontBlack', './assets/font2.png', './assets/font2.fnt');
 
+
+        //Cosas que usa el Selector de niveles
+        this.load.image("Nivel1", "./assets/Nivel1.png");
+        this.load.image("Nivel2", "./assets/Nivel2.png");
+        this.load.image("Nivel3", "./assets/Nivel3.png");
+        this.load.image("Nivel4", "./assets/Nivel4.png");
+        this.load.image("Nivel5", "./assets/Nivel5.png");
+        this.load.image("NivelInfinito", "./assets/Infinitus.png");
+        this.load.image("Tutorial", "./assets/Tutorial.png");
+
         //Cosas que usa scene_Play
         this.load.image("lunaran", "./assets/nave.png");
         this.load.image("lunaran2", "./assets/nave2.png");
