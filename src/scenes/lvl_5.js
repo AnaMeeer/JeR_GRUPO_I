@@ -1,7 +1,7 @@
 import Lunaran from '../gameObjects/lunaran.js';
 import Balas from '../gameObjects/balas.js';
 import Enemies from '../gameObjects/enemy.js';
-import BounceEnemies from '../gameObjects/BounceEnemy.js';
+import WideEnemies from '../gameObjects/enemigoAncho.js';
 import Lasers from '../gameObjects/laser.js';
 import Barreras from '../gameObjects/barrera.js';
 import Vidas from '../gameObjects/vidas.js';
@@ -12,14 +12,15 @@ var amountDamageBullet = 50; //una bala normal les hace 1 de daño.
 var amountDamageLaser = 10; //el laser hace 50 de daño
 var amountDamageEnemy = 100;
 var fireRate = 100;
-var spawnRate = 500;
+var spawnRate = 1000;
 var enemyFireRate = 5000;
+var swipeRate = 1500;
 var p1;
 var p2;
 
-class lvl_4 extends Phaser.Scene {
+class lvl_5 extends Phaser.Scene {
     constructor() {
-        super({ key: "lvl_4" });
+        super({ key: "lvl_5" });
     }
 
 
@@ -36,7 +37,7 @@ class lvl_4 extends Phaser.Scene {
         var that = this;
         this.primeravez = true;
         this.count = 0;
-        this.value = 60;
+        this.value = 180;
 
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
         this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
@@ -72,8 +73,6 @@ class lvl_4 extends Phaser.Scene {
         //Balas
         this.bulletsP1 = new Balas(this);
         this.balas1 = this.bulletsP1.getChildren(false);
-        console.log(this.bulletsP1);
-        console.log(this.balas1[0]);
         for (let index = 0; index < this.balas1.length; index++) {
             let element = this.balas1[index];
             element.body.enable = false;
@@ -106,7 +105,14 @@ class lvl_4 extends Phaser.Scene {
         }
 
         //Enemigos
-        this.enemies = new BounceEnemies(this);
+        this.enemies = new Enemies(this);
+        this.wideEnemies = new WideEnemies(this);
+        this.wideEnemiesInit = this.wideEnemies.getChildren();
+        for (let index = 0; index < this.wideEnemiesInit.length; index++) {
+            const element = this.wideEnemiesInit[index];
+            element.body.enable = false;
+        }
+
 
         //Colisión Bala-Jugador1
         function player1Hit(player, bullet) {
@@ -165,6 +171,14 @@ class lvl_4 extends Phaser.Scene {
             enemy.die();
             that.sistemaVida2.damage(amountDamageEnemy);
         }
+        
+        function wideEnemyPlayer1(player, enemy){
+            that.sistemaVida.damage(300);
+        }
+
+        function wideEnemyPlayer2(player, enemy){
+            that.sistemaVida2.damage(300);
+        }
 
         //Balas de Enemigos
         this.enemyBullets = new Balas(this);
@@ -196,9 +210,11 @@ class lvl_4 extends Phaser.Scene {
         this.physics.add.overlap(this.barreras, this.enemies, barrera);
         this.physics.add.collider(this.player1, this.enemies, enemyPlayer1);
         this.physics.add.collider(this.player2, this.enemies, enemyPlayer2);
-
+        this.physics.add.collider(this.player1, this.wideEnemies, wideEnemyPlayer1);
+        this.physics.add.collider(this.player2, this.wideEnemies, wideEnemyPlayer2);
 
         this.timerSpawn = this.time.addEvent({ delay: spawnRate, callback: spawnerFunc, callbackScope: this, loop: true });
+        this.timerSwipe = this.time.addEvent({ delay: swipeRate, callback: swipeFunc, callbackScope: this, loop: true });
         this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
         this.timerDisparoEnemigo = this.time.addEvent({ delay: enemyFireRate, callback: enemyShoot, callbackScope: this, loop: true });
 
@@ -364,11 +380,44 @@ function shootFunc() {
 
 
 function spawnerFunc() {
-    var x = (this.player1.x < 450) ? Phaser.Math.Between(450, 900) : Phaser.Math.Between(0, 400);
-    var y = (this.player2.y < 250) ? Phaser.Math.Between(250, 500) : Phaser.Math.Between(0, 250);
-    var xDir = (x < 450) ? Phaser.Math.Between(80, 120) : Phaser.Math.Between(-80, -120);
-    var yDir = (y < 250) ? Phaser.Math.Between(80, 120) : Phaser.Math.Between(-80, -120);
-    this.enemies.spawnEnemy(x, y, xDir, yDir);
+    var y = Phaser.Math.Between(-50, 300);
+    var x;
+    var xDir;
+    var yDir;
+    if (y < 0) {
+        x = Phaser.Math.Between(200, 600);
+        xDir = Phaser.Math.Between(-20, 20);
+        yDir = 100;
+        for (var i = 0; i < 5; i++) {
+            this.enemies.spawnEnemy(x + (25 * i), y, xDir, yDir);
+        }
+    }
+    else {
+        if (y % 2) {
+            x = -130
+            xDir = 200
+            yDir = Phaser.Math.Between(-20, 20);
+            for (var i = 0; i < 3; i++) {
+                this.enemies.spawnEnemy(x + (40 * i), y, xDir, yDir);
+            }
+        }
+        else {
+            x = 1030
+            xDir = -200
+            yDir = Phaser.Math.Between(-20, 20);
+            for (var i = 0; i < 3; i++) {
+                this.enemies.spawnEnemy(x - (40 * i), y, xDir, yDir);
+            }
+        }
+    }
+}
+
+function swipeFunc(){
+    let aux1 = this.sys.game.config.width / 6;
+    let aux2 = this.sys.game.config.width / 3;
+    let ran = Phaser.Math.Between(0,2);
+    let x = aux1 + aux2 * ran;
+    this.wideEnemies.spawnEnemy(x, 0);
 }
 
 function enemyShoot() {
@@ -379,31 +428,30 @@ function enemyShoot() {
     var eXDir;
     var eYDir;
     for (let i = 0; i < arrayEnemies.length; i++) {
-        enemigo = arrayEnemies[i];
-        var active = enemigo.active;
+        enemigo = arrayEnemies[i]
         eX = enemigo.body.position.x;
         eY = enemigo.body.position.y;
 
-        if (active) {
-            if (i % 2 && p1) {
-                eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
-                eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
-            }
-            else if (p2) {
-                eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
-                eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
-            }
-            else {
-                eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
-                eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
-            }
-            this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
+        if (i % 2 && p1) {
+            eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
+            eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
         }
+        else if (p2) {
+            eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
+            eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
+        }
+        else {
+            eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
+            eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
+        }
+        this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
     }
 }
+
+
 
 function barrera(barrera, bala) {
     bala.die();
 }
 
-export default lvl_4;
+export default lvl_5;

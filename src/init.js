@@ -8,7 +8,7 @@ import PantallaFinal from './scenes/PantallaFinal.js'
 import lvl_1 from './scenes/lvl_1.js'
 import lvl_2 from './scenes/lvl_2.js'
 import lvl_3 from './scenes/lvl_3.js'
-import lvl_4 from './scenes/lvl_4.js'
+import lvl_5 from './scenes/lvl_5.js'
 
 const config = {
     type: Phaser.CANVAS,
@@ -26,7 +26,7 @@ const config = {
         }
 
     },
-    scene: [Bootloader, PantallaFinal,EscenaSonido, EscenaPausa, lvl_4, MenuPrincipal]
+    scene: [Bootloader, PantallaFinal,EscenaSonido, EscenaPausa, lvl_5, MenuPrincipal]
 };
 
 new Phaser.Game(config);
