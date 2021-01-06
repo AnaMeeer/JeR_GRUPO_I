@@ -103,28 +103,38 @@ $(document).ready(function () {
         if (e.keyCode == 13) {
             var value = input.val();
             input.val('');
-            if (player != undefined) {
+            if (player != undefined && value.length > 0) {
                 var newmessage = {
                     user: player.name,
                     body: value
                 }
                 postMessage(newmessage, showMessage(newmessage));
-            }
-            else {
+            } else if (player === undefined) {
                 alert("Sign in or log in to use the chat");
             }
+            else {
+                alert("Enter a valid message")
+            }
+
         }
     });
 
     $('#add-button').click(function () {
         var value = input.val();
         input.val('');
-        var newmessage = {
-            user: player.name,
-            body: value
+        if (player != undefined && value.length > 0) {
+            var newmessage = {
+                user: player.name,
+                body: value
+            }
+            postMessage(newmessage, showMessage(newmessage));
+        } else if (player === undefined) {
+            alert("Sign in or log in to use the chat");
+        }
+        else {
+            alert("Enter a valid message")
         }
 
-        postMessage(newmessage, showMessage(newmessage));
     });
 
     $('#log-button').click(function () {
@@ -139,7 +149,7 @@ $(document).ready(function () {
             connected: true,
             highScore: 0
         }
-        if (newUser.password != undefined && newUser.length > 3) {
+        if (password.length > 3) {
             postUser(newUser);
         }
         else {
@@ -171,7 +181,7 @@ $(document).ready(function () {
         }
     });
 
-    
+
     $("#user-input").on("keydown", function search(e) {
         if (e.keyCode == 13) {
             var user = userInput.val();

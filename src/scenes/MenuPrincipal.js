@@ -1,16 +1,16 @@
 export default class MenuPrincipal extends Phaser.Scene {
     constructor() {
         super({ key: "MenuPrincipal" });
+
     }
 
     create() {
-
         //Musica
         this.click1Sound = this.sound.add("click1");
-        this.click2Sound=this.sound.add("click2");
+        this.click2Sound = this.sound.add("click2");
         this.musica = this.sound.add("musicaFondo");
         this.musicaInGame = this.sound.add("musicaInGame");
-       
+
         var musicConfig = {
             mute: false,
             volume: 0.1,
@@ -38,7 +38,7 @@ export default class MenuPrincipal extends Phaser.Scene {
 
         //Renderizamos el fondo
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
-        
+
 
         //Renderizamos la primera imagen del SpriteSheet
         this.imagen = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'anim_intro', 'SpriteIntro_0001.png').setInteractive({ useHandCursor: true });
@@ -118,8 +118,8 @@ export default class MenuPrincipal extends Phaser.Scene {
                             //lo que ocurrirá al pulsar el botón
                             this.click2Sound.setVolume(0.1);
                             this.click2Sound.play();
-                            this.scene.start('SelectorNiveles', { escena: this });             
-
+                            this.scene.start('EscenaLobby', { escena: this });
+                            OcultarTodo();
                         })
                     }, callbackScope: this
                 });
