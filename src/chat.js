@@ -1,15 +1,27 @@
 function OcultarTodo() {
-  var x = document.getElementById("myCanvas");
+  var x = document.getElementById("canvas-wrap");
   var y = document.getElementById("botones-user");
   var z = document.getElementById("botones-chat");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-    y.style.display = "block";
-    z.style.display = "block";
+  if (x.style.visibility === "hidden") {
+    x.style.visibility = "visible";
+    y.style.visibility = "visible";
+    z.style.visibility = "visible";
   } else {
-    x.style.display = "none";
-    y.style.display = "none";
-    z.style.display = "none";
+    x.style.visibility = "hidden";
+    y.style.visibility = "hidden";
+    z.style.visibility = "hidden";
+  }
+}
+
+
+function ChatAlTerminar() {
+  var x = document.getElementById("canvas-wrap");
+  var y = document.getElementById("botones-user");
+  var z = document.getElementById("botones-chat");
+  if (x.style.display != "hidden") {
+    x.style.visibility = "hidden";
+    y.style.visibility = "hidden";
+    z.style.visibility = "hidden";
   }
 }
 

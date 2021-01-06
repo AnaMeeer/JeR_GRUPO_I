@@ -31,7 +31,7 @@ export default class PantallaFinal extends Phaser.Scene {
             .on("pointerdown", () => {
                 this.scene.start('Bootloader');
                 this.scene.start('MenuPrincipal');
-
+                // ChatAlTerminar();
             });
 
     }

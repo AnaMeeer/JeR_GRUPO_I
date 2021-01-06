@@ -9,7 +9,7 @@ export default class EscenaPausa extends Phaser.Scene {
         this.musicaInGame = data.musicaInGame;
         this.click1Sound = data.click1;
         this.click2Sound = data.click2;
-        
+
         this.escenaSeleccionada = data.escena;
 
 
@@ -40,6 +40,7 @@ export default class EscenaPausa extends Phaser.Scene {
 
             that.scene.start('Bootloader');
             that.scene.start('MenuPrincipal');
+            // ChatAlTerminar();
 
         });
 
@@ -71,7 +72,7 @@ export default class EscenaPausa extends Phaser.Scene {
                     that.click2Sound.play();
                     break;
             }
-           
+
 
         });
 
@@ -113,9 +114,3 @@ export default class EscenaPausa extends Phaser.Scene {
     }
 
 }
-
-
-
-
-
-

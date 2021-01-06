@@ -1,48 +1,48 @@
-#container{
+#container {
     position: relative;
 
 }
 
 #canvas-wrap {
-    position: absolute;
-    background-color: rgba(0, 255,0, 0.3);
-    display: flex;
-    top:50%;
-    right: 1%;
-    overflow-y:auto;
-    /* transition: 0.2s all ease; */
+    position        : absolute;
+    background-color: rgba(0, 255, 0, 0.3);
+    display         : flex;
+    top             : 50%;
+    right           : 1%;
+    overflow-y      : auto;
+    /* transition   : 0.2s all ease; */
 }
 
-#canvas-wrap:hover{
-    transform: scale(1.1,1.1);
+#canvas-wrap:hover {
+    transform       : scale(1.1, 1.1);
     transform-origin: bottom right;
 }
 
 /* Make this a positioned parent */
 #chat {
-    position: absolute;
+    position   : absolute;
     font-weight: bold;
-    left: -1px;
-    padding: 10px 7px 5px;
-    
+    left       : -1px;
+    padding    : 10px 7px 5px;
+
 
 }
 
-#botones-user{
+#botones-user {
     position: absolute;
-    display: flex;
-    top:25%;
-    left: 1%;
+    display : flex;
+    top     : 25%;
+    left    : 1%;
 
 }
 
-#botones-chat{
+#botones-chat {
     position: absolute;
-    display: flex;
-    top:72%;
-    right: 1%;
+    display : flex;
+    top     : 72%;
+    right   : 1%;
 }
 
-#add-button{
-margin-left: 10px;
+#add-button {
+    margin-left: 10px;
 }
