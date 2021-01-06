@@ -1,5 +1,6 @@
 
 import Bootloader from './bootloader.js'
+import EscenaLobby from './scenes/EscenaLobby.js'
 import MenuPrincipal from './scenes/MenuPrincipal.js'
 import scene_Play from './scenes/scene_Play.js'
 import EscenaPausa from './scenes/EscenaPausa.js'
@@ -28,7 +29,7 @@ const config = {
         }
 
     },
-    scene: [Bootloader, PantallaFinal, EscenaSonido, EscenaPausa, scene_Play, lvl_5, lvl_4, lvl_3, lvl_2, lvl_1, SelectorNiveles, MenuPrincipal]
+    scene: [Bootloader, PantallaFinal, EscenaSonido, EscenaPausa, scene_Play, lvl_5, lvl_4, lvl_3, lvl_2, lvl_1, SelectorNiveles, MenuPrincipal, EscenaLobby]
 };
 
 new Phaser.Game(config);
