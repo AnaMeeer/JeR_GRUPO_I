@@ -6,9 +6,12 @@ function getMessages() {
     $.ajax({
         url: "http://193.161.193.99:30998/messages"
     }).done(function (data) {
+        $('#chat').empty();
+        $('#chat').append('/////////////////////////Welcome to the chat/////////////////////////');
         for (var i = 0; i < data.length; i++) {
             showMessage(data[i]);
         }
+        getMessages();
     });
 }
 
@@ -65,9 +68,30 @@ function putUser(user) {
         player = undefined;
     })
 }
+function getConnectedUsers(){
+    $.ajax({
+        url: "http://193.161.193.99:30998/users/status"
+    }).done(function(data){
+        updateStatus(data);
+        getConnectedUsers();
+    }).fail(function(){
+        serverNotFound();
+    })
+}
 
 //----------------APP FUNCTIONS----------------//
 //----------------------------------------------------------------
+
+function serverNotFound(){
+    document.getElementById('estado-servidor').innerHTML = "Server status: disconnected";
+    document.getElementById('usuarios-conectados').innerHTML = "Users connected: unknown";
+
+}
+
+function updateStatus(users){
+    document.getElementById('usuarios-conectados').innerHTML = "Users connected: "+ users;
+    document.getElementById('estado-servidor').innerHTML = "Server status: connected";
+}
 
 function checkPassword(feedback, user) {
     if (feedback == -1) {
@@ -77,6 +101,7 @@ function checkPassword(feedback, user) {
         player = user;
         player.id = feedback;
         alert("Welcome ");
+
     }
 }
 
@@ -88,9 +113,9 @@ function showMessage(m) {
 //======================================================================================
 
 //let pageUrl = window.location.href;
-let pageUrl = "193.161.193.99:30998";
 let player;
 getMessages();
+getConnectedUsers();
 
 
 $(document).ready(function () {
@@ -98,6 +123,8 @@ $(document).ready(function () {
     var input = $('#value-input');
     var userInput = $('#user-input');
     var passwordInput = $('#password-input');
+
+    
 
     $("#value-input").on("keydown", function search(e) {
         if (e.keyCode == 13) {
