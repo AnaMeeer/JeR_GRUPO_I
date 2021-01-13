@@ -1165,6 +1165,12 @@ Algunos de los assets que se han incluido en el videojuego muestran el siguiente
 ![](https://i.imgur.com/BttZfYt.jpg)
 
 
-# 13. Miembros del equipo
+# 13. Diagrama de clases y API REST
+## El diagrama de clases y API REST de nuestro juego es el siguiente:
+
+![](https://i.imgur.com/8Tv267q.png)
+
+
+# 14. Miembros del equipo
 
 Ana Mercedes García, Paloma Leiva, Miguel Vidal y Bozhidar Petrov.
