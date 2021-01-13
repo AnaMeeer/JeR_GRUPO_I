@@ -1,0 +1,272 @@
+#interfaz{
+    position: absolute;
+}
+
+#canvas-wrap {
+    position        : absolute;
+    background-color: white;
+    display         : flex;
+    top             : 35%;
+    right           : 75vh;
+    overflow-y      : auto;
+    overflow-x      : hidden;
+    opacity         : 0.9;
+    /* transition   : 0.2s all ease; */
+}
+
+#chat {
+    position   : absolute;
+    font-weight: bold;
+    left       : -1px;
+    padding    : 10px 7px 5px;
+
+
+
+}
+
+#botones-user {
+    position: absolute;
+    display : flex;
+    top     : 25%;
+    left    : 1%;
+
+}
+
+#botones-chat {
+    position: absolute;
+    display : flex;
+    top     : 65%;
+    right   : 36%;
+}
+
+#add-button {
+    margin-left: 10px;
+}
+
+#estado-usuarios {
+    position: absolute;
+    top     : 70%;
+    right   : 43%;
+    color: white;
+}
+
+
+.form__group {
+    position  : relative;
+    bottom    : 85vh;
+    left      : 22vw;
+    padding   : 15px 0 0;
+    margin-top: 10px;
+    width     : 30%;
+}
+
+.CampoUsuario {
+    font-family  : inherit;
+    width        : 30%;
+    border       : 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline      : 0;
+    font-size    : 1.3rem;
+    color        : #fff;
+    padding      : 7px 0;
+    background   : transparent;
+    transition   : border-color 0.2s;
+}
+
+.CampoUsuario::placeholder {
+    color: transparent;
+}
+
+.CampoUsuario:placeholder-shown~.ContenidoUsuario {
+    font-size: 1.3rem;
+    cursor   : text;
+    top      : 20px;
+}
+
+.ContenidoUsuario {
+    position  : absolute;
+    top       : 0;
+    display   : block;
+    transition: 0.2s;
+    font-size : 1rem;
+    color     : #9b9b9b;
+}
+
+.CampoUsuario:focus {
+    padding-bottom    : 6px;
+    font-weight       : 700;
+    border-width      : 3px;
+    border-image      : linear-gradient(to right, #11998e, #38ef7d);
+    border-image-slice: 1;
+}
+
+.CampoUsuario:focus~.ContenidoUsuario {
+    position   : absolute;
+    top        : 0;
+    display    : block;
+    transition : 0.2s;
+    font-size  : 1rem;
+    color      : #11998e;
+    font-weight: 700;
+}
+
+/* reset input */
+.CampoUsuario:required,
+.CampoUsuario:invalid {
+    box-shadow: none;
+}
+
+body {
+    font-family    : 'Poppins', sans-serif;
+    display        : flex;
+    flex-direction : column;
+    justify-content: center;
+
+    min-height      : 100vh;
+    font-size       : 1rem;
+    background-color: #222222;
+}
+
+.form__group2 {
+    position  : relative;
+    bottom    : 94vh;
+    left      : 35vw;
+    padding   : 15px 0 0;
+    margin-top: 10px;
+    width     : 30%;
+}
+
+.CampoContraseña {
+    font-family  : inherit;
+    width        : 30%;
+    border       : 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline      : 0;
+    font-size    : 1.3rem;
+    color        : #fff;
+    padding      : 7px 0;
+    background   : transparent;
+    transition   : border-color 0.2s;
+}
+
+.CampoContraseña::placeholder {
+    color: transparent;
+}
+
+.CampoContraseña:placeholder-shown~.ContenidoContraseña {
+    font-size: 1.3rem;
+    cursor   : text;
+    top      : 20px;
+}
+
+.ContenidoContraseña {
+    position  : absolute;
+    top       : 0;
+    display   : block;
+    transition: 0.2s;
+    font-size : 1rem;
+    color     : #9b9b9b;
+}
+
+.CampoContraseña:focus {
+    padding-bottom    : 6px;
+    font-weight       : 700;
+    border-width      : 3px;
+    border-image      : linear-gradient(to right, #11998e, #38ef7d);
+    border-image-slice: 1;
+}
+
+.CampoContraseña:focus~.ContenidoContraseña {
+    position   : absolute;
+    top        : 0;
+    display    : block;
+    transition : 0.2s;
+    font-size  : 1rem;
+    color      : #11998e;
+    font-weight: 700;
+}
+
+/* reset input */
+.CampoContraseña:required,
+.CampoContraseña:invalid {
+    box-shadow: none;
+}
+
+button {
+    background    : white;
+    border        : 0.125em solid black;
+    cursor        : pointer;
+    font          : sans-serif;
+    letter-spacing: 0.125em;
+    padding       : 0.5em 0.75em;
+    position      : relative;
+}
+
+:root {
+    --border-size    : 0.125rem;
+    --duration       : 250ms;
+    --ease           : cubic-bezier(0.215, 0.61, 0.355, 1);
+    --font-family    : monospace;
+    --color-primary  : white;
+    --color-secondary: teal;
+    --color-tertiary : black;
+    --shadow         : rgba(0, 128, 128, 0.1);
+    --space          : 1rem;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+.multi-button {
+    display   : flex;
+    width     : 100%;
+    box-shadow: var(--shadow) 4px 4px;
+    position: relative;
+    left: 45vh;
+    top: 1vh;
+}
+
+.multi-button button {
+    flex-grow       : 1;
+    cursor          : pointer;
+    position        : relative;
+    border          : var(--border-size) solid black;
+    color           : var(--color-secondary);
+    background-color: var(--color-primary);
+    font-size       : 1.05rem;
+    font-family     : var(--font-family);
+    text-shadow     : var(--shadow) 2px 2px;
+    transition      : flex-grow var(--duration) var(--ease);
+}
+
+.multi-button button+button {
+    border-left: var(--border-size) solid black;
+    margin-left: calc(var(--border-size) * -1);
+}
+
+.multi-button button:hover,
+.multi-button button:focus {
+    flex-grow       : 2;
+    color           : white;
+    outline         : none;
+    text-shadow     : none;
+    background-color: var(--color-secondary);
+}
+
+.multi-button button:focus {
+    outline       : var(--border-size) dashed var(--color-primary);
+    outline-offset: calc(var(--border-size) * -3);
+}
+
+.multi-button:hover button:focus:not(:hover) {
+    flex-grow       : 1;
+    color           : var(--color-secondary);
+    background-color: var(--color-primary);
+    outline-color   : var(--color-tertiary);
+}
+
+.multi-button button:active {
+    transform: translateY(var(--border-size));
+}
