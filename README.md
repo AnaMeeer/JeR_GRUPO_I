@@ -1171,6 +1171,19 @@ Algunos de los assets que se han incluido en el videojuego muestran el siguiente
 ![](https://i.imgur.com/8Tv267q.png)
 
 
-# 14. Miembros del equipo
+# 14. Instrucciones precisas para ejecutar la aplicación
+
+En nuestro caso, no hemos podido crear un .jar debido a que cuando este se creaba y ejecutaba, daba errores en el código que corriendo con el
+sts no sucedían. Por tanto la única forma de correrlo es a través de construir el proyecto con sts. Para ello, hace falta tener también
+PostgreSQL, debido a que nuestro servidor accede a una base de datos que hemos creado con esta aplicación y que nos ha sido imposible
+que se acceda a esta base de datos de forma remota. Si que es posible acceder, siempre y cuando nosotros corramos la aplicación en nuestro
+ordenador y se acceda a través de port-forwarding. La IP es la siguiente: 193.161.193.99:30998.
+
+En resumen, se ha creado un servidor con persistencia gracias a una base de datos, pero debido a nuestra inexperiencia no hemos podido crear
+el .jar
+
+
+
+# 15. Miembros del equipo
 
 Ana Mercedes García, Paloma Leiva, Miguel Vidal y Bozhidar Petrov.
