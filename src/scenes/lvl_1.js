@@ -78,20 +78,19 @@ class lvl_1 extends Phaser.Scene {
         this.player2 = new Lunaran(this, center_width + 10, 350, "lunaran2");
         //Controles
         //Jugador 1
-        this.cursor_w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        this.cursor_a = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this.cursor_s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        this.cursor_d = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        this.cursor_q = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);//power up
-        this.cursor_e = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);//dash
+        this.cursor_w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W, false);
+        this.cursor_a = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A, false);
+        this.cursor_s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S, false);
+        this.cursor_d = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D, false);
+        this.cursor_q = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q, false);//power up
+        this.cursor_e = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E, false);//dash
 
         //Jugador 2
-        this.cursor_i = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
-        this.cursor_j = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
-        this.cursor_k = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
-        this.cursor_l = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
-        this.cursor_o = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);//dash
-        this.cursor_u = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);//power up
+        this.cursor_i = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I, false);
+        this.cursor_j = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J, false);
+        this.cursor_k = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K, false);
+        this.cursor_l = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L, false);
+        this.cursor_o = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O, false);//dash
 
         //Balas
         this.bulletsP1 = new Balas(this);

@@ -7,16 +7,16 @@
     position        : absolute;
     background-color: rgba(0, 255, 0, 0.3);
     display         : flex;
-    top             : 50%;
-    right           : 1%;
+    top             : 40%;
+    right           : 2%;
     overflow-y      : auto;
+    overflow-x: hidden;
+    scale: inherit
+
     /* transition   : 0.2s all ease; */
 }
 
-#canvas-wrap:hover {
-    transform       : scale(1.1, 1.1);
-    transform-origin: bottom right;
-}
+
 
 /* Make this a positioned parent */
 #chat {
@@ -24,6 +24,7 @@
     font-weight: bold;
     left       : -1px;
     padding    : 10px 7px 5px;
+    scale: inherit
 
 
 }
@@ -39,10 +40,17 @@
 #botones-chat {
     position: absolute;
     display : flex;
-    top     : 72%;
-    right   : 1%;
+    top     : 80%;
+    right   : 23.5%;
 }
 
 #add-button {
     margin-left: 10px;
 }
+
+#estado-usuarios{
+    position: absolute;
+    top: 50%;
+    left: 5%;
+}
+

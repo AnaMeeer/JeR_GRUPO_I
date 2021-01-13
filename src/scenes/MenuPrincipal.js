@@ -118,6 +118,7 @@ export default class MenuPrincipal extends Phaser.Scene {
                             //lo que ocurrirá al pulsar el botón
                             this.click2Sound.setVolume(0.1);
                             this.click2Sound.play();
+                            
                             this.scene.start('EscenaLobby', { escena: this });
                             OcultarTodo();
                         })

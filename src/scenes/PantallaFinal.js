@@ -7,6 +7,11 @@ export default class PantallaFinal extends Phaser.Scene {
         this.fondo = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
         this.puntos = data.score;
         this.victoriaPts = data.condition;
+        this.player = data.player;
+        if(this.player.highScore < this.puntos){
+            this.player.highScore = this.puntos;
+            updateUser(this.player);
+        }
 
         if (this.puntos === this.victoriaPts) {
             this.texto = this.add.bitmapText(this.fondo.x - 250, this.fondo.y - 20, 'NierFontBlack', "Congratulations, You won. Press the button to try again.", 20);
@@ -17,7 +22,8 @@ export default class PantallaFinal extends Phaser.Scene {
         else {
             this.texto = this.add.bitmapText(this.fondo.x - 180, this.fondo.y - 20, 'NierFontBlack', "You lost. Press the button to try again.", 20);
             if (this.puntos > 0) {
-                this.texto = this.add.bitmapText(this.fondo.x - 80, this.fondo.y - 50, 'NierFontBlack', "Your Score: " + this.puntos, 20);
+                this.texto = this.add.bitmapText(this.fondo.x - 80, this.fondo.y - 50, 'NierFontBlack', "Your Score: " + this.puntos, 20 );
+                this.texto = this.add.bitmapText(this.fondo.x - 80, this.fondo.y - 80, 'NierFontBlack', "Your HighScore: " + this.player.highScore, 20);
             }
         }
 
@@ -35,4 +41,25 @@ export default class PantallaFinal extends Phaser.Scene {
             });
 
     }
+}
+
+function updateUser(user){
+    var newUser = {
+        name: user.name,
+        password: user.password,
+        connected: user.connected,
+        highScore: user.highScore
+    }
+    $.ajax({
+        method: 'PUT',
+        url: "http://193.161.193.99:30998/users/" + user.id,
+        data: JSON.stringify(newUser),
+        processData: false,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).done(function (data, textStatus) {
+        console.log('PUT: ' + textStatus);
+        console.log("De locos");
+    })
 }

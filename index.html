@@ -8,7 +8,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="src/chat.js"></script>
-    <script src="src/server.js"></script>
     <style>
         main {
             width: 100%;
@@ -26,10 +25,6 @@
     <main>
 
         <div id="container">
-            <div id=botones-chat>
-                <input type='text' id='value-input' placeholder="Message">
-                <button id='add-button'>Send</button>
-            </div>
             <div id="botones-user">
                 <input type="text" id="user-input" placeholder="Username">
                 <input type="password" id="password-input" placeholder="Password">
@@ -45,6 +40,10 @@
             <div id="estado-usuarios">
                 <p id='estado-servidor'>Server status: </p>
                 <p id='usuarios-conectados'></p>
+            </div>
+            <div id=botones-chat>
+                <input type='text' id='value-input' placeholder="Message">
+                <button id='add-button'>Send</button>
             </div>
         </div>
         <!-- <button onclick="OcultarTodo()">Try it</button> -->

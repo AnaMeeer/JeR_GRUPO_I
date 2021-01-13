@@ -94,7 +94,7 @@ export default class SelectorNiveles extends Phaser.Scene {
                 this.musica.stop();
                 this.scene.start("EscenaSonido", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos });
                 this.scene.start("EscenaPausa", { musica: that.musica, musicaInGame: that.musicaInGame, click1: that.click1Sound, click2: that.click2Sound, sonidos: that.sonidos, escena: 6 });
-                this.scene.start('scene_Play', { escena: this });
+                this.scene.start('scene_Play', { escena: this, player: data.player });
             });
         this.tutorial = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'Tutorial').setInteractive({ useHandCursor: true }).setScale(0.6)
             .on("pointerover", () => {
