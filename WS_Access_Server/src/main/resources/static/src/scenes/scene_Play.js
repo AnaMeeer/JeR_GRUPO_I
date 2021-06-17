@@ -255,7 +255,7 @@ class scene_Play extends Phaser.Scene {
         this.physics.add.collider(this.player2, this.wideEnemies, enemySwipe2);
 
 
-        // this.timerSpawn = this.time.addEvent({ delay: spawnRate, callback: spawnerFunc, callbackScope: this, loop: true });
+        this.timerSpawn = this.time.addEvent({ delay: spawnRate, callback: spawnerFunc, callbackScope: this, loop: true });
         // this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
         // this.timerDisparoEnemigo = this.time.addEvent({ delay: enemyFireRate, callback: enemyShoot, callbackScope: this, loop: true });
         // this.timerBounceEnemy = this.time.addEvent({ delay: bounceSpawnRate, callback: bounceSpawnerFunc, callbackScope: this, loop: true });
@@ -278,7 +278,7 @@ class scene_Play extends Phaser.Scene {
             }
         }
 
-        // //Función de control de dificultad
+        //Función de control de dificultad
         // this.dificulty = function difBoost() {
             // if (spawnRate > 200) {
                 // spawnRate -= 10;
@@ -302,6 +302,7 @@ class scene_Play extends Phaser.Scene {
             // }
 
         // }
+		
 		connectionP1.onmessage = function(msg) {
 			var message = JSON.parse(msg.data);
 			var x = message.x;
@@ -360,6 +361,7 @@ class scene_Play extends Phaser.Scene {
 
         //Player 1
 		var msg = {
+			type: 0,
             x: "0",
             y: "0"
         }
@@ -445,7 +447,15 @@ function shootFunc() {
 
 
 function spawnerFunc() {
+	var msg = {
+			type: 1,
+            x: "0",
+            y: "0",
+			xDir: "0",
+			yDir: "0",
+        }
     var y = Phaser.Math.Between(-50, 300);
+	msg.y = y;
     var x;
     var xDir;
     var yDir;
@@ -453,8 +463,12 @@ function spawnerFunc() {
         x = Phaser.Math.Between(200, 600);
         xDir = Phaser.Math.Between(-20, 20);
         yDir = 100;
+		msg.xDir = xDir;
+		msg.yDir = yDir;
         for (var i = 0; i < 5; i++) {
             this.enemies.spawnEnemy(x + (25 * i), y, xDir, yDir);
+			msg.x = x + (25 *i);
+			connectionP1.send(JSON.stringify(msg));
         }
     }
     else {
@@ -462,16 +476,24 @@ function spawnerFunc() {
             x = -130
             xDir = 200
             yDir = Phaser.Math.Between(-20, 20);
+			msg.xDir = xDir;
+			msg.yDir = yDir;
             for (var i = 0; i < 3; i++) {
                 this.enemies.spawnEnemy(x + (40 * i), y, xDir, yDir);
+				msg.x = x + (40 *i);
+				connectionP1.send(JSON.stringify(msg));
             }
         }
         else {
             x = 1030
             xDir = -200
             yDir = Phaser.Math.Between(-20, 20);
+			msg.xDir = xDir;
+			msg.yDir = yDir;
             for (var i = 0; i < 3; i++) {
                 this.enemies.spawnEnemy(x - (40 * i), y, xDir, yDir);
+				msg.x = x - (40 *i);
+				connectionP1.send(JSON.stringify(msg));
             }
         }
     }

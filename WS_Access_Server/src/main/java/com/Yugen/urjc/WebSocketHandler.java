@@ -42,8 +42,18 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	private void sendToOtherParticipants(WebSocketSession session, JsonNode node) throws IOException{
 		//System.out.println("Message sent: " + node.toString());
 		ObjectNode newNode = mapper.createObjectNode();
+		int type = -1;
+		if(node.get("type") != null) {
+			type = node.get("type").asInt();
+			newNode.put("type", node.get("type").asInt());
+		}
+		
 		newNode.put("x", node.get("x").asInt());
 		newNode.put("y", node.get("y").asInt());
+		if(type == 1) {
+			newNode.put("xDir", node.get("xDir").asInt());
+			newNode.put("yDir", node.get("yDir").asInt());
+		}
 		for(WebSocketSession participant : sessions.values()) {
 			if(!participant.getId().equals(session.getId())) {
 				synchronized(participant) {

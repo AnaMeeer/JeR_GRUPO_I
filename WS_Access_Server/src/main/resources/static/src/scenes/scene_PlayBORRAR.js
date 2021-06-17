@@ -301,12 +301,22 @@ class scene_PlayBORRAR extends Phaser.Scene {
         // }
 		connectionP2.onmessage = function(msg) {
 			var message = JSON.parse(msg.data);
-			var x = message.x;
-			var y = message.y;
-			console.log("MSG: " + msg.data);
-			console.log("x: " + x + "; y:" + y); 
-			that.player1.body.setVelocityX(200 * x);
-			that.player1.body.setVelocityY(200 * y);
+			var type = message.type;
+			if(type == 0){
+				var x = message.x;
+				var y = message.y;
+				console.log("MSG: " + msg.data);
+				console.log("x: " + x + "; y:" + y); 
+				that.player1.body.setVelocityX(200 * x);
+				that.player1.body.setVelocityY(200 * y);
+			}
+			else if(type == 1){
+				var x = message.x;
+				var y = message.y;
+				var xDir = message.xDir;
+				var yDir = message.yDir;
+				that.enemies.spawnEnemy(x, y, xDir, yDir);
+			}
 		}
     }
 
