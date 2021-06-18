@@ -260,6 +260,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
         
         // this.timerBounceEnemy.paused = true;
         // this.timerSwipeEnemy.paused = true;
+		this.timerDisparo.paused = true;
 
         //impacto del laser contra un enemigo
         function laserEnemy(laser, enemy) {
@@ -336,6 +337,9 @@ class scene_PlayBORRAR extends Phaser.Scene {
 			
 				that.wideEnemies.spawnEnemy(x, 0);
 			}
+			else if (type == -2){
+				that.timerDisparo.paused = false;
+			}
 		}
     }
 
@@ -394,6 +398,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
         }
         if (this.cursor_k.isDown) {
             this.player2.body.setVelocityY(200);
+			this.player1.body.setVelocityX(0);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityY(1000);
                 this.barraDash2.decrease(8);
@@ -402,6 +407,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
         }
         else if (this.cursor_i.isDown) {
             this.player2.body.setVelocityY(-200);
+			this.player1.body.setVelocityX(0);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityY(-1000);
                 this.barraDash2.decrease(8);
@@ -410,6 +416,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
         }
         else if (this.cursor_l.isDown) {
             this.player2.body.setVelocityX(200);
+			this.player1.body.setVelocityY(0);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityX(1000);
                 this.barraDash2.decrease(8);
@@ -418,6 +425,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
         }
         else if (this.cursor_j.isDown) {
             this.player2.body.setVelocityX(-200);
+			this.player1.body.setVelocityY(0);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityX(-1000);
                 this.barraDash2.decrease(8);

@@ -261,8 +261,8 @@ class scene_Play extends Phaser.Scene {
         this.timerBounceEnemy = this.time.addEvent({ delay: bounceSpawnRate, callback: bounceSpawnerFunc, callbackScope: this, loop: true });
         this.timerSwipeEnemy = this.time.addEvent({ delay:swipeRate , callback: swipeFunc, callbackScope: this, loop: true });
         
-        // this.timerBounceEnemy.paused = true;
-        // this.timerSwipeEnemy.paused = true;
+        this.timerBounceEnemy.paused = true;
+        this.timerSwipeEnemy.paused = true;
 
         //impacto del laser contra un enemigo
         function laserEnemy(laser, enemy) {
@@ -278,30 +278,30 @@ class scene_Play extends Phaser.Scene {
             }
         }
 
-        //Función de control de dificultad
-        // this.dificulty = function difBoost() {
-            // if (spawnRate > 200) {
-                // spawnRate -= 10;
-                // that.timerSpawn.delay = spawnRate;
-            // }
-            // if (enemyFireRate > 1000) {
-                // enemyFireRate -= 20;
-                // that.timerDisparoEnemigo.delay = enemyFireRate;
-            // }
-            // if(that.score > this.initBounce && bounceSpawnRate > 1000){
-                // bounceSpawnRate -= 10;
-            // }
-            // if(that.score > this.initSwipe && swipeRate > 1500){
-                // swipeRate -= 10;
-            // }
-            // if(that.score === 4000){
-                // amountDamageBullet = 34;
-            // }
-            // if(that.score === 8000){
-                // amountDamageBullet = 25;
-            // }
+        // Función de control de dificultad
+        this.dificulty = function difBoost() {
+            if (spawnRate > 200) {
+                spawnRate -= 10;
+                that.timerSpawn.delay = spawnRate;
+            }
+            if (enemyFireRate > 1000) {
+                enemyFireRate -= 20;
+                that.timerDisparoEnemigo.delay = enemyFireRate;
+            }
+            if(that.score > this.initBounce && bounceSpawnRate > 1000){
+                bounceSpawnRate -= 10;
+            }
+            if(that.score > this.initSwipe && swipeRate > 1500){
+                swipeRate -= 10;
+            }
+            if(that.score === 4000){
+                amountDamageBullet = 34;
+            }
+            if(that.score === 8000){
+                amountDamageBullet = 25;
+            }
 
-        // }
+        }
 		
 		connectionP1.onmessage = function(msg) {
 			var message = JSON.parse(msg.data);
@@ -312,20 +312,26 @@ class scene_Play extends Phaser.Scene {
 			that.player2.body.setVelocityX(200 * x);
 			that.player2.body.setVelocityY(200 * y);
 		}
+		
+		var msgStart ={
+			type: -2,
+		}
+
+		connectionP1.send(JSON.stringify(msgStart));
     }
 
     update(time, delta) {
        
-        // if (this.score >= this.diffbosstRate) {
-            // this.dificulty();
-            // this.diffbosstRate += 300;
-        // }
-        // if (this.score === this.initBounce){
-            // this.timerBounceEnemy.paused = false;
-        // }
-        // if (this.score === this.initSwipe){
-            // this.timerSwipeEnemy.paused = false;
-        // }
+        if (this.score >= this.diffbosstRate) {
+            this.dificulty();
+            this.diffbosstRate += 300;
+        }
+        if (this.score === this.initBounce){
+            this.timerBounceEnemy.paused = false;
+        }
+        if (this.score === this.initSwipe){
+            this.timerSwipeEnemy.paused = false;
+        }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
             p1 = false;
@@ -367,6 +373,7 @@ class scene_Play extends Phaser.Scene {
         }
         if (this.cursor_a.isDown) {
             this.player1.body.setVelocityX(-200);
+			this.player1.body.setVelocityY(0);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 this.player1.body.setVelocityX(-1000); //velocidad del dash
                 this.barraDash.decrease(8);
@@ -375,6 +382,7 @@ class scene_Play extends Phaser.Scene {
         }
         else if (this.cursor_d.isDown) {
             this.player1.body.setVelocityX(200);
+			this.player1.body.setVelocityY(0);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 this.player1.body.setVelocityX(1000);
                 this.barraDash.decrease(8);
@@ -383,6 +391,7 @@ class scene_Play extends Phaser.Scene {
         }
         else if (this.cursor_w.isDown) {
             this.player1.body.setVelocityY(-200);
+			this.player1.body.setVelocityX(0);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 this.player1.body.setVelocityY(-1000);
                 this.barraDash.decrease(8);
@@ -391,6 +400,7 @@ class scene_Play extends Phaser.Scene {
         }
         else if (this.cursor_s.isDown) {
             this.player1.body.setVelocityY(200);
+			this.player1.body.setVelocityX(0);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 this.player1.body.setVelocityY(1000);
                 this.barraDash.decrease(8);
