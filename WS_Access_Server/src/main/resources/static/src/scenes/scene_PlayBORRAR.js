@@ -253,7 +253,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
 
 
         // this.timerSpawn = this.time.addEvent({ delay: spawnRate, callback: spawnerFunc, callbackScope: this, loop: true });
-        // this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
+        this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
         // this.timerDisparoEnemigo = this.time.addEvent({ delay: enemyFireRate, callback: enemyShoot, callbackScope: this, loop: true });
         // this.timerBounceEnemy = this.time.addEvent({ delay: bounceSpawnRate, callback: bounceSpawnerFunc, callbackScope: this, loop: true });
         // this.timerSwipeEnemy = this.time.addEvent({ delay:swipeRate , callback: swipeFunc, callbackScope: this, loop: true });
@@ -316,6 +316,25 @@ class scene_PlayBORRAR extends Phaser.Scene {
 				var xDir = message.xDir;
 				var yDir = message.yDir;
 				that.enemies.spawnEnemy(x, y, xDir, yDir);
+			}
+			else if(type == 2){
+				var x = message.x;
+				var y = message.y;
+				var xDir = message.xDir;
+				var yDir = message.yDir;
+				that.enemyBullets.fireBullet(x, y, xDir, yDir);
+			}
+			else if(type == 3){
+				var x = message.x;
+				var y = message.y;
+				var xDir = message.xDir;
+				var yDir = message.yDir;
+				that.bounceEnemies.spawnEnemy(x, y, xDir, yDir);
+			}
+			else if(type == 4){
+				var x = message.x;
+			
+				that.wideEnemies.spawnEnemy(x, 0);
 			}
 		}
     }

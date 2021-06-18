@@ -256,10 +256,10 @@ class scene_Play extends Phaser.Scene {
 
 
         this.timerSpawn = this.time.addEvent({ delay: spawnRate, callback: spawnerFunc, callbackScope: this, loop: true });
-        // this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
-        // this.timerDisparoEnemigo = this.time.addEvent({ delay: enemyFireRate, callback: enemyShoot, callbackScope: this, loop: true });
-        // this.timerBounceEnemy = this.time.addEvent({ delay: bounceSpawnRate, callback: bounceSpawnerFunc, callbackScope: this, loop: true });
-        // this.timerSwipeEnemy = this.time.addEvent({ delay:swipeRate , callback: swipeFunc, callbackScope: this, loop: true });
+        this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
+        this.timerDisparoEnemigo = this.time.addEvent({ delay: enemyFireRate, callback: enemyShoot, callbackScope: this, loop: true });
+        this.timerBounceEnemy = this.time.addEvent({ delay: bounceSpawnRate, callback: bounceSpawnerFunc, callbackScope: this, loop: true });
+        this.timerSwipeEnemy = this.time.addEvent({ delay:swipeRate , callback: swipeFunc, callbackScope: this, loop: true });
         
         // this.timerBounceEnemy.paused = true;
         // this.timerSwipeEnemy.paused = true;
@@ -500,22 +500,54 @@ function spawnerFunc() {
 }
 
 function bounceSpawnerFunc() {
+	var msg = {
+			type: 3,
+            x: "0",
+            y: "0",
+			xDir: "0",
+			yDir: "0",
+        }
+		
     var x = (this.player1.x < 450) ? Phaser.Math.Between(450, 900) : Phaser.Math.Between(0, 400);
     var y = (this.player2.y < 250) ? Phaser.Math.Between(250, 500) : Phaser.Math.Between(0, 250);
     var xDir = (x < 450) ? Phaser.Math.Between(80, 120) : Phaser.Math.Between(-80, -120);
     var yDir = (y < 250) ? Phaser.Math.Between(80, 120) : Phaser.Math.Between(-80, -120);
-    this.bounceEnemies.spawnEnemy(x, y, xDir, yDir);
+    
+	msg.x = x;
+	msg.y = y;
+	msg.xDir = xDir;
+	msg.yDir = yDir;
+	
+	connectionP1.send(JSON.stringify(msg));
+	
+	this.bounceEnemies.spawnEnemy(x, y, xDir, yDir);
 }
 
 function swipeFunc() {
+	var msg = {
+			type: 4,
+            x: "0"
+        }
     let aux1 = this.sys.game.config.width / 6;
     let aux2 = this.sys.game.config.width / 3;
     let ran = Phaser.Math.Between(0, 2);
     let x = aux1 + aux2 * ran;
+	
+	msg.x = x;
+	
+	connectionP1.send(JSON.stringify(msg));
+	
     this.wideEnemies.spawnEnemy(x, 0);
 }
 
 function enemyShoot() {
+	var msg = {
+			type: 2,
+            x: "0",
+            y: "0",
+			xDir: "0",
+			yDir: "0",
+        }
     var arrayEnemies = this.enemies.getChildren();
     var enemigo;
     var eX;
@@ -527,7 +559,9 @@ function enemyShoot() {
         var active = enemigo.active;
         eX = enemigo.body.position.x;
         eY = enemigo.body.position.y;
-
+		msg.x = eX;
+		msg.y = eY;
+		
         if (active) {
 
 
@@ -543,6 +577,9 @@ function enemyShoot() {
                 eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
                 eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
             }
+			msg.xDir = eXDir;
+			msg.yDir = eYDir;
+			connectionP1.send(JSON.stringify(msg));
             this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
         }
     }

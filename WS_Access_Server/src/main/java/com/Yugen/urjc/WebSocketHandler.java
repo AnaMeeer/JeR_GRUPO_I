@@ -48,11 +48,18 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			newNode.put("type", node.get("type").asInt());
 		}
 		
-		newNode.put("x", node.get("x").asInt());
-		newNode.put("y", node.get("y").asInt());
-		if(type == 1) {
+		if(type > 0 && type != 4) {
+			newNode.put("x", node.get("x").asInt());
+			newNode.put("y", node.get("y").asInt());
 			newNode.put("xDir", node.get("xDir").asInt());
 			newNode.put("yDir", node.get("yDir").asInt());
+		}
+		else if(type == 4) {
+			newNode.put("x", node.get("x").asInt());
+		}
+		else {
+			newNode.put("x", node.get("x").asInt());
+			newNode.put("y", node.get("y").asInt());
 		}
 		for(WebSocketSession participant : sessions.values()) {
 			if(!participant.getId().equals(session.getId())) {
