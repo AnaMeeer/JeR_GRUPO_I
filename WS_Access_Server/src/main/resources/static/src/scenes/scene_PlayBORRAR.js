@@ -28,10 +28,9 @@ var laser = false;
 var playerUser;
 
 
-
 class scene_PlayBORRAR extends Phaser.Scene {
     constructor() {
-        super({ key: "scene_PlayBORRAR" });
+        super({key: "scene_PlayBORRAR"});
     }
 
 
@@ -63,7 +62,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
 
         this.victoriaPTS = 50;
         this.diffbosstRate = 300;
-        
+
         this.initBounce = 1000;
         this.initSwipe = 2000;
 
@@ -79,7 +78,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
         this.score = 0;
         this.texto.text = "Points: " + "0";
 
-        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
+        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({useHandCursor: true});
 
         let center_width = this.sys.game.config.width / 2;
         //Lunara
@@ -121,7 +120,8 @@ class scene_PlayBORRAR extends Phaser.Scene {
 
         //PowerUp - Láser desintegrador.
         this.lasers = new Lasers(this);
-        this.lasersInit = this.lasers.getChildren(false);;
+        this.lasersInit = this.lasers.getChildren(false);
+        ;
         for (let index = 0; index < this.lasersInit.length; index++) {
             let element = this.lasersInit[index];
             element.body.enable = false;
@@ -148,6 +148,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
             bullet.die();
             that.sistemaVida.damage(amountDamageEnemy);
         }
+
         //Colisión Bala-Jugador2
         function player2Hit(player, bullet) {
             bullet.die();
@@ -157,30 +158,62 @@ class scene_PlayBORRAR extends Phaser.Scene {
         //Colisión BalaP1-Enemigo
         function bullet1Enemy(bullet, enemy) {
             bullet.die();
-            if (enemy.damageEnemy(amountDamageBullet)) {
-                that.score += 5;
-                that.count++;
-                that.texto.text = "Points: " + that.score;
-                that.barraEnergia.increasePowerUp(10);
-                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
-                    that.muerteEnemigoSound.setVolume(0.1);
-                    that.iniciarEnemigoSoundDisparoLaser = false;
-                }
-                that.muerteEnemigoSound.play();
-            }
         }
 
         //Colisión BalaP2-Enemigo
         function bullet2Enemy(bullet, enemy) {
             bullet.die();
+            var msgEnemy = {
+                type: 5,
+                idx: -1
+            }
+            var enemiesArray = that.enemies.getChildren();
+            for (let i = 0; i < enemiesArray.length; i++) {
+                if(enemiesArray[i] === enemy){
+                    msgEnemy.idx = i;
+                    break;
+                }
+            }
             if (enemy.damageEnemy(amountDamageBullet)) {
+                connectionP2.send(JSON.stringify(msgEnemy));
                 that.score += 5;
                 that.count++;
                 that.texto.text = "Points: " + that.score;
                 if (that.barreras.isAlive()) {
                     that.barraEnergia2.increasePowerUp(1);
+                } else {
+                    that.barraEnergia2.increasePowerUp(10);
                 }
-                else {
+                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                    that.muerteEnemigoSound.setVolume(0.1);
+                    that.iniciarEnemigoSoundDisparo2 = false;
+                }
+
+                that.muerteEnemigoSound.play();
+            }
+        }
+
+        function bullet2BounceEnemy(bullet, enemy) {
+            bullet.die();
+            var msgEnemy = {
+                type: 6,
+                idx: -1
+            }
+            var enemiesArray = that.bounceEnemies.getChildren();
+            for (let i = 0; i < enemiesArray.length; i++) {
+                if(enemiesArray[i] === enemy){
+                    msgEnemy.idx = i;
+                    break;
+                }
+            }
+            if (enemy.damageEnemy(amountDamageBullet)) {
+                connectionP2.send(JSON.stringify(msgEnemy));
+                that.score += 5;
+                that.count++;
+                that.texto.text = "Points: " + that.score;
+                if (that.barreras.isAlive()) {
+                    that.barraEnergia2.increasePowerUp(1);
+                } else {
                     that.barraEnergia2.increasePowerUp(10);
                 }
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
@@ -236,7 +269,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
         this.physics.add.collider(this.bulletsP1, this.enemies, bullet1Enemy);  //colision con una bala
         this.physics.add.collider(this.bulletsP2, this.enemies, bullet2Enemy);
         this.physics.add.collider(this.bulletsP1, this.bounceEnemies, bullet1Enemy);
-        this.physics.add.collider(this.bulletsP2, this.bounceEnemies, bullet2Enemy);
+        this.physics.add.collider(this.bulletsP2, this.bounceEnemies, bullet2BounceEnemy);
         this.physics.add.collider(this.lasers, this.enemies, laserEnemy);    //colision con el laser
         this.physics.add.collider(this.lasers, this.bounceEnemies, laserEnemy);
         this.physics.add.overlap(this.player1, this.enemyBullets, player1Hit);
@@ -253,14 +286,14 @@ class scene_PlayBORRAR extends Phaser.Scene {
 
 
         // this.timerSpawn = this.time.addEvent({ delay: spawnRate, callback: spawnerFunc, callbackScope: this, loop: true });
-        this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
+        this.timerDisparo = this.time.addEvent({delay: fireRate, callback: shootFunc, callbackScope: this, loop: true});
         // this.timerDisparoEnemigo = this.time.addEvent({ delay: enemyFireRate, callback: enemyShoot, callbackScope: this, loop: true });
         // this.timerBounceEnemy = this.time.addEvent({ delay: bounceSpawnRate, callback: bounceSpawnerFunc, callbackScope: this, loop: true });
         // this.timerSwipeEnemy = this.time.addEvent({ delay:swipeRate , callback: swipeFunc, callbackScope: this, loop: true });
-        
+
         // this.timerBounceEnemy.paused = true;
         // this.timerSwipeEnemy.paused = true;
-		this.timerDisparo.paused = true;
+        this.timerDisparo.paused = true;
 
         //impacto del laser contra un enemigo
         function laserEnemy(laser, enemy) {
@@ -278,82 +311,90 @@ class scene_PlayBORRAR extends Phaser.Scene {
 
         //Función de control de dificultad
         // this.dificulty = function difBoost() {
-            // if (spawnRate > 200) {
-                // spawnRate -= 10;
-                // that.timerSpawn.delay = spawnRate;
-            // }
-            // if (enemyFireRate > 1000) {
-                // enemyFireRate -= 20;
-                // that.timerDisparoEnemigo.delay = enemyFireRate;
-            // }
-            // if(that.score > this.initBounce && bounceSpawnRate > 1000){
-                // bounceSpawnRate -= 10;
-            // }
-            // if(that.score > this.initSwipe && swipeRate > 1500){
-                // swipeRate -= 10;
-            // }
-            // if(that.score === 4000){
-                // amountDamageBullet = 34;
-            // }
-            // if(that.score === 8000){
-                // amountDamageBullet = 25;
-            // }
+        // if (spawnRate > 200) {
+        // spawnRate -= 10;
+        // that.timerSpawn.delay = spawnRate;
+        // }
+        // if (enemyFireRate > 1000) {
+        // enemyFireRate -= 20;
+        // that.timerDisparoEnemigo.delay = enemyFireRate;
+        // }
+        // if(that.score > this.initBounce && bounceSpawnRate > 1000){
+        // bounceSpawnRate -= 10;
+        // }
+        // if(that.score > this.initSwipe && swipeRate > 1500){
+        // swipeRate -= 10;
+        // }
+        // if(that.score === 4000){
+        // amountDamageBullet = 34;
+        // }
+        // if(that.score === 8000){
+        // amountDamageBullet = 25;
+        // }
 
         // }
-		connectionP2.onmessage = function(msg) {
-			var message = JSON.parse(msg.data);
-			var type = message.type;
-			if(type == 0){
-				var x = message.x;
-				var y = message.y;
-				console.log("MSG: " + msg.data);
-				console.log("x: " + x + "; y:" + y); 
-				that.player1.body.setVelocityX(200 * x);
-				that.player1.body.setVelocityY(200 * y);
-			}
-			else if(type == 1){
-				var x = message.x;
-				var y = message.y;
-				var xDir = message.xDir;
-				var yDir = message.yDir;
-				that.enemies.spawnEnemy(x, y, xDir, yDir);
-			}
-			else if(type == 2){
-				var x = message.x;
-				var y = message.y;
-				var xDir = message.xDir;
-				var yDir = message.yDir;
-				that.enemyBullets.fireBullet(x, y, xDir, yDir);
-			}
-			else if(type == 3){
-				var x = message.x;
-				var y = message.y;
-				var xDir = message.xDir;
-				var yDir = message.yDir;
-				that.bounceEnemies.spawnEnemy(x, y, xDir, yDir);
-			}
-			else if(type == 4){
-				var x = message.x;
-			
-				that.wideEnemies.spawnEnemy(x, 0);
-			}
-			else if (type == -2){
-				that.timerDisparo.paused = false;
-			}
-		}
+        connectionP2.onmessage = function (msg) {
+            var message = JSON.parse(msg.data);
+            var type = message.type;
+            if (type == 0) {
+                var x = message.x;
+                var y = message.y;
+                that.player1.body.setVelocityX(200 * x);
+                that.player1.body.setVelocityY(200 * y);
+            } else if (type == 1) {
+                var x = message.x;
+                var y = message.y;
+                var xDir = message.xDir;
+                var yDir = message.yDir;
+                that.enemies.spawnEnemy(x, y, xDir, yDir);
+            } else if (type == 2) {
+                var x = message.x;
+                var y = message.y;
+                var xDir = message.xDir;
+                var yDir = message.yDir;
+                that.enemyBullets.fireBullet(x, y, xDir, yDir);
+            } else if (type == 3) {
+                var x = message.x;
+                var y = message.y;
+                var xDir = message.xDir;
+                var yDir = message.yDir;
+                that.bounceEnemies.spawnEnemy(x, y, xDir, yDir);
+            } else if (type == 4) {
+                var x = message.x;
+
+                that.wideEnemies.spawnEnemy(x, 0);
+            } else if (type == 5) {
+                var idx = message.idx;
+                var enemyArray = that.enemies.getChildren();
+
+                enemyArray[idx].destroy();
+
+                that.score += 5;
+                that.count++;
+                that.texto.text = "Points: " + that.score;
+                that.barraEnergia.increasePowerUp(10);
+                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                    that.muerteEnemigoSound.setVolume(0.1);
+                    that.iniciarEnemigoSoundDisparoLaser = false;
+                }
+                that.muerteEnemigoSound.play();
+            } else if (type == -2) {
+                that.timerDisparo.paused = false;
+            }
+        }
     }
 
     update(time, delta) {
-       
+
         // if (this.score >= this.diffbosstRate) {
-            // this.dificulty();
-            // this.diffbosstRate += 300;
+        // this.dificulty();
+        // this.diffbosstRate += 300;
         // }
         // if (this.score === this.initBounce){
-            // this.timerBounceEnemy.paused = false;
+        // this.timerBounceEnemy.paused = false;
         // }
         // if (this.score === this.initSwipe){
-            // this.timerSwipeEnemy.paused = false;
+        // this.timerSwipeEnemy.paused = false;
         // }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
@@ -371,7 +412,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
             this.barraEnergia.decrease(0.33);
             laser = true;
         }
-        if(this.cursor_q.isUp){
+        if (this.cursor_q.isUp) {
             laser = false;
         }
 
@@ -389,50 +430,47 @@ class scene_PlayBORRAR extends Phaser.Scene {
         }
 
         //Player 1
-        
+
 
         //Player 2
         var msg = {
+            type: 0,
             x: "0",
             y: "0"
         }
         if (this.cursor_k.isDown) {
             this.player2.body.setVelocityY(200);
-			this.player1.body.setVelocityX(0);
+            this.player1.body.setVelocityX(0);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityY(1000);
                 this.barraDash2.decrease(8);
             }
             msg.y = "1";
-        }
-        else if (this.cursor_i.isDown) {
+        } else if (this.cursor_i.isDown) {
             this.player2.body.setVelocityY(-200);
-			this.player1.body.setVelocityX(0);
+            this.player1.body.setVelocityX(0);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityY(-1000);
                 this.barraDash2.decrease(8);
             }
             msg.y = "-1";
-        }
-        else if (this.cursor_l.isDown) {
+        } else if (this.cursor_l.isDown) {
             this.player2.body.setVelocityX(200);
-			this.player1.body.setVelocityY(0);
+            this.player1.body.setVelocityY(0);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityX(1000);
                 this.barraDash2.decrease(8);
             }
             msg.x = "1";
-        }
-        else if (this.cursor_j.isDown) {
+        } else if (this.cursor_j.isDown) {
             this.player2.body.setVelocityX(-200);
-			this.player1.body.setVelocityY(0);
+            this.player1.body.setVelocityY(0);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityX(-1000);
                 this.barraDash2.decrease(8);
             }
             msg.x = "-1";
-        }
-        else {
+        } else {
             this.player2.body.setVelocity(0);
         }
         connectionP2.send(JSON.stringify(msg));
@@ -461,11 +499,10 @@ class scene_PlayBORRAR extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS, player: playerUser });
+            this.scene.start('PantallaFinal', {score: this.score, condition: this.victoriaPTS, player: playerUser});
         }
     }
 }
-
 
 
 function shootFunc() {
@@ -490,8 +527,7 @@ function spawnerFunc() {
         for (var i = 0; i < 5; i++) {
             this.enemies.spawnEnemy(x + (25 * i), y, xDir, yDir);
         }
-    }
-    else {
+    } else {
         if (y % 2) {
             x = -130
             xDir = 200
@@ -499,8 +535,7 @@ function spawnerFunc() {
             for (var i = 0; i < 3; i++) {
                 this.enemies.spawnEnemy(x + (40 * i), y, xDir, yDir);
             }
-        }
-        else {
+        } else {
             x = 1030
             xDir = -200
             yDir = Phaser.Math.Between(-20, 20);
@@ -546,12 +581,10 @@ function enemyShoot() {
             if (i % 2 && p1) {
                 eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
                 eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
-            }
-            else if (p2) {
+            } else if (p2) {
                 eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
                 eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
-            }
-            else {
+            } else {
                 eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
                 eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
             }

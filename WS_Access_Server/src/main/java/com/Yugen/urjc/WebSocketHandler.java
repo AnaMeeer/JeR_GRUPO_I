@@ -48,7 +48,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			newNode.put("type", node.get("type").asInt());
 		}
 		
-		if(type > 0 && type != 4) {
+		if(type > 0 && type < 4) {
 			newNode.put("x", node.get("x").asInt());
 			newNode.put("y", node.get("y").asInt());
 			newNode.put("xDir", node.get("xDir").asInt());
@@ -58,6 +58,9 @@ public class WebSocketHandler extends TextWebSocketHandler{
 			newNode.put("x", node.get("x").asInt());
 		}
 		else if(type == -2) {}
+		else if(type == 5 || type == 6) {
+			newNode.put("idx", node.get("idx").asInt());
+		}
 		else {
 			newNode.put("x", node.get("x").asInt());
 			newNode.put("y", node.get("y").asInt());

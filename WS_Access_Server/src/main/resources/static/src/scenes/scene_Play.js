@@ -160,7 +160,51 @@ class scene_Play extends Phaser.Scene {
         //Colisión BalaP1-Enemigo
         function bullet1Enemy(bullet, enemy) {
             bullet.die();
+            var msgEnemy = {
+                type: 5,
+                idx: -1
+            }
+            var enemiesArray = that.enemies.getChildren();
+            for (let i = 0; i < enemiesArray.length; i++) {
+                if(enemiesArray[i] === enemy){
+                    msgEnemy.idx = i;
+                    break;
+                }
+            }
+
             if (enemy.damageEnemy(amountDamageBullet)) {
+                connectionP1.send(JSON.stringify(msgEnemy));
+
+                that.score += 5;
+                that.count++;
+                that.texto.text = "Points: " + that.score;
+                that.barraEnergia.increasePowerUp(10);
+                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                    that.muerteEnemigoSound.setVolume(0.1);
+                    that.iniciarEnemigoSoundDisparoLaser = false;
+                }
+                that.muerteEnemigoSound.play();
+            }
+        }
+
+        //Colisión BalaP1-EnemigoRebota
+        function bullet1BounceEnemy(bullet, enemy) {
+            bullet.die();
+            var msgEnemy = {
+                type: 6,
+                idx: -1
+            }
+            var enemiesArray = that.bounceEnemies.getChildren();
+            for (let i = 0; i < enemiesArray.length; i++) {
+                if(enemiesArray[i] === enemy){
+                    msgEnemy.idx = i;
+                    break;
+                }
+            }
+            if (enemy.damageEnemy(amountDamageBullet)) {
+
+                connectionP1.send(JSON.stringify(msgEnemy));
+
                 that.score += 5;
                 that.count++;
                 that.texto.text = "Points: " + that.score;
@@ -176,23 +220,6 @@ class scene_Play extends Phaser.Scene {
         //Colisión BalaP2-Enemigo
         function bullet2Enemy(bullet, enemy) {
             bullet.die();
-            if (enemy.damageEnemy(amountDamageBullet)) {
-                that.score += 5;
-                that.count++;
-                that.texto.text = "Points: " + that.score;
-                if (that.barreras.isAlive()) {
-                    that.barraEnergia2.increasePowerUp(1);
-                }
-                else {
-                    that.barraEnergia2.increasePowerUp(10);
-                }
-                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
-                    that.muerteEnemigoSound.setVolume(0.1);
-                    that.iniciarEnemigoSoundDisparo2 = false;
-                }
-
-                that.muerteEnemigoSound.play();
-            }
         }
 
         //Colisión Jugador1-Enemigo
@@ -238,7 +265,7 @@ class scene_Play extends Phaser.Scene {
         //Colisiones 
         this.physics.add.collider(this.bulletsP1, this.enemies, bullet1Enemy);  //colision con una bala
         this.physics.add.collider(this.bulletsP2, this.enemies, bullet2Enemy);
-        this.physics.add.collider(this.bulletsP1, this.bounceEnemies, bullet1Enemy);
+        this.physics.add.collider(this.bulletsP1, this.bounceEnemies, bullet1BounceEnemy);
         this.physics.add.collider(this.bulletsP2, this.bounceEnemies, bullet2Enemy);
         this.physics.add.collider(this.lasers, this.enemies, laserEnemy);    //colision con el laser
         this.physics.add.collider(this.lasers, this.bounceEnemies, laserEnemy);
@@ -305,12 +332,45 @@ class scene_Play extends Phaser.Scene {
 		
 		connectionP1.onmessage = function(msg) {
 			var message = JSON.parse(msg.data);
-			var x = message.x;
-			var y = message.y;
-			console.log("MSG: " + msg.data);
-			console.log("x: " + x + "; y:" + y); 
-			that.player2.body.setVelocityX(200 * x);
-			that.player2.body.setVelocityY(200 * y);
+            var type = message.type;
+            if(type == 0){
+                var x = message.x;
+                var y = message.y;
+                that.player2.body.setVelocityX(200 * x);
+                that.player2.body.setVelocityY(200 * y);
+            }
+            else if(type == 5){
+                var idx = message.idx;
+                var enemyArray = that.enemies.getChildren();
+
+                enemyArray[idx].destroy();
+
+                that.score += 5;
+                that.count++;
+                that.texto.text = "Points: " + that.score;
+                that.barraEnergia.increasePowerUp(10);
+                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                    that.muerteEnemigoSound.setVolume(0.1);
+                    that.iniciarEnemigoSoundDisparoLaser = false;
+                }
+                that.muerteEnemigoSound.play();;
+            }
+            else if(type == 6){
+                var idx = message.idx;
+                var enemyArray = that.bounceEnemies.getChildren();
+
+                enemyArray[idx].destroy();
+
+                that.score += 5;
+                that.count++;
+                that.texto.text = "Points: " + that.score;
+                that.barraEnergia.increasePowerUp(10);
+                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                    that.muerteEnemigoSound.setVolume(0.1);
+                    that.iniciarEnemigoSoundDisparoLaser = false;
+                }
+                that.muerteEnemigoSound.play();
+            }
 		}
 		
 		var msgStart ={
