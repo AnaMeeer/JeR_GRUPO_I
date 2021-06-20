@@ -26,8 +26,8 @@ var fireRate = 100;
 var enemyFireRate = 5000;
 var laser = false;
 var playerUser;
-var player2Dash;
-var player2Power;
+var player2Dash = false;
+var player2Power = false;
 
 class scene_Play extends Phaser.Scene {
     constructor() {
@@ -411,8 +411,22 @@ class scene_Play extends Phaser.Scene {
             if(type == 0){
                 var x = message.x;
                 var y = message.y;
-                that.player2.body.setVelocityX(200 * x);
-                that.player2.body.setVelocityY(200 * y);
+                var d = message.d;
+                var p = message.p;
+                var vel = 200;
+                if(d > 0){
+                    player2Dash = true;
+                    vel = 1000;
+                }else{
+                    player2Dash = false;
+                }
+                if(p > 0){
+                    player2Power = true;
+                }else{
+                    player2Power = false;
+                }
+                that.player2.body.setVelocityX(vel * x);
+                that.player2.body.setVelocityY(vel * y);
             }
             else if(type == 5){
                 var idx = message.idx;
@@ -423,12 +437,17 @@ class scene_Play extends Phaser.Scene {
                 that.score += 5;
                 that.count++;
                 that.texto.text = "Points: " + that.score;
-                that.barraEnergia.increasePowerUp(10);
+                if (that.barreras.isAlive()) {
+                    that.barraEnergia2.increasePowerUp(1);
+                } else {
+                    that.barraEnergia2.increasePowerUp(10);
+                }
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
                     that.muerteEnemigoSound.setVolume(0.1);
-                    that.iniciarEnemigoSoundDisparoLaser = false;
+                    that.iniciarEnemigoSoundDisparo2 = false;
                 }
-                that.muerteEnemigoSound.play();;
+
+                that.muerteEnemigoSound.play();
             }
             else if(type == 6){
                 var idx = message.idx;
@@ -439,11 +458,16 @@ class scene_Play extends Phaser.Scene {
                 that.score += 5;
                 that.count++;
                 that.texto.text = "Points: " + that.score;
-                that.barraEnergia.increasePowerUp(10);
+                if (that.barreras.isAlive()) {
+                    that.barraEnergia2.increasePowerUp(1);
+                } else {
+                    that.barraEnergia2.increasePowerUp(10);
+                }
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
                     that.muerteEnemigoSound.setVolume(0.1);
-                    that.iniciarEnemigoSoundDisparoLaser = false;
+                    that.iniciarEnemigoSoundDisparo2 = false;
                 }
+
                 that.muerteEnemigoSound.play();
             }
             else if(type == 7){
@@ -519,7 +543,7 @@ class scene_Play extends Phaser.Scene {
         }
 
         //PowerUp: Rezo desesperado
-        if (this.cursor_u.isDown) {
+        if (player2Power) {
             if (this.barraEnergia2.value === 100 && p2) {
                 this.barreras.crearBarrera(this.player2.x, (this.player2.y - 20));
             }
@@ -585,8 +609,11 @@ class scene_Play extends Phaser.Scene {
         if (this.cursor_e.isUp) {
             this.barraDash.increaseDash();
         }
-        if (this.cursor_o.isUp) {
+        if (!player2Dash) {
             this.barraDash2.increaseDash();
+        }
+        else{
+            this.barraDash2.decrease(8);
         }
 
 

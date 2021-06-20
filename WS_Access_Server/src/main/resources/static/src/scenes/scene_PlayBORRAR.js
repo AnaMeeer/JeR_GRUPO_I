@@ -26,8 +26,8 @@ var fireRate = 100;
 var enemyFireRate = 5000;
 var laser = false;
 var playerUser;
-var player1Dash;
-var player1Power;
+var player1Dash = false;
+var player1Power = false;
 
 class scene_PlayBORRAR extends Phaser.Scene {
     constructor() {
@@ -510,6 +510,13 @@ class scene_PlayBORRAR extends Phaser.Scene {
     }
 
     update(time, delta) {
+        var msg = {
+            type: 0,
+            x: "0",
+            y: "0",
+            d: 0,
+            p: 0
+        }
 
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
@@ -533,6 +540,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
 
         //PowerUp: Rezo desesperado
         if (this.cursor_u.isDown) {
+            msg.p = 1;
             if (this.barraEnergia2.value === 100 && p2) {
                 this.barreras.crearBarrera(this.player2.x, (this.player2.y - 20));
             }
@@ -548,13 +556,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
 
 
         //Player 2
-        var msg = {
-            type: 0,
-            x: "0",
-            y: "0",
-            d: 0,
-            p: 0
-        }
+
         if (this.cursor_k.isDown) {
             this.player2.body.setVelocityY(200);
             this.player2.body.setVelocityX(0);
