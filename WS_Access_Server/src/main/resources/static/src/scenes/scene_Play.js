@@ -67,7 +67,7 @@ class scene_Play extends Phaser.Scene {
         this.victoriaPTS = 50;
         this.diffbosstRate = 300;
         
-        this.initBounce = 1000;
+        this.initBounce = 100;
         this.initSwipe = 2000;
 
         p1 = true;
@@ -149,12 +149,15 @@ class scene_Play extends Phaser.Scene {
         //Colisión Bala-Jugador1
         function player1Hit(player, bullet) {
             bullet.die();
+            var msgDmg = {
+                type: 7
+            }
+            connectionP1.send(JSON.stringify(msgDmg));
             that.sistemaVida.damage(amountDamageEnemy);
         }
         //Colisión Bala-Jugador2
         function player2Hit(player, bullet) {
             bullet.die();
-            that.sistemaVida2.damage(amountDamageEnemy);
         }
 
         //Colisión BalaP1-Enemigo
@@ -224,6 +227,37 @@ class scene_Play extends Phaser.Scene {
 
         //Colisión Jugador1-Enemigo
         function enemyPlayer1(player, enemy) {
+            var msgDmgEnemy = {
+                type: 8,
+                idx: -1
+            }
+            var arrayEnemies = that.enemies.getChildren();
+            for (let i = 0; i < arrayEnemies.length; i++) {
+                if(arrayEnemies[i] === enemy){
+                    msgDmgEnemy.idx = i;
+                    break;
+                }
+            }
+            connectionP1.send(JSON.stringify(msgDmgEnemy));
+
+            enemy.die();
+            that.sistemaVida.damage(amountDamageEnemy);
+        }
+
+        function bounceEnemyPlayer1(player, enemy) {
+            var msgDmgEnemy = {
+                type: 9,
+                idx: -1
+            }
+            var arrayEnemies = that.bounceEnemies.getChildren();
+            for (let i = 0; i < arrayEnemies.length; i++) {
+                if(arrayEnemies[i] === enemy){
+                    msgDmgEnemy.idx = i;
+                    break;
+                }
+            }
+            connectionP1.send(JSON.stringify(msgDmgEnemy));
+
             enemy.die();
             that.sistemaVida.damage(amountDamageEnemy);
         }
@@ -275,9 +309,9 @@ class scene_Play extends Phaser.Scene {
         this.physics.add.overlap(this.barreras, this.enemies, barrera);
         this.physics.add.overlap(this.barreras, this.bounceEnemies, barrera);
         this.physics.add.collider(this.player1, this.enemies, enemyPlayer1);
-        this.physics.add.collider(this.player2, this.enemies, enemyPlayer2);
-        this.physics.add.collider(this.player1, this.bounceEnemies, enemyPlayer1);
-        this.physics.add.collider(this.player2, this.bounceEnemies, enemyPlayer2);
+        //this.physics.add.collider(this.player2, this.enemies, enemyPlayer2);
+        this.physics.add.collider(this.player1, this.bounceEnemies, bounceEnemyPlayer1);
+        //this.physics.add.collider(this.player2, this.bounceEnemies, enemyPlayer2);
         this.physics.add.collider(this.player1, this.wideEnemies, enemySwipe1);
         this.physics.add.collider(this.player2, this.wideEnemies, enemySwipe2);
 
@@ -370,6 +404,25 @@ class scene_Play extends Phaser.Scene {
                     that.iniciarEnemigoSoundDisparoLaser = false;
                 }
                 that.muerteEnemigoSound.play();
+            }
+            else if(type == 7){
+                that.sistemaVida2.damage(amountDamageEnemy);
+            }
+            else if(type == 8){
+                var idx = message.idx;
+                var enemyArray = that.enemies.getChildren();
+
+                enemyArray[idx].destroy();
+
+                that.sistemaVida2.damage(amountDamageEnemy)
+            }
+            else if(type == 9){
+                var idx = message.idx;
+                var enemyArray = that.bounceEnemies.getChildren();
+
+                enemyArray[idx].destroy();
+
+                that.sistemaVida2.damage(amountDamageEnemy)
             }
 		}
 		

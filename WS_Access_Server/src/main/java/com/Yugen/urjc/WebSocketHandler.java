@@ -57,8 +57,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		else if(type == 4) {
 			newNode.put("x", node.get("x").asInt());
 		}
-		else if(type == -2) {}
-		else if(type == 5 || type == 6) {
+		else if(type == -2 || type == 7) {}
+		else if(type >= 5) {
 			newNode.put("idx", node.get("idx").asInt());
 		}
 		else {
