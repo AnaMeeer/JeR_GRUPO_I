@@ -26,8 +26,8 @@ var fireRate = 100;
 var enemyFireRate = 5000;
 var laser = false;
 var playerUser;
-
-
+var player2Dash;
+var player2Power;
 
 class scene_Play extends Phaser.Scene {
     constructor() {
@@ -68,7 +68,7 @@ class scene_Play extends Phaser.Scene {
         this.diffbosstRate = 300;
         
         this.initBounce = 100;
-        this.initSwipe = 2000;
+        this.initSwipe = 200;
 
         p1 = true;
         p2 = true;
@@ -269,12 +269,16 @@ class scene_Play extends Phaser.Scene {
         }
 
         function enemySwipe1(player, enemy) {
+            var msgSwype = {
+                type: 10
+            }
+            connectionP1.send(JSON.stringify(msgSwype));
             that.sistemaVida.damage(300);
         }
 
-        function enemySwipe2(player, enemy) {
-            that.sistemaVida2.damage(300);
-        }
+        // function enemySwipe2(player, enemy) {
+        //     that.sistemaVida2.damage(300);
+        // }
 
         //Balas de Enemigos
         this.enemyBullets = new BalasEnemigos(this);
@@ -302,7 +306,7 @@ class scene_Play extends Phaser.Scene {
         this.physics.add.collider(this.bulletsP1, this.bounceEnemies, bullet1BounceEnemy);
         this.physics.add.collider(this.bulletsP2, this.bounceEnemies, bullet2Enemy);
         this.physics.add.collider(this.lasers, this.enemies, laserEnemy);    //colision con el laser
-        this.physics.add.collider(this.lasers, this.bounceEnemies, laserEnemy);
+        this.physics.add.collider(this.lasers, this.bounceEnemies, laserBounceEnemy);
         this.physics.add.overlap(this.player1, this.enemyBullets, player1Hit);
         this.physics.add.overlap(this.player2, this.enemyBullets, player2Hit);
         this.physics.add.overlap(this.barreras, this.enemyBullets, barrera);
@@ -313,7 +317,7 @@ class scene_Play extends Phaser.Scene {
         this.physics.add.collider(this.player1, this.bounceEnemies, bounceEnemyPlayer1);
         //this.physics.add.collider(this.player2, this.bounceEnemies, enemyPlayer2);
         this.physics.add.collider(this.player1, this.wideEnemies, enemySwipe1);
-        this.physics.add.collider(this.player2, this.wideEnemies, enemySwipe2);
+        //this.physics.add.collider(this.player2, this.wideEnemies, enemySwipe2);
 
 
         this.timerSpawn = this.time.addEvent({ delay: spawnRate, callback: spawnerFunc, callbackScope: this, loop: true });
@@ -327,7 +331,44 @@ class scene_Play extends Phaser.Scene {
 
         //impacto del laser contra un enemigo
         function laserEnemy(laser, enemy) {
+            var msgDmgEnemy = {
+                type: 11,
+                idx: -1
+            }
+            var arrayEnemies = that.enemies.getChildren();
+            for (let i = 0; i < arrayEnemies.length; i++) {
+                if(arrayEnemies[i] === enemy){
+                    msgDmgEnemy.idx = i;
+                    break;
+                }
+            }
             if (enemy.damageEnemy(amountDamageLaser)) {
+                connectionP1.send(JSON.stringify(msgDmgEnemy));
+                that.score += 5;
+                that.count++;
+                that.texto.text = "Points: " + that.score;
+                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                    that.muerteEnemigoSound.setVolume(0.1);
+                    that.iniciarEnemigoSoundDisparo1 = false;
+                }
+                that.muerteEnemigoSound.play();
+            }
+        }
+        function laserBounceEnemy(laser, enemy) {
+            var msgDmgEnemy = {
+                type: 12,
+                idx: -1
+            }
+            var arrayEnemies = that.bounceEnemies.getChildren();
+            for (let i = 0; i < arrayEnemies.length; i++) {
+                if(arrayEnemies[i] === enemy){
+                    msgDmgEnemy.idx = i;
+                    break;
+                }
+            }
+
+            if (enemy.damageEnemy(amountDamageLaser)) {
+                connectionP1.send(JSON.stringify(msgDmgEnemy));
                 that.score += 5;
                 that.count++;
                 that.texto.text = "Points: " + that.score;
@@ -424,6 +465,10 @@ class scene_Play extends Phaser.Scene {
 
                 that.sistemaVida2.damage(amountDamageEnemy)
             }
+
+            else if(type == 10){
+                that.sistemaVida2.damage(300);
+            }
 		}
 		
 		var msgStart ={
@@ -454,9 +499,17 @@ class scene_Play extends Phaser.Scene {
             p2 = false;
         }
         //CONTROLES
+        var msg = {
+            type: 0,
+            x: "0",
+            y: "0",
+            d: 0,
+            p: 0
+        }
 
         //PowerUp: Laser desintegrador        
         if (this.cursor_q.isDown && (this.barraEnergia.value > 0) && p1) {
+            msg.p = 1;
             this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);
             this.barraEnergia.decrease(0.33);
             laser = true;
@@ -479,15 +532,12 @@ class scene_Play extends Phaser.Scene {
         }
 
         //Player 1
-		var msg = {
-			type: 0,
-            x: "0",
-            y: "0"
-        }
+
         if (this.cursor_a.isDown) {
             this.player1.body.setVelocityX(-200);
 			this.player1.body.setVelocityY(0);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
+                msg.d = 1;
                 this.player1.body.setVelocityX(-1000); //velocidad del dash
                 this.barraDash.decrease(8);
             }
@@ -497,6 +547,7 @@ class scene_Play extends Phaser.Scene {
             this.player1.body.setVelocityX(200);
 			this.player1.body.setVelocityY(0);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
+                msg.d = 1;
                 this.player1.body.setVelocityX(1000);
                 this.barraDash.decrease(8);
             }
@@ -506,6 +557,7 @@ class scene_Play extends Phaser.Scene {
             this.player1.body.setVelocityY(-200);
 			this.player1.body.setVelocityX(0);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
+                msg.d = 1;
                 this.player1.body.setVelocityY(-1000);
                 this.barraDash.decrease(8);
             }
@@ -515,6 +567,7 @@ class scene_Play extends Phaser.Scene {
             this.player1.body.setVelocityY(200);
 			this.player1.body.setVelocityX(0);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
+                msg.d = 1;
                 this.player1.body.setVelocityY(1000);
                 this.barraDash.decrease(8);
             }

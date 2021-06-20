@@ -26,7 +26,8 @@ var fireRate = 100;
 var enemyFireRate = 5000;
 var laser = false;
 var playerUser;
-
+var player1Dash;
+var player1Power;
 
 class scene_PlayBORRAR extends Phaser.Scene {
     constructor() {
@@ -272,11 +273,15 @@ class scene_PlayBORRAR extends Phaser.Scene {
             that.sistemaVida2.damage(amountDamageEnemy);
         }
 
-        function enemySwipe1(player, enemy) {
-            that.sistemaVida.damage(300);
-        }
+        // function enemySwipe1(player, enemy) {
+        //     that.sistemaVida.damage(300);
+        // }
 
         function enemySwipe2(player, enemy) {
+            var msgSwype = {
+                type: 10
+            }
+            connectionP2.send(JSON.stringify(msgSwype));
             that.sistemaVida2.damage(300);
         }
 
@@ -305,8 +310,8 @@ class scene_PlayBORRAR extends Phaser.Scene {
         this.physics.add.collider(this.bulletsP2, this.enemies, bullet2Enemy);
         this.physics.add.collider(this.bulletsP1, this.bounceEnemies, bullet1Enemy);
         this.physics.add.collider(this.bulletsP2, this.bounceEnemies, bullet2BounceEnemy);
-        this.physics.add.collider(this.lasers, this.enemies, laserEnemy);    //colision con el laser
-        this.physics.add.collider(this.lasers, this.bounceEnemies, laserEnemy);
+        //this.physics.add.collider(this.lasers, this.enemies, laserEnemy);    //colision con el laser
+        //this.physics.add.collider(this.lasers, this.bounceEnemies, laserEnemy);
         this.physics.add.overlap(this.player1, this.enemyBullets, player1Hit);
         this.physics.add.overlap(this.player2, this.enemyBullets, player2Hit);
         this.physics.add.overlap(this.barreras, this.enemyBullets, barrera);
@@ -316,7 +321,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
         this.physics.add.collider(this.player2, this.enemies, enemyPlayer2);
         //this.physics.add.collider(this.player1, this.bounceEnemies, enemyPlayer1);
         this.physics.add.collider(this.player2, this.bounceEnemies, bounceEnemyPlayer2);
-        this.physics.add.collider(this.player1, this.wideEnemies, enemySwipe1);
+        //this.physics.add.collider(this.player1, this.wideEnemies, enemySwipe1);
         this.physics.add.collider(this.player2, this.wideEnemies, enemySwipe2);
 
 
@@ -374,8 +379,22 @@ class scene_PlayBORRAR extends Phaser.Scene {
             if (type == 0) {
                 var x = message.x;
                 var y = message.y;
-                that.player1.body.setVelocityX(200 * x);
-                that.player1.body.setVelocityY(200 * y);
+                var d = message.d;
+                var p = message.p;
+                var vel = 200;
+                if(d > 0){
+                    player1Dash = true;
+                    vel = 1000;
+                }else{
+                    player1Dash = false;
+                }
+                if(p > 0){
+                    player1Power = true;
+                }else{
+                    player1Power = false;
+                }
+                that.player1.body.setVelocityX(vel * x);
+                that.player1.body.setVelocityY(vel * y);
             } else if (type == 1) {
                 var x = message.x;
                 var y = message.y;
@@ -449,6 +468,41 @@ class scene_PlayBORRAR extends Phaser.Scene {
 
                 that.sistemaVida.damage(amountDamageEnemy)
             }
+            else if(type == 10){
+                that.sistemaVida.damage(300);
+            }
+            else if(type == 11){
+                var idx = message.idx;
+                var enemyArray = that.enemies.getChildren();
+
+                enemyArray[idx].destroy();
+
+                that.score += 5;
+                that.count++;
+                that.texto.text = "Points: " + that.score;
+                that.barraEnergia.increasePowerUp(10);
+                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                    that.muerteEnemigoSound.setVolume(0.1);
+                    that.iniciarEnemigoSoundDisparoLaser = false;
+                }
+                that.muerteEnemigoSound.play();
+            }
+            else if(type == 12){
+                var idx = message.idx;
+                var enemyArray = that.bounceEnemies.getChildren();
+
+                enemyArray[idx].destroy();
+
+                that.score += 5;
+                that.count++;
+                that.texto.text = "Points: " + that.score;
+                that.barraEnergia.increasePowerUp(10);
+                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                    that.muerteEnemigoSound.setVolume(0.1);
+                    that.iniciarEnemigoSoundDisparoLaser = false;
+                }
+                that.muerteEnemigoSound.play();
+            }
             else if (type == -2) {
                 that.timerDisparo.paused = false;
             }
@@ -457,16 +511,6 @@ class scene_PlayBORRAR extends Phaser.Scene {
 
     update(time, delta) {
 
-        // if (this.score >= this.diffbosstRate) {
-        // this.dificulty();
-        // this.diffbosstRate += 300;
-        // }
-        // if (this.score === this.initBounce){
-        // this.timerBounceEnemy.paused = false;
-        // }
-        // if (this.score === this.initSwipe){
-        // this.timerSwipeEnemy.paused = false;
-        // }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
             p1 = false;
@@ -478,12 +522,12 @@ class scene_PlayBORRAR extends Phaser.Scene {
         //CONTROLES
 
         //PowerUp: Laser desintegrador        
-        if (this.cursor_q.isDown && (this.barraEnergia.value > 0) && p1) {
+        if (player1Power && (this.barraEnergia.value > 0) && p1) {
             this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);
             this.barraEnergia.decrease(0.33);
             laser = true;
         }
-        if (this.cursor_q.isUp) {
+        if (!player1Power) {
             laser = false;
         }
 
@@ -507,36 +551,42 @@ class scene_PlayBORRAR extends Phaser.Scene {
         var msg = {
             type: 0,
             x: "0",
-            y: "0"
+            y: "0",
+            d: 0,
+            p: 0
         }
         if (this.cursor_k.isDown) {
             this.player2.body.setVelocityY(200);
-            this.player1.body.setVelocityX(0);
+            this.player2.body.setVelocityX(0);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
+                msg.d = 1;
                 this.player2.body.setVelocityY(1000);
                 this.barraDash2.decrease(8);
             }
             msg.y = "1";
         } else if (this.cursor_i.isDown) {
             this.player2.body.setVelocityY(-200);
-            this.player1.body.setVelocityX(0);
+            this.player2.body.setVelocityX(0);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
+                msg.d = 1;
                 this.player2.body.setVelocityY(-1000);
                 this.barraDash2.decrease(8);
             }
             msg.y = "-1";
         } else if (this.cursor_l.isDown) {
             this.player2.body.setVelocityX(200);
-            this.player1.body.setVelocityY(0);
+            this.player2.body.setVelocityY(0);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
+                msg.d = 1;
                 this.player2.body.setVelocityX(1000);
                 this.barraDash2.decrease(8);
             }
             msg.x = "1";
         } else if (this.cursor_j.isDown) {
             this.player2.body.setVelocityX(-200);
-            this.player1.body.setVelocityY(0);
+            this.player2.body.setVelocityY(0);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
+                msg.d = 1;
                 this.player2.body.setVelocityX(-1000);
                 this.barraDash2.decrease(8);
             }
@@ -547,8 +597,11 @@ class scene_PlayBORRAR extends Phaser.Scene {
         connectionP2.send(JSON.stringify(msg));
 
         //Barras
-        if (this.cursor_e.isUp) {
+        if (!player1Dash) {
             this.barraDash.increaseDash();
+        }
+        else{
+            this.barraDash.decrease(8)
         }
         if (this.cursor_o.isUp) {
             this.barraDash2.increaseDash();

@@ -57,13 +57,15 @@ public class WebSocketHandler extends TextWebSocketHandler{
 		else if(type == 4) {
 			newNode.put("x", node.get("x").asInt());
 		}
-		else if(type == -2 || type == 7) {}
+		else if(type == -2 || type == 7 || type == 10) {}
 		else if(type >= 5) {
 			newNode.put("idx", node.get("idx").asInt());
 		}
 		else {
 			newNode.put("x", node.get("x").asInt());
 			newNode.put("y", node.get("y").asInt());
+			newNode.put("d", node.get("d").asInt());
+			newNode.put("p", node.get("p").asInt());
 		}
 		for(WebSocketSession participant : sessions.values()) {
 			if(!participant.getId().equals(session.getId())) {
