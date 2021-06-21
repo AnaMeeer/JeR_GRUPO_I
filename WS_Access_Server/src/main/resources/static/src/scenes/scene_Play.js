@@ -10,7 +10,9 @@ import Vidas from '../gameObjects/vidas.js';
 import Barra from '../gameObjects/barra.js';
 
 //variables
-var connectionP1 = new WebSocket('ws://127.0.0.1:8080/player1');
+var connectedToServer = false;
+var readyToPlay = false;
+var connectionP1;
 var amountDamageBullet = 50; //una bala normal les hace 1 de daño.
 var amountDamageLaser = 10; //el laser hace 50 de daño
 var amountDamageEnemy = 100;
@@ -36,7 +38,7 @@ class scene_Play extends Phaser.Scene {
 
 
     create(data) {
-
+        connectionP1 = new WebSocket('ws://127.0.0.1:8080/player1');
 
         //Musica
         this.nombreEscena = 'scene_Play';
@@ -349,6 +351,9 @@ class scene_Play extends Phaser.Scene {
 
         this.timerBounceEnemy.paused = true;
         this.timerSwipeEnemy.paused = true;
+        this.timerDisparo.paused = true;
+        this.timerSpawn.paused = true;
+        this.timerDisparoEnemigo.paused = true;
 
         //impacto del laser contra un enemigo
         function laserEnemy(laser, enemy) {
@@ -429,6 +434,21 @@ class scene_Play extends Phaser.Scene {
 
         connectionP1.onmessage = function (msg) {
             var message = JSON.parse(msg.data);
+            if(!connectedToServer){
+                connectedToServer = true;
+                if (message >= 2){
+                    console.log("Estamos todos");
+                    var msgStart = {
+                        type: -2,
+                    }
+
+                    connectionP1.send(JSON.stringify(msgStart));
+                    readyToPlay = true;
+                    that.timerDisparo.paused = false;
+                    that.timerSpawn.paused = false;
+                    that.timerDisparoEnemigo.paused = false;
+                }
+            }
             var type = message.type;
             if (type == 0) {
                 var x = message.x;
@@ -508,141 +528,147 @@ class scene_Play extends Phaser.Scene {
             } else if (type == 10) {
                 that.sistemaVida2.damage(300);
             }
+            else if (type == -2) {
+                that.timerDisparo.paused = false;
+                that.timerSpawn.paused = false;
+                that.timerDisparoEnemigo.paused = false;
+                readyToPlay = true;
+            }
         }
 
-        var msgStart = {
-            type: -2,
-        }
 
-        connectionP1.send(JSON.stringify(msgStart));
     }
 
     update(time, delta) {
-
-        if (this.score >= this.diffbosstRate) {
-            this.dificulty();
-            this.diffbosstRate += 300;
-        }
-        if (this.score === this.initBounce) {
-            this.timerBounceEnemy.paused = false;
-        }
-        if (this.score === this.initSwipe) {
-            this.timerSwipeEnemy.paused = false;
-        }
-        if (!this.sistemaVida.getFirstAlive()) {
-            this.player1.die();
-            p1 = false;
-        }
-        if (!this.sistemaVida2.getFirstAlive()) {
-            this.player2.die();
-            p2 = false;
-        }
-        //CONTROLES
-        var msg = {
-            type: 0,
-            x: "0",
-            y: "0",
-            d: 0,
-            p: 0
-        }
-
-        //PowerUp: Laser desintegrador        
-        if (this.cursor_q.isDown && (this.barraEnergia.value > 0) && p1) {
-            msg.p = 1;
-            this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);
-            this.barraEnergia.decrease(0.33);
-            laser = true;
-        }
-        if (this.cursor_q.isUp) {
-            laser = false;
-        }
-
-        //PowerUp: Rezo desesperado
-        if (player2Power) {
-            if (this.barraEnergia2.value === 100 && p2) {
-                this.barreras.crearBarrera(this.player2.x, (this.player2.y - 20));
+        if(!readyToPlay){}
+        else {
+            if (this.score >= this.diffbosstRate) {
+                this.dificulty();
+                this.diffbosstRate += 300;
             }
-        }
-        if (this.barreras.isAlive() == true) {
-            this.barraEnergia2.decrease(0.33);
-        }
-        if (this.barraEnergia2.value == 0) {
-            this.barreras.killBarrier();
-        }
-
-        //Player 1
-
-        if (this.cursor_a.isDown) {
-            this.player1.body.setVelocityX(-200);
-            this.player1.body.setVelocityY(0);
-            if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
-                msg.d = 1;
-                this.player1.body.setVelocityX(-1000); //velocidad del dash
-                this.barraDash.decrease(8);
+            if (this.score === this.initBounce) {
+                this.timerBounceEnemy.paused = false;
             }
-            msg.x = "-1";
-        } else if (this.cursor_d.isDown) {
-            this.player1.body.setVelocityX(200);
-            this.player1.body.setVelocityY(0);
-            if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
-                msg.d = 1;
-                this.player1.body.setVelocityX(1000);
-                this.barraDash.decrease(8);
+            if (this.score === this.initSwipe) {
+                this.timerSwipeEnemy.paused = false;
             }
-            msg.x = "1";
-        } else if (this.cursor_w.isDown) {
-            this.player1.body.setVelocityY(-200);
-            this.player1.body.setVelocityX(0);
-            if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
-                msg.d = 1;
-                this.player1.body.setVelocityY(-1000);
-                this.barraDash.decrease(8);
+            if (!this.sistemaVida.getFirstAlive()) {
+                this.player1.die();
+                p1 = false;
             }
-            msg.y = "-1";
-        } else if (this.cursor_s.isDown) {
-            this.player1.body.setVelocityY(200);
-            this.player1.body.setVelocityX(0);
-            if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
-                msg.d = 1;
-                this.player1.body.setVelocityY(1000);
-                this.barraDash.decrease(8);
+            if (!this.sistemaVida2.getFirstAlive()) {
+                this.player2.die();
+                p2 = false;
             }
-            msg.y = "1";
-        } else {
-            this.player1.body.setVelocity(0);
-        }
+            //CONTROLES
+            var msg = {
+                type: 0,
+                x: "0",
+                y: "0",
+                d: 0,
+                p: 0
+            }
 
-        connectionP1.send(JSON.stringify(msg));
-        //Player 2
+            //PowerUp: Laser desintegrador
+            if (this.cursor_q.isDown && (this.barraEnergia.value > 0) && p1) {
+                msg.p = 1;
+                this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);
+                this.barraEnergia.decrease(0.33);
+                laser = true;
+            }
+            if (this.cursor_q.isUp) {
+                laser = false;
+            }
+
+            //PowerUp: Rezo desesperado
+            if (player2Power) {
+                if (this.barraEnergia2.value === 100 && p2) {
+                    this.barreras.crearBarrera(this.player2.x, (this.player2.y - 20));
+                }
+            }
+            if (this.barreras.isAlive() == true) {
+                this.barraEnergia2.decrease(0.33);
+            }
+            if (this.barraEnergia2.value == 0) {
+                this.barreras.killBarrier();
+            }
+
+            //Player 1
+
+            if (this.cursor_a.isDown) {
+                this.player1.body.setVelocityX(-200);
+                this.player1.body.setVelocityY(0);
+                if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
+                    msg.d = 1;
+                    this.player1.body.setVelocityX(-1000); //velocidad del dash
+                    this.barraDash.decrease(8);
+                }
+                msg.x = "-1";
+            } else if (this.cursor_d.isDown) {
+                this.player1.body.setVelocityX(200);
+                this.player1.body.setVelocityY(0);
+                if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
+                    msg.d = 1;
+                    this.player1.body.setVelocityX(1000);
+                    this.barraDash.decrease(8);
+                }
+                msg.x = "1";
+            } else if (this.cursor_w.isDown) {
+                this.player1.body.setVelocityY(-200);
+                this.player1.body.setVelocityX(0);
+                if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
+                    msg.d = 1;
+                    this.player1.body.setVelocityY(-1000);
+                    this.barraDash.decrease(8);
+                }
+                msg.y = "-1";
+            } else if (this.cursor_s.isDown) {
+                this.player1.body.setVelocityY(200);
+                this.player1.body.setVelocityX(0);
+                if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
+                    msg.d = 1;
+                    this.player1.body.setVelocityY(1000);
+                    this.barraDash.decrease(8);
+                }
+                msg.y = "1";
+            } else {
+                this.player1.body.setVelocity(0);
+            }
+
+            if (connectedToServer) {
+                connectionP1.send(JSON.stringify(msg));
+            }
+            //Player 2
 
 
-        //Barras
-        if (this.cursor_e.isUp) {
-            this.barraDash.increaseDash();
-        }
-        if (!player2Dash) {
-            this.barraDash2.increaseDash();
-        } else {
-            this.barraDash2.decrease(8);
-        }
+            //Barras
+            if (this.cursor_e.isUp) {
+                this.barraDash.increaseDash();
+            }
+            if (!player2Dash) {
+                this.barraDash2.increaseDash();
+            } else {
+                this.barraDash2.decrease(8);
+            }
 
 
-        //Menu
-        this.iconoPausa.on('pointerdown', () => {
-            this.click1Sound.play();
-            this.scene.sleep();
-        })
+            //Menu
+            this.iconoPausa.on('pointerdown', () => {
+                this.click1Sound.play();
+                this.scene.sleep();
+            })
 
-        if (!p1 && !p2) {
+            if (!p1 && !p2) {
 
-            this.musicaInGame.stop();
+                this.musicaInGame.stop();
 
-            this.scene.stop('scene_Play');
-            this.scene.stop('Bootloader');
-            this.scene.stop('MenuPrincipal');
-            this.scene.stop('EscenaSonido');
-            this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', {score: this.score, condition: this.victoriaPTS, player: playerUser});
+                this.scene.stop('scene_Play');
+                this.scene.stop('Bootloader');
+                this.scene.stop('MenuPrincipal');
+                this.scene.stop('EscenaSonido');
+                this.scene.stop('EscenaPausa');
+                this.scene.start('PantallaFinal', {score: this.score, condition: this.victoriaPTS, player: playerUser});
+            }
         }
     }
 }

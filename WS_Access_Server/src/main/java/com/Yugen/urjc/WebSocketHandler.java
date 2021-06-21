@@ -23,12 +23,15 @@ public class WebSocketHandler extends TextWebSocketHandler{
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println("User connected: " + session.getId());
 		sessions.put(session.getId(), session);
+		int users = sessions.size();
+		session.sendMessage(new TextMessage(String.valueOf(users)));
 	}
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		System.out.println("User disconnected: " + session.getId());
 		sessions.remove(session.getId());
+
 	}
 	
 	@Override

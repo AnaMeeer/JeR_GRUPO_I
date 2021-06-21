@@ -10,7 +10,9 @@ import Vidas from '../gameObjects/vidas.js';
 import Barra from '../gameObjects/barra.js';
 
 //variables
-var connectionP2 = new WebSocket('ws://127.0.0.1:8080/player1');
+var connectionP2;
+var readyToPlay = false;
+var connectedToServer = false;
 var amountDamageBullet = 50; //una bala normal les hace 1 de daño.
 var amountDamageLaser = 10; //el laser hace 50 de daño
 var amountDamageEnemy = 100;
@@ -36,6 +38,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
 
 
     create(data) {
+        connectionP2 = new WebSocket('ws://127.0.0.1:8080/player1');
         //Musica
         this.nombreEscena = 'scene_PlayBORRAR';
         var musicConfigInGame = {
@@ -375,133 +378,151 @@ class scene_PlayBORRAR extends Phaser.Scene {
         // }
         connectionP2.onmessage = function (msg) {
             var message = JSON.parse(msg.data);
-            var type = message.type;
-            if (type == 0) {
-                var x = message.x;
-                var y = message.y;
-                var d = message.d;
-                var p = message.p;
-                var vel = 200;
-                if (d > 0) {
-                    player1Dash = true;
-                    vel = 1000;
-                } else {
-                    player1Dash = false;
+            if(!connectedToServer){
+                connectedToServer = true;
+                if (message >= 2){
+                    console.log("Estamos todos");
+                    var msgStart = {
+                        type: -2,
+                    }
+
+                    connectionP2.send(JSON.stringify(msgStart));
+                    readyToPlay = true;
+                    that.timerDisparo.paused = false;
                 }
-                if (p > 0) {
-                    player1Power = true;
-                } else {
-                    player1Power = false;
+            }
+            else {
+                var type = message.type;
+                if (type == 0) {
+                    var x = message.x;
+                    var y = message.y;
+                    var d = message.d;
+                    var p = message.p;
+                    var vel = 200;
+                    if (d > 0) {
+                        player1Dash = true;
+                        vel = 1000;
+                    } else {
+                        player1Dash = false;
+                    }
+                    if (p > 0) {
+                        player1Power = true;
+                    } else {
+                        player1Power = false;
+                    }
+                    that.player1.body.setVelocityX(vel * x);
+                    that.player1.body.setVelocityY(vel * y);
+                } else if (type == 1) {
+                    var x = message.x;
+                    var y = message.y;
+                    var xDir = message.xDir;
+                    var yDir = message.yDir;
+                    that.enemies.spawnEnemy(x, y, xDir, yDir);
+                } else if (type == 2) {
+                    var x = message.x;
+                    var y = message.y;
+                    var xDir = message.xDir;
+                    var yDir = message.yDir;
+                    that.enemyBullets.fireBullet(x, y, xDir, yDir);
+                } else if (type == 3) {
+                    var x = message.x;
+                    var y = message.y;
+                    var xDir = message.xDir;
+                    var yDir = message.yDir;
+                    that.bounceEnemies.spawnEnemy(x, y, xDir, yDir);
+                } else if (type == 4) {
+                    var x = message.x;
+
+                    that.wideEnemies.spawnEnemy(x, 0);
+                } else if (type == 5) {
+                    var idx = message.idx;
+                    var enemyArray = that.enemies.getChildren();
+
+                    enemyArray[idx].destroy();
+
+                    that.score += 5;
+                    that.count++;
+                    that.texto.text = "Points: " + that.score;
+                    that.barraEnergia.increasePowerUp(10);
+                    if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                        that.muerteEnemigoSound.setVolume(0.1);
+                        that.iniciarEnemigoSoundDisparoLaser = false;
+                    }
+                    that.muerteEnemigoSound.play();
+                } else if (type == 6) {
+                    var idx = message.idx;
+                    var enemyArray = that.bounceEnemies.getChildren();
+
+                    enemyArray[idx].destroy();
+
+                    that.score += 5;
+                    that.count++;
+                    that.texto.text = "Points: " + that.score;
+                    that.barraEnergia.increasePowerUp(10);
+                    if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                        that.muerteEnemigoSound.setVolume(0.1);
+                        that.iniciarEnemigoSoundDisparoLaser = false;
+                    }
+                    that.muerteEnemigoSound.play();
+                } else if (type == 7) {
+                    that.sistemaVida.damage(amountDamageEnemy);
+                } else if (type == 8) {
+                    var idx = message.idx;
+                    var enemyArray = that.enemies.getChildren();
+
+                    enemyArray[idx].destroy();
+
+                    that.sistemaVida.damage(amountDamageEnemy)
+                } else if (type == 9) {
+                    var idx = message.idx;
+                    var enemyArray = that.bounceEnemies.getChildren();
+
+                    enemyArray[idx].destroy();
+
+                    that.sistemaVida.damage(amountDamageEnemy)
+                } else if (type == 10) {
+                    that.sistemaVida.damage(300);
+                } else if (type == 11) {
+                    var idx = message.idx;
+                    var enemyArray = that.enemies.getChildren();
+
+                    enemyArray[idx].destroy();
+
+                    that.score += 5;
+                    that.count++;
+                    that.texto.text = "Points: " + that.score;
+                    that.barraEnergia.increasePowerUp(10);
+                    if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                        that.muerteEnemigoSound.setVolume(0.1);
+                        that.iniciarEnemigoSoundDisparoLaser = false;
+                    }
+                    that.muerteEnemigoSound.play();
+                } else if (type == 12) {
+                    var idx = message.idx;
+                    var enemyArray = that.bounceEnemies.getChildren();
+
+                    enemyArray[idx].destroy();
+
+                    that.score += 5;
+                    that.count++;
+                    that.texto.text = "Points: " + that.score;
+                    that.barraEnergia.increasePowerUp(10);
+                    if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
+                        that.muerteEnemigoSound.setVolume(0.1);
+                        that.iniciarEnemigoSoundDisparoLaser = false;
+                    }
+                    that.muerteEnemigoSound.play();
+                } else if (type == -2) {
+                    that.timerDisparo.paused = false;
+                    readyToPlay = true;
                 }
-                that.player1.body.setVelocityX(vel * x);
-                that.player1.body.setVelocityY(vel * y);
-            } else if (type == 1) {
-                var x = message.x;
-                var y = message.y;
-                var xDir = message.xDir;
-                var yDir = message.yDir;
-                that.enemies.spawnEnemy(x, y, xDir, yDir);
-            } else if (type == 2) {
-                var x = message.x;
-                var y = message.y;
-                var xDir = message.xDir;
-                var yDir = message.yDir;
-                that.enemyBullets.fireBullet(x, y, xDir, yDir);
-            } else if (type == 3) {
-                var x = message.x;
-                var y = message.y;
-                var xDir = message.xDir;
-                var yDir = message.yDir;
-                that.bounceEnemies.spawnEnemy(x, y, xDir, yDir);
-            } else if (type == 4) {
-                var x = message.x;
-
-                that.wideEnemies.spawnEnemy(x, 0);
-            } else if (type == 5) {
-                var idx = message.idx;
-                var enemyArray = that.enemies.getChildren();
-
-                enemyArray[idx].destroy();
-
-                that.score += 5;
-                that.count++;
-                that.texto.text = "Points: " + that.score;
-                that.barraEnergia.increasePowerUp(10);
-                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
-                    that.muerteEnemigoSound.setVolume(0.1);
-                    that.iniciarEnemigoSoundDisparoLaser = false;
-                }
-                that.muerteEnemigoSound.play();
-            } else if (type == 6) {
-                var idx = message.idx;
-                var enemyArray = that.bounceEnemies.getChildren();
-
-                enemyArray[idx].destroy();
-
-                that.score += 5;
-                that.count++;
-                that.texto.text = "Points: " + that.score;
-                that.barraEnergia.increasePowerUp(10);
-                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
-                    that.muerteEnemigoSound.setVolume(0.1);
-                    that.iniciarEnemigoSoundDisparoLaser = false;
-                }
-                that.muerteEnemigoSound.play();
-            } else if (type == 7) {
-                that.sistemaVida.damage(amountDamageEnemy);
-            } else if (type == 8) {
-                var idx = message.idx;
-                var enemyArray = that.enemies.getChildren();
-
-                enemyArray[idx].destroy();
-
-                that.sistemaVida.damage(amountDamageEnemy)
-            } else if (type == 9) {
-                var idx = message.idx;
-                var enemyArray = that.bounceEnemies.getChildren();
-
-                enemyArray[idx].destroy();
-
-                that.sistemaVida.damage(amountDamageEnemy)
-            } else if (type == 10) {
-                that.sistemaVida.damage(300);
-            } else if (type == 11) {
-                var idx = message.idx;
-                var enemyArray = that.enemies.getChildren();
-
-                enemyArray[idx].destroy();
-
-                that.score += 5;
-                that.count++;
-                that.texto.text = "Points: " + that.score;
-                that.barraEnergia.increasePowerUp(10);
-                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
-                    that.muerteEnemigoSound.setVolume(0.1);
-                    that.iniciarEnemigoSoundDisparoLaser = false;
-                }
-                that.muerteEnemigoSound.play();
-            } else if (type == 12) {
-                var idx = message.idx;
-                var enemyArray = that.bounceEnemies.getChildren();
-
-                enemyArray[idx].destroy();
-
-                that.score += 5;
-                that.count++;
-                that.texto.text = "Points: " + that.score;
-                that.barraEnergia.increasePowerUp(10);
-                if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
-                    that.muerteEnemigoSound.setVolume(0.1);
-                    that.iniciarEnemigoSoundDisparoLaser = false;
-                }
-                that.muerteEnemigoSound.play();
-            } else if (type == -2) {
-                that.timerDisparo.paused = false;
             }
         }
     }
 
     update(time, delta) {
+        if (!readyToPlay) {
+        } else {
         var msg = {
             type: 0,
             x: "0",
@@ -588,8 +609,9 @@ class scene_PlayBORRAR extends Phaser.Scene {
         } else {
             this.player2.body.setVelocity(0);
         }
-        connectionP2.send(JSON.stringify(msg));
-
+        if (connectedToServer) {
+            connectionP2.send(JSON.stringify(msg));
+        }
         //Barras
         if (!player1Dash) {
             this.barraDash.increaseDash();
@@ -618,6 +640,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
             this.scene.stop('EscenaPausa');
             this.scene.start('PantallaFinal', {score: this.score, condition: this.victoriaPTS, player: playerUser});
         }
+    }
     }
 }
 
