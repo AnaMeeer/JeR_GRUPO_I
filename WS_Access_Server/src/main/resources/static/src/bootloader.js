@@ -3,7 +3,7 @@
 class Bootloader extends Phaser.Scene {
 
     constructor() {
-        super({ key: "Bootloader" });
+        super({key: "Bootloader"});
     }
 
     preload() {

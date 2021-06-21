@@ -1,6 +1,6 @@
 export default class EscenaSonido extends Phaser.Scene {
     constructor() {
-        super({ key: 'EscenaSonido' });
+        super({key: 'EscenaSonido'});
     }
 
 
@@ -19,7 +19,7 @@ export default class EscenaSonido extends Phaser.Scene {
         this.sonidos = data.sonidos;
 
         this.fondo = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondo');
-        this.iconMusica = this.add.image(this.sys.game.config.width / 2 - 100, this.sys.game.config.height / 2, 'musica').setInteractive({ useHandCursor: true }).setScale(0.10)
+        this.iconMusica = this.add.image(this.sys.game.config.width / 2 - 100, this.sys.game.config.height / 2, 'musica').setInteractive({useHandCursor: true}).setScale(0.10)
             .on("pointerover", () => {
                 this.iconMusica.setScale(0.11);
 
@@ -38,7 +38,7 @@ export default class EscenaSonido extends Phaser.Scene {
 
             });
 
-        this.iconSonidos = this.add.image(this.sys.game.config.width / 2 + 100, this.sys.game.config.height / 2, 'sonidos').setInteractive({ useHandCursor: true }).setScale(0.15)
+        this.iconSonidos = this.add.image(this.sys.game.config.width / 2 + 100, this.sys.game.config.height / 2, 'sonidos').setInteractive({useHandCursor: true}).setScale(0.15)
             .on("pointerover", () => {
                 this.iconSonidos.setScale(0.16);
             })
@@ -55,7 +55,7 @@ export default class EscenaSonido extends Phaser.Scene {
             });
 
 
-        this.uno = this.add.image(this.sys.game.config.width / 2 - 200, this.sys.game.config.height / 2 + 100, 'uno').setInteractive({ useHandCursor: true }).setScale(0.4)
+        this.uno = this.add.image(this.sys.game.config.width / 2 - 200, this.sys.game.config.height / 2 + 100, 'uno').setInteractive({useHandCursor: true}).setScale(0.4)
             .on("pointerover", () => {
                 this.uno.setScale(0.5);
             })
@@ -72,10 +72,9 @@ export default class EscenaSonido extends Phaser.Scene {
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
-                }
-                else if (that.sonidoClickado) {
+                } else if (that.sonidoClickado) {
                     //el sonido
-                    
+
                     that.sonidos.setMute(false);
                     that.click1Sound.setMute(false);
                     that.click2Sound.setMute(false);
@@ -88,7 +87,7 @@ export default class EscenaSonido extends Phaser.Scene {
                 }
             });
 
-        this.dos = this.add.image(this.sys.game.config.width / 2 - 150, this.sys.game.config.height / 2 + 100, 'dos').setInteractive({ useHandCursor: true }).setScale(0.4)
+        this.dos = this.add.image(this.sys.game.config.width / 2 - 150, this.sys.game.config.height / 2 + 100, 'dos').setInteractive({useHandCursor: true}).setScale(0.4)
             .on("pointerover", () => {
                 this.dos.setScale(0.5);
             })
@@ -105,8 +104,7 @@ export default class EscenaSonido extends Phaser.Scene {
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
-                }
-                else if (that.sonidoClickado) {
+                } else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
                     that.click1Sound.setMute(false);
@@ -120,7 +118,7 @@ export default class EscenaSonido extends Phaser.Scene {
                 }
             });
 
-        this.tres = this.add.image(this.sys.game.config.width / 2 - 100, this.sys.game.config.height / 2 + 100, 'tres').setInteractive({ useHandCursor: true }).setScale(0.4)
+        this.tres = this.add.image(this.sys.game.config.width / 2 - 100, this.sys.game.config.height / 2 + 100, 'tres').setInteractive({useHandCursor: true}).setScale(0.4)
             .on("pointerover", () => {
                 this.tres.setScale(0.5);
             })
@@ -137,8 +135,7 @@ export default class EscenaSonido extends Phaser.Scene {
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
-                }
-                else if (that.sonidoClickado) {
+                } else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
                     that.click1Sound.setMute(false);
@@ -152,7 +149,7 @@ export default class EscenaSonido extends Phaser.Scene {
                 }
             });
 
-        this.cuatro = this.add.image(this.sys.game.config.width / 2 - 50, this.sys.game.config.height / 2 + 100, 'cuatro').setInteractive({ useHandCursor: true }).setScale(0.4)
+        this.cuatro = this.add.image(this.sys.game.config.width / 2 - 50, this.sys.game.config.height / 2 + 100, 'cuatro').setInteractive({useHandCursor: true}).setScale(0.4)
             .on("pointerover", () => {
                 this.cuatro.setScale(0.5);
             })
@@ -169,8 +166,7 @@ export default class EscenaSonido extends Phaser.Scene {
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
-                }
-                else if (that.sonidoClickado) {
+                } else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
                     that.click1Sound.setMute(false);
@@ -184,7 +180,7 @@ export default class EscenaSonido extends Phaser.Scene {
                 }
             });
 
-        this.cinco = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2 + 100, 'cinco').setInteractive({ useHandCursor: true }).setScale(0.4)
+        this.cinco = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2 + 100, 'cinco').setInteractive({useHandCursor: true}).setScale(0.4)
             .on("pointerover", () => {
                 this.cinco.setScale(0.5);
             })
@@ -201,8 +197,7 @@ export default class EscenaSonido extends Phaser.Scene {
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
-                }
-                else if (that.sonidoClickado) {
+                } else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
                     that.click1Sound.setMute(false);
@@ -216,7 +211,7 @@ export default class EscenaSonido extends Phaser.Scene {
                 }
             });
 
-        this.seis = this.add.image(this.sys.game.config.width / 2 + 50, this.sys.game.config.height / 2 + 100, 'seis').setInteractive({ useHandCursor: true }).setScale(0.4)
+        this.seis = this.add.image(this.sys.game.config.width / 2 + 50, this.sys.game.config.height / 2 + 100, 'seis').setInteractive({useHandCursor: true}).setScale(0.4)
             .on("pointerover", () => {
                 this.seis.setScale(0.5);
             })
@@ -233,8 +228,7 @@ export default class EscenaSonido extends Phaser.Scene {
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
-                }
-                else if (that.sonidoClickado) {
+                } else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
                     that.click1Sound.setMute(false);
@@ -248,7 +242,7 @@ export default class EscenaSonido extends Phaser.Scene {
                 }
             });
 
-        this.siete = this.add.image(this.sys.game.config.width / 2 + 100, this.sys.game.config.height / 2 + 100, 'siete').setInteractive({ useHandCursor: true }).setScale(0.4)
+        this.siete = this.add.image(this.sys.game.config.width / 2 + 100, this.sys.game.config.height / 2 + 100, 'siete').setInteractive({useHandCursor: true}).setScale(0.4)
             .on("pointerover", () => {
                 this.siete.setScale(0.5);
             })
@@ -265,8 +259,7 @@ export default class EscenaSonido extends Phaser.Scene {
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
-                }
-                else if (that.sonidoClickado) {
+                } else if (that.sonidoClickado) {
                     //el sonido 
                     that.sonidos.setMute(false);
                     that.click1Sound.setMute(false);
@@ -280,7 +273,7 @@ export default class EscenaSonido extends Phaser.Scene {
                 }
             });
 
-        this.ocho = this.add.image(this.sys.game.config.width / 2 + 150, this.sys.game.config.height / 2 + 100, 'ocho').setInteractive({ useHandCursor: true }).setScale(0.4)
+        this.ocho = this.add.image(this.sys.game.config.width / 2 + 150, this.sys.game.config.height / 2 + 100, 'ocho').setInteractive({useHandCursor: true}).setScale(0.4)
             .on("pointerover", () => {
                 this.ocho.setScale(0.5);
             })
@@ -297,8 +290,7 @@ export default class EscenaSonido extends Phaser.Scene {
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
-                }
-                else if (that.sonidoClickado) {
+                } else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
                     that.click1Sound.setMute(false);
@@ -312,7 +304,7 @@ export default class EscenaSonido extends Phaser.Scene {
                 }
             });
 
-        this.nueve = this.add.image(this.sys.game.config.width / 2 + 200, this.sys.game.config.height / 2 + 100, 'nueve').setInteractive({ useHandCursor: true }).setScale(0.4)
+        this.nueve = this.add.image(this.sys.game.config.width / 2 + 200, this.sys.game.config.height / 2 + 100, 'nueve').setInteractive({useHandCursor: true}).setScale(0.4)
             .on("pointerover", () => {
                 this.nueve.setScale(0.5);
             })
@@ -329,8 +321,7 @@ export default class EscenaSonido extends Phaser.Scene {
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
-                }
-                else if (that.sonidoClickado) {
+                } else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
                     that.click1Sound.setMute(false);
@@ -344,7 +335,7 @@ export default class EscenaSonido extends Phaser.Scene {
                 }
             });
 
-        this.diez = this.add.image(this.sys.game.config.width / 2 + 250, this.sys.game.config.height / 2 + 100, 'diez').setInteractive({ useHandCursor: true }).setScale(0.4)
+        this.diez = this.add.image(this.sys.game.config.width / 2 + 250, this.sys.game.config.height / 2 + 100, 'diez').setInteractive({useHandCursor: true}).setScale(0.4)
             .on("pointerover", () => {
                 this.diez.setScale(0.5);
             })
@@ -361,8 +352,7 @@ export default class EscenaSonido extends Phaser.Scene {
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
-                }
-                else if (that.sonidoClickado) {
+                } else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(false);
                     that.click1Sound.setMute(false);
@@ -376,7 +366,7 @@ export default class EscenaSonido extends Phaser.Scene {
                 }
             });
 
-        this.iconMute = this.add.image(this.sys.game.config.width / 2 + 330, this.sys.game.config.height / 2 + 97, 'mute').setInteractive({ useHandCursor: true }).setScale(0.09)
+        this.iconMute = this.add.image(this.sys.game.config.width / 2 + 330, this.sys.game.config.height / 2 + 97, 'mute').setInteractive({useHandCursor: true}).setScale(0.09)
             .on("pointerover", () => {
                 this.iconMute.setScale(0.11);
             })
@@ -391,8 +381,7 @@ export default class EscenaSonido extends Phaser.Scene {
                     that.musicaClickada = false;
                     that.iconMusica.setAlpha(1);
                     that.iconSonidos.setAlpha(1);
-                }
-                else if (that.sonidoClickado) {
+                } else if (that.sonidoClickado) {
                     //el sonido
                     that.sonidos.setMute(true);
                     that.click1Sound.setMute(true);
@@ -402,7 +391,7 @@ export default class EscenaSonido extends Phaser.Scene {
                     that.iconSonidos.setAlpha(1);
                 }
             });
-        this.back = this.add.image(this.sys.game.config.width / 2 - 300, this.sys.game.config.height / 2 - 200, 'back').setInteractive({ useHandCursor: true }).setScale(0.05)
+        this.back = this.add.image(this.sys.game.config.width / 2 - 300, this.sys.game.config.height / 2 - 200, 'back').setInteractive({useHandCursor: true}).setScale(0.05)
             .on("pointerover", () => {
                 this.back.setScale(0.06);
             })

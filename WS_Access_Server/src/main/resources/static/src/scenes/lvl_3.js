@@ -1,4 +1,3 @@
-
 import Lunaran from '../gameObjects/lunaran.js';
 import Balas from '../gameObjects/balas.js';
 import Enemies from '../gameObjects/enemy.js';
@@ -20,7 +19,7 @@ var p2;
 
 class lvl_3 extends Phaser.Scene {
     constructor() {
-        super({ key: "lvl_3" });
+        super({key: "lvl_3"});
     }
 
 
@@ -42,8 +41,8 @@ class lvl_3 extends Phaser.Scene {
         this.click1Sound = data.click1;
         this.nombreEscena = 'lvl_3';
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(1.0);
-        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
-        
+        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({useHandCursor: true});
+
 
         this.iconoPausa.on('pointerdown', () => {
             this.click1Sound.play();
@@ -69,14 +68,14 @@ class lvl_3 extends Phaser.Scene {
 
         this.score = 0;
 
-        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
+        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({useHandCursor: true});
 
         let center_width = this.sys.game.config.width / 2;
         //Lunara
         this.player1 = new Lunaran(this, center_width - 10, 350, "lunaran");
 
         this.player2 = new Lunaran(this, center_width + 10, 350, "lunaran2");
-       //Controles
+        //Controles
         //Jugador 1
         this.cursor_w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W, false);
         this.cursor_a = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A, false);
@@ -86,13 +85,12 @@ class lvl_3 extends Phaser.Scene {
         this.cursor_e = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E, false);//dash
 
         //Jugador 2
-       this.cursor_i = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I, false);
+        this.cursor_i = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I, false);
         this.cursor_j = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J, false);
         this.cursor_k = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K, false);
         this.cursor_l = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L, false);
         this.cursor_o = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O, false);//dash
         this.cursor_u = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U, false);//power up
-
 
 
         //Balas
@@ -113,7 +111,8 @@ class lvl_3 extends Phaser.Scene {
 
         //PowerUp - Láser desintegrador.
         this.lasers = new Lasers(this);
-        this.lasersInit = this.lasers.getChildren(false);;
+        this.lasersInit = this.lasers.getChildren(false);
+        ;
         for (let index = 0; index < this.lasersInit.length; index++) {
             let element = this.lasersInit[index];
             element.body.enable = false;
@@ -138,6 +137,7 @@ class lvl_3 extends Phaser.Scene {
             bullet.die();
             that.sistemaVida.damage(amountDamageEnemy);
         }
+
         //Colisión Bala-Jugador2
         function player2Hit(player, bullet) {
             bullet.die();
@@ -148,7 +148,7 @@ class lvl_3 extends Phaser.Scene {
         function bullet1Enemy(bullet, enemy) {
             bullet.die();
             if (enemy.damageEnemy(amountDamageBullet)) {
-                
+
                 that.barraEnergia.increasePowerUp(10);
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
                     that.muerteEnemigoSound.setVolume(0.1);
@@ -162,12 +162,11 @@ class lvl_3 extends Phaser.Scene {
         function bullet2Enemy(bullet, enemy) {
             bullet.die();
             if (enemy.damageEnemy(amountDamageBullet)) {
-                
-                
+
+
                 if (that.barreras.isAlive()) {
                     that.barraEnergia2.increasePowerUp(1);
-                }
-                else {
+                } else {
                     that.barraEnergia2.increasePowerUp(10);
                 }
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
@@ -223,9 +222,19 @@ class lvl_3 extends Phaser.Scene {
         this.physics.add.collider(this.player2, this.enemies, enemyPlayer2);
 
 
-        this.timerSpawn = this.time.addEvent({ delay: spawnRate, callback: spawnerFunc, callbackScope: this, loop: true });
-        this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
-        this.timerDisparoEnemigo = this.time.addEvent({ delay: enemyFireRate, callback: enemyShoot, callbackScope: this, loop: true });
+        this.timerSpawn = this.time.addEvent({
+            delay: spawnRate,
+            callback: spawnerFunc,
+            callbackScope: this,
+            loop: true
+        });
+        this.timerDisparo = this.time.addEvent({delay: fireRate, callback: shootFunc, callbackScope: this, loop: true});
+        this.timerDisparoEnemigo = this.time.addEvent({
+            delay: enemyFireRate,
+            callback: enemyShoot,
+            callbackScope: this,
+            loop: true
+        });
 
         //impacto del laser contra un enemigo
         function laserEnemy(laser, enemy) {
@@ -250,7 +259,7 @@ class lvl_3 extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: 0, condition: 0 });
+            this.scene.start('PantallaFinal', {score: 0, condition: 0});
         }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
@@ -288,29 +297,25 @@ class lvl_3 extends Phaser.Scene {
                 this.player1.body.setVelocityX(-1000); //velocidad del dash
                 this.barraDash.decrease(8);
             }
-        }
-        else if (this.cursor_d.isDown) {
+        } else if (this.cursor_d.isDown) {
             this.player1.body.setVelocityX(200);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 this.player1.body.setVelocityX(1000);
                 this.barraDash.decrease(8);
             }
-        }
-        else if (this.cursor_w.isDown) {
+        } else if (this.cursor_w.isDown) {
             this.player1.body.setVelocityY(-200);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 this.player1.body.setVelocityY(-1000);
                 this.barraDash.decrease(8);
             }
-        }
-        else if (this.cursor_s.isDown) {
+        } else if (this.cursor_s.isDown) {
             this.player1.body.setVelocityY(200);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 this.player1.body.setVelocityY(1000);
                 this.barraDash.decrease(8);
             }
-        }
-        else {
+        } else {
             this.player1.body.setVelocity(0);
         }
 
@@ -321,29 +326,25 @@ class lvl_3 extends Phaser.Scene {
                 this.player2.body.setVelocityY(1000);
                 this.barraDash2.decrease(8);
             }
-        }
-        else if (this.cursor_i.isDown) {
+        } else if (this.cursor_i.isDown) {
             this.player2.body.setVelocityY(-200);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityY(-1000);
                 this.barraDash2.decrease(8);
             }
-        }
-        else if (this.cursor_l.isDown) {
+        } else if (this.cursor_l.isDown) {
             this.player2.body.setVelocityX(200);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityX(1000);
                 this.barraDash2.decrease(8);
             }
-        }
-        else if (this.cursor_j.isDown) {
+        } else if (this.cursor_j.isDown) {
             this.player2.body.setVelocityX(-200);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityX(-1000);
                 this.barraDash2.decrease(8);
             }
-        }
-        else {
+        } else {
             this.player2.body.setVelocity(0);
         }
 
@@ -368,11 +369,10 @@ class lvl_3 extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: 0, condition: 1 });
+            this.scene.start('PantallaFinal', {score: 0, condition: 1});
         }
     }
 }
-
 
 
 function shootFunc() {
@@ -397,8 +397,7 @@ function spawnerFunc() {
         for (var i = 0; i < 5; i++) {
             this.enemies.spawnEnemy(x + (25 * i), y, xDir, yDir);
         }
-    }
-    else {
+    } else {
         if (y % 2) {
             x = -130
             xDir = 200
@@ -406,8 +405,7 @@ function spawnerFunc() {
             for (var i = 0; i < 3; i++) {
                 this.enemies.spawnEnemy(x + (40 * i), y, xDir, yDir);
             }
-        }
-        else {
+        } else {
             x = 1030
             xDir = -200
             yDir = Phaser.Math.Between(-20, 20);
@@ -433,12 +431,10 @@ function enemyShoot() {
         if (i % 2 && p1) {
             eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
             eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
-        }
-        else if (p2) {
+        } else if (p2) {
             eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
             eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
-        }
-        else {
+        } else {
             eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
             eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
         }

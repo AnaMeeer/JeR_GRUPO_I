@@ -174,7 +174,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
             }
             var enemiesArray = that.enemies.getChildren();
             for (let i = 0; i < enemiesArray.length; i++) {
-                if(enemiesArray[i] === enemy){
+                if (enemiesArray[i] === enemy) {
                     msgEnemy.idx = i;
                     break;
                 }
@@ -206,7 +206,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
             }
             var enemiesArray = that.bounceEnemies.getChildren();
             for (let i = 0; i < enemiesArray.length; i++) {
-                if(enemiesArray[i] === enemy){
+                if (enemiesArray[i] === enemy) {
                     msgEnemy.idx = i;
                     break;
                 }
@@ -244,7 +244,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
             }
             var arrayEnemies = that.enemies.getChildren();
             for (let i = 0; i < arrayEnemies.length; i++) {
-                if(arrayEnemies[i] === enemy){
+                if (arrayEnemies[i] === enemy) {
                     msgDmgEnemy.idx = i;
                     break;
                 }
@@ -262,7 +262,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
             }
             var arrayEnemies = that.bounceEnemies.getChildren();
             for (let i = 0; i < arrayEnemies.length; i++) {
-                if(arrayEnemies[i] === enemy){
+                if (arrayEnemies[i] === enemy) {
                     msgDmgEnemy.idx = i;
                     break;
                 }
@@ -382,15 +382,15 @@ class scene_PlayBORRAR extends Phaser.Scene {
                 var d = message.d;
                 var p = message.p;
                 var vel = 200;
-                if(d > 0){
+                if (d > 0) {
                     player1Dash = true;
                     vel = 1000;
-                }else{
+                } else {
                     player1Dash = false;
                 }
-                if(p > 0){
+                if (p > 0) {
                     player1Power = true;
-                }else{
+                } else {
                     player1Power = false;
                 }
                 that.player1.body.setVelocityX(vel * x);
@@ -432,8 +432,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
                     that.iniciarEnemigoSoundDisparoLaser = false;
                 }
                 that.muerteEnemigoSound.play();
-            }
-            else if(type == 6){
+            } else if (type == 6) {
                 var idx = message.idx;
                 var enemyArray = that.bounceEnemies.getChildren();
 
@@ -448,30 +447,25 @@ class scene_PlayBORRAR extends Phaser.Scene {
                     that.iniciarEnemigoSoundDisparoLaser = false;
                 }
                 that.muerteEnemigoSound.play();
-            }
-            else if(type == 7){
+            } else if (type == 7) {
                 that.sistemaVida.damage(amountDamageEnemy);
-            }
-            else if(type == 8){
+            } else if (type == 8) {
                 var idx = message.idx;
                 var enemyArray = that.enemies.getChildren();
 
                 enemyArray[idx].destroy();
 
                 that.sistemaVida.damage(amountDamageEnemy)
-            }
-            else if(type == 9){
+            } else if (type == 9) {
                 var idx = message.idx;
                 var enemyArray = that.bounceEnemies.getChildren();
 
                 enemyArray[idx].destroy();
 
                 that.sistemaVida.damage(amountDamageEnemy)
-            }
-            else if(type == 10){
+            } else if (type == 10) {
                 that.sistemaVida.damage(300);
-            }
-            else if(type == 11){
+            } else if (type == 11) {
                 var idx = message.idx;
                 var enemyArray = that.enemies.getChildren();
 
@@ -486,8 +480,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
                     that.iniciarEnemigoSoundDisparoLaser = false;
                 }
                 that.muerteEnemigoSound.play();
-            }
-            else if(type == 12){
+            } else if (type == 12) {
                 var idx = message.idx;
                 var enemyArray = that.bounceEnemies.getChildren();
 
@@ -502,8 +495,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
                     that.iniciarEnemigoSoundDisparoLaser = false;
                 }
                 that.muerteEnemigoSound.play();
-            }
-            else if (type == -2) {
+            } else if (type == -2) {
                 that.timerDisparo.paused = false;
             }
         }
@@ -601,8 +593,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
         //Barras
         if (!player1Dash) {
             this.barraDash.increaseDash();
-        }
-        else{
+        } else {
             this.barraDash.decrease(8)
         }
         if (this.cursor_o.isUp) {

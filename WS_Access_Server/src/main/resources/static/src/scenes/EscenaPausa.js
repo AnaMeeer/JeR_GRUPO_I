@@ -1,6 +1,6 @@
 export default class EscenaPausa extends Phaser.Scene {
     constructor() {
-        super({ key: 'EscenaPausa' });
+        super({key: 'EscenaPausa'});
     }
 
     create(data) {
@@ -13,16 +13,15 @@ export default class EscenaPausa extends Phaser.Scene {
         this.escenaSeleccionada = data.escena;
 
 
-
         this.pausa = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'ImagenPausa');
         this.quit = this.add.image(this.sys.game.config.width / 2 + 1, this.sys.game.config.height / 2 + 9, 'quit');
-        this.sfx = this.add.image(this.sys.game.config.width / 2 - 80, this.sys.game.config.height / 2 - 72.5, 'sfx').setInteractive({ useHandCursor: true }).on('pointerup', function () {
+        this.sfx = this.add.image(this.sys.game.config.width / 2 - 80, this.sys.game.config.height / 2 - 72.5, 'sfx').setInteractive({useHandCursor: true}).on('pointerup', function () {
             that.click2Sound.play();
             that.scene.sleep();
             that.scene.wake('EscenaSonido');
         });
 
-        this.yes = this.add.image(this.sys.game.config.width / 2 - 79.5, this.sys.game.config.height / 2 + 87.5, 'yes').setInteractive({ useHandCursor: true }).on('pointerup', function () {
+        this.yes = this.add.image(this.sys.game.config.width / 2 - 79.5, this.sys.game.config.height / 2 + 87.5, 'yes').setInteractive({useHandCursor: true}).on('pointerup', function () {
             that.musica.stop();
             that.musicaInGame.stop();
             that.click2Sound.play();
@@ -45,7 +44,7 @@ export default class EscenaPausa extends Phaser.Scene {
         });
 
 
-        this.no = this.add.image(this.sys.game.config.width / 2 + 82.5, this.sys.game.config.height / 2 + 87, 'no').setInteractive({ useHandCursor: true }).on('pointerup', function () {
+        this.no = this.add.image(this.sys.game.config.width / 2 + 82.5, this.sys.game.config.height / 2 + 87, 'no').setInteractive({useHandCursor: true}).on('pointerup', function () {
             switch (that.escenaSeleccionada) {
                 case 1:
                     that.scene.wake('lvl_1');
@@ -71,8 +70,8 @@ export default class EscenaPausa extends Phaser.Scene {
                     that.scene.wake('scene_Play');
                     that.click2Sound.play();
                     break;
-                    
-                    //ELIMINAR CUANDO SE TERMINEN DE HACER LOS CAMBIOS
+
+                //ELIMINAR CUANDO SE TERMINEN DE HACER LOS CAMBIOS
                 case 7:
                     that.scene.wake('scene_PlayBORRAR');
                     that.click2Sound.play();

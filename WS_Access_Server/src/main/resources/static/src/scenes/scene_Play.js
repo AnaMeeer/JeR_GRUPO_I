@@ -31,14 +31,13 @@ var player2Power = false;
 
 class scene_Play extends Phaser.Scene {
     constructor() {
-        super({ key: "scene_Play" });
+        super({key: "scene_Play"});
     }
 
 
     create(data) {
-		
-		
-		
+
+
         //Musica
         this.nombreEscena = 'scene_Play';
         var musicConfigInGame = {
@@ -66,7 +65,7 @@ class scene_Play extends Phaser.Scene {
 
         this.victoriaPTS = 50;
         this.diffbosstRate = 300;
-        
+
         this.initBounce = 100;
         this.initSwipe = 200;
 
@@ -82,7 +81,7 @@ class scene_Play extends Phaser.Scene {
         this.score = 0;
         this.texto.text = "Points: " + "0";
 
-        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
+        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({useHandCursor: true});
 
         let center_width = this.sys.game.config.width / 2;
         //Lunara
@@ -124,7 +123,8 @@ class scene_Play extends Phaser.Scene {
 
         //PowerUp - Láser desintegrador.
         this.lasers = new Lasers(this);
-        this.lasersInit = this.lasers.getChildren(false);;
+        this.lasersInit = this.lasers.getChildren(false);
+        ;
         for (let index = 0; index < this.lasersInit.length; index++) {
             let element = this.lasersInit[index];
             element.body.enable = false;
@@ -155,6 +155,7 @@ class scene_Play extends Phaser.Scene {
             connectionP1.send(JSON.stringify(msgDmg));
             that.sistemaVida.damage(amountDamageEnemy);
         }
+
         //Colisión Bala-Jugador2
         function player2Hit(player, bullet) {
             bullet.die();
@@ -169,7 +170,7 @@ class scene_Play extends Phaser.Scene {
             }
             var enemiesArray = that.enemies.getChildren();
             for (let i = 0; i < enemiesArray.length; i++) {
-                if(enemiesArray[i] === enemy){
+                if (enemiesArray[i] === enemy) {
                     msgEnemy.idx = i;
                     break;
                 }
@@ -199,7 +200,7 @@ class scene_Play extends Phaser.Scene {
             }
             var enemiesArray = that.bounceEnemies.getChildren();
             for (let i = 0; i < enemiesArray.length; i++) {
-                if(enemiesArray[i] === enemy){
+                if (enemiesArray[i] === enemy) {
                     msgEnemy.idx = i;
                     break;
                 }
@@ -233,7 +234,7 @@ class scene_Play extends Phaser.Scene {
             }
             var arrayEnemies = that.enemies.getChildren();
             for (let i = 0; i < arrayEnemies.length; i++) {
-                if(arrayEnemies[i] === enemy){
+                if (arrayEnemies[i] === enemy) {
                     msgDmgEnemy.idx = i;
                     break;
                 }
@@ -251,7 +252,7 @@ class scene_Play extends Phaser.Scene {
             }
             var arrayEnemies = that.bounceEnemies.getChildren();
             for (let i = 0; i < arrayEnemies.length; i++) {
-                if(arrayEnemies[i] === enemy){
+                if (arrayEnemies[i] === enemy) {
                     msgDmgEnemy.idx = i;
                     break;
                 }
@@ -320,12 +321,32 @@ class scene_Play extends Phaser.Scene {
         //this.physics.add.collider(this.player2, this.wideEnemies, enemySwipe2);
 
 
-        this.timerSpawn = this.time.addEvent({ delay: spawnRate, callback: spawnerFunc, callbackScope: this, loop: true });
-        this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
-        this.timerDisparoEnemigo = this.time.addEvent({ delay: enemyFireRate, callback: enemyShoot, callbackScope: this, loop: true });
-        this.timerBounceEnemy = this.time.addEvent({ delay: bounceSpawnRate, callback: bounceSpawnerFunc, callbackScope: this, loop: true });
-        this.timerSwipeEnemy = this.time.addEvent({ delay:swipeRate , callback: swipeFunc, callbackScope: this, loop: true });
-        
+        this.timerSpawn = this.time.addEvent({
+            delay: spawnRate,
+            callback: spawnerFunc,
+            callbackScope: this,
+            loop: true
+        });
+        this.timerDisparo = this.time.addEvent({delay: fireRate, callback: shootFunc, callbackScope: this, loop: true});
+        this.timerDisparoEnemigo = this.time.addEvent({
+            delay: enemyFireRate,
+            callback: enemyShoot,
+            callbackScope: this,
+            loop: true
+        });
+        this.timerBounceEnemy = this.time.addEvent({
+            delay: bounceSpawnRate,
+            callback: bounceSpawnerFunc,
+            callbackScope: this,
+            loop: true
+        });
+        this.timerSwipeEnemy = this.time.addEvent({
+            delay: swipeRate,
+            callback: swipeFunc,
+            callbackScope: this,
+            loop: true
+        });
+
         this.timerBounceEnemy.paused = true;
         this.timerSwipeEnemy.paused = true;
 
@@ -337,7 +358,7 @@ class scene_Play extends Phaser.Scene {
             }
             var arrayEnemies = that.enemies.getChildren();
             for (let i = 0; i < arrayEnemies.length; i++) {
-                if(arrayEnemies[i] === enemy){
+                if (arrayEnemies[i] === enemy) {
                     msgDmgEnemy.idx = i;
                     break;
                 }
@@ -354,6 +375,7 @@ class scene_Play extends Phaser.Scene {
                 that.muerteEnemigoSound.play();
             }
         }
+
         function laserBounceEnemy(laser, enemy) {
             var msgDmgEnemy = {
                 type: 12,
@@ -361,7 +383,7 @@ class scene_Play extends Phaser.Scene {
             }
             var arrayEnemies = that.bounceEnemies.getChildren();
             for (let i = 0; i < arrayEnemies.length; i++) {
-                if(arrayEnemies[i] === enemy){
+                if (arrayEnemies[i] === enemy) {
                     msgDmgEnemy.idx = i;
                     break;
                 }
@@ -390,45 +412,44 @@ class scene_Play extends Phaser.Scene {
                 enemyFireRate -= 20;
                 that.timerDisparoEnemigo.delay = enemyFireRate;
             }
-            if(that.score > this.initBounce && bounceSpawnRate > 1000){
+            if (that.score > this.initBounce && bounceSpawnRate > 1000) {
                 bounceSpawnRate -= 10;
             }
-            if(that.score > this.initSwipe && swipeRate > 1500){
+            if (that.score > this.initSwipe && swipeRate > 1500) {
                 swipeRate -= 10;
             }
-            if(that.score === 4000){
+            if (that.score === 4000) {
                 amountDamageBullet = 34;
             }
-            if(that.score === 8000){
+            if (that.score === 8000) {
                 amountDamageBullet = 25;
             }
 
         }
-		
-		connectionP1.onmessage = function(msg) {
-			var message = JSON.parse(msg.data);
+
+        connectionP1.onmessage = function (msg) {
+            var message = JSON.parse(msg.data);
             var type = message.type;
-            if(type == 0){
+            if (type == 0) {
                 var x = message.x;
                 var y = message.y;
                 var d = message.d;
                 var p = message.p;
                 var vel = 200;
-                if(d > 0){
+                if (d > 0) {
                     player2Dash = true;
                     vel = 1000;
-                }else{
+                } else {
                     player2Dash = false;
                 }
-                if(p > 0){
+                if (p > 0) {
                     player2Power = true;
-                }else{
+                } else {
                     player2Power = false;
                 }
                 that.player2.body.setVelocityX(vel * x);
                 that.player2.body.setVelocityY(vel * y);
-            }
-            else if(type == 5){
+            } else if (type == 5) {
                 var idx = message.idx;
                 var enemyArray = that.enemies.getChildren();
 
@@ -448,8 +469,7 @@ class scene_Play extends Phaser.Scene {
                 }
 
                 that.muerteEnemigoSound.play();
-            }
-            else if(type == 6){
+            } else if (type == 6) {
                 var idx = message.idx;
                 var enemyArray = that.bounceEnemies.getChildren();
 
@@ -469,49 +489,44 @@ class scene_Play extends Phaser.Scene {
                 }
 
                 that.muerteEnemigoSound.play();
-            }
-            else if(type == 7){
+            } else if (type == 7) {
                 that.sistemaVida2.damage(amountDamageEnemy);
-            }
-            else if(type == 8){
+            } else if (type == 8) {
                 var idx = message.idx;
                 var enemyArray = that.enemies.getChildren();
 
                 enemyArray[idx].destroy();
 
                 that.sistemaVida2.damage(amountDamageEnemy)
-            }
-            else if(type == 9){
+            } else if (type == 9) {
                 var idx = message.idx;
                 var enemyArray = that.bounceEnemies.getChildren();
 
                 enemyArray[idx].destroy();
 
                 that.sistemaVida2.damage(amountDamageEnemy)
-            }
-
-            else if(type == 10){
+            } else if (type == 10) {
                 that.sistemaVida2.damage(300);
             }
-		}
-		
-		var msgStart ={
-			type: -2,
-		}
+        }
 
-		connectionP1.send(JSON.stringify(msgStart));
+        var msgStart = {
+            type: -2,
+        }
+
+        connectionP1.send(JSON.stringify(msgStart));
     }
 
     update(time, delta) {
-       
+
         if (this.score >= this.diffbosstRate) {
             this.dificulty();
             this.diffbosstRate += 300;
         }
-        if (this.score === this.initBounce){
+        if (this.score === this.initBounce) {
             this.timerBounceEnemy.paused = false;
         }
-        if (this.score === this.initSwipe){
+        if (this.score === this.initSwipe) {
             this.timerSwipeEnemy.paused = false;
         }
         if (!this.sistemaVida.getFirstAlive()) {
@@ -538,7 +553,7 @@ class scene_Play extends Phaser.Scene {
             this.barraEnergia.decrease(0.33);
             laser = true;
         }
-        if(this.cursor_q.isUp){
+        if (this.cursor_q.isUp) {
             laser = false;
         }
 
@@ -559,51 +574,47 @@ class scene_Play extends Phaser.Scene {
 
         if (this.cursor_a.isDown) {
             this.player1.body.setVelocityX(-200);
-			this.player1.body.setVelocityY(0);
+            this.player1.body.setVelocityY(0);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 msg.d = 1;
                 this.player1.body.setVelocityX(-1000); //velocidad del dash
                 this.barraDash.decrease(8);
             }
-			msg.x = "-1";
-        }
-        else if (this.cursor_d.isDown) {
+            msg.x = "-1";
+        } else if (this.cursor_d.isDown) {
             this.player1.body.setVelocityX(200);
-			this.player1.body.setVelocityY(0);
+            this.player1.body.setVelocityY(0);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 msg.d = 1;
                 this.player1.body.setVelocityX(1000);
                 this.barraDash.decrease(8);
             }
-			msg.x = "1";
-        }
-        else if (this.cursor_w.isDown) {
+            msg.x = "1";
+        } else if (this.cursor_w.isDown) {
             this.player1.body.setVelocityY(-200);
-			this.player1.body.setVelocityX(0);
+            this.player1.body.setVelocityX(0);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 msg.d = 1;
                 this.player1.body.setVelocityY(-1000);
                 this.barraDash.decrease(8);
             }
-			msg.y = "-1";
-        }
-        else if (this.cursor_s.isDown) {
+            msg.y = "-1";
+        } else if (this.cursor_s.isDown) {
             this.player1.body.setVelocityY(200);
-			this.player1.body.setVelocityX(0);
+            this.player1.body.setVelocityX(0);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 msg.d = 1;
                 this.player1.body.setVelocityY(1000);
                 this.barraDash.decrease(8);
             }
-			msg.y = "1";
-        }
-        else {
+            msg.y = "1";
+        } else {
             this.player1.body.setVelocity(0);
         }
 
-		connectionP1.send(JSON.stringify(msg));
+        connectionP1.send(JSON.stringify(msg));
         //Player 2
-        
+
 
         //Barras
         if (this.cursor_e.isUp) {
@@ -611,8 +622,7 @@ class scene_Play extends Phaser.Scene {
         }
         if (!player2Dash) {
             this.barraDash2.increaseDash();
-        }
-        else{
+        } else {
             this.barraDash2.decrease(8);
         }
 
@@ -632,11 +642,10 @@ class scene_Play extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS, player: playerUser });
+            this.scene.start('PantallaFinal', {score: this.score, condition: this.victoriaPTS, player: playerUser});
         }
     }
 }
-
 
 
 function shootFunc() {
@@ -650,15 +659,15 @@ function shootFunc() {
 
 
 function spawnerFunc() {
-	var msg = {
-			type: 1,
-            x: "0",
-            y: "0",
-			xDir: "0",
-			yDir: "0",
-        }
+    var msg = {
+        type: 1,
+        x: "0",
+        y: "0",
+        xDir: "0",
+        yDir: "0",
+    }
     var y = Phaser.Math.Between(-50, 300);
-	msg.y = y;
+    msg.y = y;
     var x;
     var xDir;
     var yDir;
@@ -666,91 +675,89 @@ function spawnerFunc() {
         x = Phaser.Math.Between(200, 600);
         xDir = Phaser.Math.Between(-20, 20);
         yDir = 100;
-		msg.xDir = xDir;
-		msg.yDir = yDir;
+        msg.xDir = xDir;
+        msg.yDir = yDir;
         for (var i = 0; i < 5; i++) {
             this.enemies.spawnEnemy(x + (25 * i), y, xDir, yDir);
-			msg.x = x + (25 *i);
-			connectionP1.send(JSON.stringify(msg));
+            msg.x = x + (25 * i);
+            connectionP1.send(JSON.stringify(msg));
         }
-    }
-    else {
+    } else {
         if (y % 2) {
             x = -130
             xDir = 200
             yDir = Phaser.Math.Between(-20, 20);
-			msg.xDir = xDir;
-			msg.yDir = yDir;
+            msg.xDir = xDir;
+            msg.yDir = yDir;
             for (var i = 0; i < 3; i++) {
                 this.enemies.spawnEnemy(x + (40 * i), y, xDir, yDir);
-				msg.x = x + (40 *i);
-				connectionP1.send(JSON.stringify(msg));
+                msg.x = x + (40 * i);
+                connectionP1.send(JSON.stringify(msg));
             }
-        }
-        else {
+        } else {
             x = 1030
             xDir = -200
             yDir = Phaser.Math.Between(-20, 20);
-			msg.xDir = xDir;
-			msg.yDir = yDir;
+            msg.xDir = xDir;
+            msg.yDir = yDir;
             for (var i = 0; i < 3; i++) {
                 this.enemies.spawnEnemy(x - (40 * i), y, xDir, yDir);
-				msg.x = x - (40 *i);
-				connectionP1.send(JSON.stringify(msg));
+                msg.x = x - (40 * i);
+                connectionP1.send(JSON.stringify(msg));
             }
         }
     }
 }
 
 function bounceSpawnerFunc() {
-	var msg = {
-			type: 3,
-            x: "0",
-            y: "0",
-			xDir: "0",
-			yDir: "0",
-        }
-		
+    var msg = {
+        type: 3,
+        x: "0",
+        y: "0",
+        xDir: "0",
+        yDir: "0",
+    }
+
     var x = (this.player1.x < 450) ? Phaser.Math.Between(450, 900) : Phaser.Math.Between(0, 400);
     var y = (this.player2.y < 250) ? Phaser.Math.Between(250, 500) : Phaser.Math.Between(0, 250);
     var xDir = (x < 450) ? Phaser.Math.Between(80, 120) : Phaser.Math.Between(-80, -120);
     var yDir = (y < 250) ? Phaser.Math.Between(80, 120) : Phaser.Math.Between(-80, -120);
-    
-	msg.x = x;
-	msg.y = y;
-	msg.xDir = xDir;
-	msg.yDir = yDir;
-	
-	connectionP1.send(JSON.stringify(msg));
-	
-	this.bounceEnemies.spawnEnemy(x, y, xDir, yDir);
+
+    msg.x = x;
+    msg.y = y;
+    msg.xDir = xDir;
+    msg.yDir = yDir;
+
+    connectionP1.send(JSON.stringify(msg));
+
+    this.bounceEnemies.spawnEnemy(x, y, xDir, yDir);
 }
 
 function swipeFunc() {
-	var msg = {
-			type: 4,
-            x: "0"
-        }
+    var msg = {
+        type: 4,
+        x: "0"
+    }
     let aux1 = this.sys.game.config.width / 6;
     let aux2 = this.sys.game.config.width / 3;
     let ran = Phaser.Math.Between(0, 2);
     let x = aux1 + aux2 * ran;
-	
-	msg.x = x;
-	
-	connectionP1.send(JSON.stringify(msg));
-	
+
+    msg.x = x;
+
+    connectionP1.send(JSON.stringify(msg));
+
     this.wideEnemies.spawnEnemy(x, 0);
 }
 
 function enemyShoot() {
-	var msg = {
-			type: 2,
-            x: "0",
-            y: "0",
-			xDir: "0",
-			yDir: "0",
-        }
+    var msg = {
+        type: 2,
+        x: "0",
+        y: "0",
+        xDir: "0",
+        yDir: "0",
+    }
     var arrayEnemies = this.enemies.getChildren();
     var enemigo;
     var eX;
@@ -762,27 +769,25 @@ function enemyShoot() {
         var active = enemigo.active;
         eX = enemigo.body.position.x;
         eY = enemigo.body.position.y;
-		msg.x = eX;
-		msg.y = eY;
-		
+        msg.x = eX;
+        msg.y = eY;
+
         if (active) {
 
 
             if (i % 2 && p1) {
                 eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
                 eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
-            }
-            else if (p2) {
+            } else if (p2) {
                 eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
                 eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
-            }
-            else {
+            } else {
                 eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
                 eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
             }
-			msg.xDir = eXDir;
-			msg.yDir = eYDir;
-			connectionP1.send(JSON.stringify(msg));
+            msg.xDir = eXDir;
+            msg.yDir = eYDir;
+            connectionP1.send(JSON.stringify(msg));
             this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
         }
     }

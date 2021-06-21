@@ -1,6 +1,6 @@
 export default class MenuPrincipal extends Phaser.Scene {
     constructor() {
-        super({ key: "MenuPrincipal" });
+        super({key: "MenuPrincipal"});
 
     }
 
@@ -41,7 +41,7 @@ export default class MenuPrincipal extends Phaser.Scene {
 
 
         //Renderizamos la primera imagen del SpriteSheet
-        this.imagen = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'animintro', 'SpriteIntro_0001.png').setInteractive({ useHandCursor: true });
+        this.imagen = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'animintro', 'SpriteIntro_0001.png').setInteractive({useHandCursor: true});
 
         //Variables que usaremos para controlar animaciones
         this.animable = true;
@@ -58,9 +58,8 @@ export default class MenuPrincipal extends Phaser.Scene {
         });
 
 
-
         //se inicia la primera animación
-        this.anims.create({ key: 'anim', frames: frameNames, frameRate: 10, repeat: 0 });
+        this.anims.create({key: 'anim', frames: frameNames, frameRate: 10, repeat: 0});
 
         //función al pasar por encima de la primera animación
         this.imagen.on('pointerover', () => {
@@ -69,7 +68,11 @@ export default class MenuPrincipal extends Phaser.Scene {
                 this.animable = false;
             }
             //añado un timer de 1 segundos para dar tiempo a que termine la animación
-            this.seClicka = this.time.addEvent({ delay: 700, callback: () => { this.seClicka = true }, callbackScope: this });
+            this.seClicka = this.time.addEvent({
+                delay: 700, callback: () => {
+                    this.seClicka = true
+                }, callbackScope: this
+            });
         });
 
 
@@ -94,13 +97,13 @@ export default class MenuPrincipal extends Phaser.Scene {
                 });
 
                 //Se reproduce la segunda animación
-                this.anims.create({ key: 'anim2', frames: frameNames, frameRate: 30, repeat: 0 });
+                this.anims.create({key: 'anim2', frames: frameNames, frameRate: 30, repeat: 0});
                 this.imagenApertura.play('anim2');
 
                 //añado timer para que comience la tercera animación
                 this.seAnimaBoton = this.time.addEvent({
                     delay: 250, callback: () => {
-                        this.imagenBoton = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'animboton', 'AnimBoton_0001.png').setInteractive({ useHandCursor: true });
+                        this.imagenBoton = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'animboton', 'AnimBoton_0001.png').setInteractive({useHandCursor: true});
                         this.imagenBoton.setScale(1, 1);
                         var framesBoton = this.anims.generateFrameNames('animboton', {
                             start: 0,
@@ -111,7 +114,7 @@ export default class MenuPrincipal extends Phaser.Scene {
                         });
 
                         //Se reproduce la tercera animación
-                        this.anims.create({ key: 'anim3', frames: framesBoton, frameRate: 25, repeat: 0 });
+                        this.anims.create({key: 'anim3', frames: framesBoton, frameRate: 25, repeat: 0});
                         this.imagenBoton.play('anim3');
                         this.imagenBoton.on('pointerdown', () => {
 
@@ -120,10 +123,10 @@ export default class MenuPrincipal extends Phaser.Scene {
                             this.click2Sound.play();
                             //CAMBIOS AQUÍ
 
-                            this.scene.start('SelectorNiveles', { escena: this }); 
+                            this.scene.start('SelectorNiveles', {escena: this});
 
                             //DESCOMENTAR ESTO CUANDO SE TERMINEN DE HACER LOS CAMBIOS
-                            
+
                             //OcultarTodo();
                         })
                     }, callbackScope: this

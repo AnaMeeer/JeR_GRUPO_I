@@ -1,4 +1,3 @@
-
 import Bootloader from './bootloader.js'
 import EscenaLobby from './scenes/EscenaLobby.js'
 import MenuPrincipal from './scenes/MenuPrincipal.js'

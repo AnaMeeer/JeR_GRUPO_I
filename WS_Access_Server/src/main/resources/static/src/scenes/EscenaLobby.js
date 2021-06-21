@@ -1,15 +1,20 @@
 export default class EscenaLobby extends Phaser.Scene {
     constructor() {
-        super({ key: 'EscenaLobby' });
+        super({key: 'EscenaLobby'});
     }
 
     create(data) {
-        this.updateChat = this.time.addEvent({ delay: 500, callback: getMessages, callbackScope: this, loop: true });
-        this.updateServerState = this.time.addEvent({ delay: 2000, callback: getConnectedUsers, callbackScope: this, loop: true });
+        this.updateChat = this.time.addEvent({delay: 500, callback: getMessages, callbackScope: this, loop: true});
+        this.updateServerState = this.time.addEvent({
+            delay: 2000,
+            callback: getConnectedUsers,
+            callbackScope: this,
+            loop: true
+        });
         this.escena = data.escena;
         this.fondo = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro');
         var that = this;
-        this.pasarAjugar = this.add.image(this.sys.game.config.width / 2 + 350, this.sys.game.config.height / 2 - 200, 'levels').setInteractive({ useHandCursor: true }).setScale(0.7)
+        this.pasarAjugar = this.add.image(this.sys.game.config.width / 2 + 350, this.sys.game.config.height / 2 - 200, 'levels').setInteractive({useHandCursor: true}).setScale(0.7)
             .on("pointerover", () => {
                 this.pasarAjugar.setScale(0.75);
 
@@ -20,15 +25,14 @@ export default class EscenaLobby extends Phaser.Scene {
 
             })
             .on("pointerdown", () => {
-				if(player != undefined){
-					this.scene.start('SelectorNiveles', { escena: data.escena, player: player });
-					OcultarTodo();
-					that.updateChat.paused = true;
-					that.updateServerState.paused = true;
-				}
-				else{
-					alert("Sign in/Log in to play");
-				}
+                if (player != undefined) {
+                    this.scene.start('SelectorNiveles', {escena: data.escena, player: player});
+                    OcultarTodo();
+                    that.updateChat.paused = true;
+                    that.updateServerState.paused = true;
+                } else {
+                    alert("Sign in/Log in to play");
+                }
             });
 
     }
@@ -72,12 +76,12 @@ function postMessage(message, callback) {
             "Content-Type": "application/json"
         }
     }).done(function (data, textStatus) {
-        console.log("POST: " + textStatus);
-        if (callback != undefined) {
-            callback(message);
+            console.log("POST: " + textStatus);
+            if (callback != undefined) {
+                callback(message);
+            }
+            getMessagesaAfterPost();
         }
-        getMessagesaAfterPost();
-    }
     ).fail(function (data, textStatus) {
         console.log(textStatus);
         console.log("Mensaje demasiado largo");
@@ -94,13 +98,14 @@ function postUser(user) {
             "Content-Type": "application/json"
         }
     }).done(function (data, textStatus) {
-        console.log("POST: " + textStatus);
-        checkPassword(data);
-    }
+            console.log("POST: " + textStatus);
+            checkPassword(data);
+        }
     ).fail(function (data, textStatus) {
         console.log(textStatus);
     });
 }
+
 function putUser(user) {
     $.ajax({
         method: 'PUT',
@@ -116,6 +121,7 @@ function putUser(user) {
         player = undefined;
     })
 }
+
 function getConnectedUsers() {
     $.ajax({
         url: window.location.href + "/users/status"
@@ -126,11 +132,11 @@ function getConnectedUsers() {
     })
 }
 
-function getUserByID(id){
+function getUserByID(id) {
     $.ajax({
         url: window.location.href + "/users/" + id
-    }).done(function(data){
-        player =  data;
+    }).done(function (data) {
+        player = data;
         console.log(player)
     })
 }
@@ -155,9 +161,8 @@ function updateStatus(users) {
 function checkPassword(feedback) {
     if (feedback.highScore == -1) {
         alert("Your username/password is incorrect");
-    }
-    else {
-		player = feedback;
+    } else {
+        player = feedback;
         alert("Welcome ");
 
     }
@@ -169,6 +174,7 @@ function showMessage(m) {
     );
 
 }
+
 //======================================================================================
 
 //let pageUrl = window.location.href;
@@ -186,7 +192,6 @@ $(document).ready(function () {
     var passwordInput = $('.CampoContraseña');
 
 
-
     $("#value-input").on("keydown", function search(e) {
         if (e.keyCode == 13) {
             var value = input.val();
@@ -199,8 +204,7 @@ $(document).ready(function () {
                 postMessage(newmessage, showMessage(newmessage));
             } else if (player === undefined) {
                 alert("Sign in or log in to use the chat");
-            }
-            else {
+            } else {
                 alert("Enter a valid message")
             }
 
@@ -218,8 +222,7 @@ $(document).ready(function () {
             postMessage(newmessage, showMessage(newmessage));
         } else if (player === undefined) {
             alert("Sign in or log in to use the chat");
-        }
-        else {
+        } else {
             alert("Enter a valid message")
         }
 
@@ -239,8 +242,7 @@ $(document).ready(function () {
         }
         if (password.length > 3) {
             postUser(newUser);
-        }
-        else {
+        } else {
             alert("Enter a valid password with more than 3 characters");
         }
     })
@@ -261,8 +263,7 @@ $(document).ready(function () {
             }
             if (password.length > 3) {
                 postUser(newUser);
-            }
-            else {
+            } else {
                 alert("Enter a valid password with more than 3 characters");
             }
 
@@ -285,8 +286,7 @@ $(document).ready(function () {
             }
             if (password.length > 3) {
                 postUser(newUser);
-            }
-            else {
+            } else {
                 alert("Enter a valid password with more than 3 characters");
             }
 
