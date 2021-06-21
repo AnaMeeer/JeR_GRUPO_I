@@ -123,11 +123,11 @@ export default class MenuPrincipal extends Phaser.Scene {
                             this.click2Sound.play();
                             //CAMBIOS AQUÍ
 
-                            this.scene.start('SelectorNiveles', {escena: this});
+                            this.scene.start('EscenaLobby', {escena: this});
 
                             //DESCOMENTAR ESTO CUANDO SE TERMINEN DE HACER LOS CAMBIOS
 
-                            //OcultarTodo();
+                            OcultarTodo();
                         })
                     }, callbackScope: this
                 });
