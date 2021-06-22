@@ -38,6 +38,8 @@ class scene_PlayBORRAR extends Phaser.Scene {
 
 
     create(data) {
+        connectedToServer = false;
+        readyToPlay = false;
         connectionP2 = new WebSocket('ws://127.0.0.1:8080/player1');
         //Musica
         this.nombreEscena = 'scene_PlayBORRAR';
@@ -632,7 +634,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
         if (!p1 && !p2) {
 
             this.musicaInGame.stop();
-
+            connectionP2.close();
             this.scene.stop('scene_PlayBORRAR');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
