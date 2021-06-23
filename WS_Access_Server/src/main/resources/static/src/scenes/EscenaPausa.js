@@ -25,7 +25,7 @@ export default class EscenaPausa extends Phaser.Scene {
             that.musica.stop();
             that.musicaInGame.stop();
             that.click2Sound.play();
-            that.scene.stop('scene_Play');
+            that.scene.stop('Infinitus');
             that.scene.stop('lvl_1');
             that.scene.stop('lvl_2');
             that.scene.stop('lvl_3');
@@ -36,9 +36,10 @@ export default class EscenaPausa extends Phaser.Scene {
             that.scene.stop('MenuPrincipal');
             that.scene.stop('PantallaFinal');
             that.scene.stop('EscenaSonido');
+            that.scene.stop('StartTutorial');
 
             that.scene.start('Bootloader');
-            that.scene.start('MenuPrincipal');
+            that.scene.start('StartTutorial');
             // ChatAlTerminar();
 
         });
@@ -67,15 +68,10 @@ export default class EscenaPausa extends Phaser.Scene {
                     that.click2Sound.play();
                     break;
                 case 6:
-                    that.scene.wake('scene_Play');
+                    that.scene.wake('Infinitus');
                     that.click2Sound.play();
                     break;
-
-                //ELIMINAR CUANDO SE TERMINEN DE HACER LOS CAMBIOS
-                case 7:
-                    that.scene.wake('scene_PlayBORRAR');
-                    that.click2Sound.play();
-                    break;
+                
             }
 
 

@@ -11,7 +11,7 @@ export default class EscenaLobby extends Phaser.Scene {
             callbackScope: this,
             loop: true
         });
-        this.escena = data.escena;
+        // this.escena = data.escena;
         this.fondo = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro');
         var that = this;
         this.pasarAjugar = this.add.image(this.sys.game.config.width / 2 + 350, this.sys.game.config.height / 2 - 200, 'levels').setInteractive({useHandCursor: true}).setScale(0.7)
@@ -26,7 +26,7 @@ export default class EscenaLobby extends Phaser.Scene {
             })
             .on("pointerdown", () => {
                 if (player != undefined) {
-                    this.scene.start('SelectorNiveles', {escena: data.escena, player: player});
+                    this.scene.start('NuevoSelectorNiveles', {escena: data.escena, player: player});
                     OcultarTodo();
                     that.updateChat.paused = true;
                     that.updateServerState.paused = true;

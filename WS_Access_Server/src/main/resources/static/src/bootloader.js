@@ -26,7 +26,12 @@ class Bootloader extends Phaser.Scene {
         this.load.image('logo', "assets/logo.png");
 
 
-        //Cosas que usa el Selector de niveles
+        //Cosas que usa StartTutorial
+        this.load.image("MenuStartTutorial",'assets/MenuDeInicioFondo.png');
+        this.load.image("BotonStart",'assets/PLAY.png');
+        this.load.image("BotonTutorial",'assets/BotonTutorial.png');
+
+        //Cosas que usa el Selector de niveles, borrar cuando se implemente la nueva versión
         this.load.image("Juego", "assets/juego.png");
         this.load.image("Nivel1", "assets/Nivel1.png");
         this.load.image("Nivel2", "assets/Nivel2.png");
@@ -36,6 +41,22 @@ class Bootloader extends Phaser.Scene {
         this.load.image("NivelInfinito", "assets/Infinitus.png");
         this.load.image("Tutorial", "assets/Tutorial.png");
         this.load.image('TutorialLevels', "assets/TutorialLevels.png");
+
+
+        //Cosas que usa el NuevoSelectorNiveles
+        this.load.image("SelectorNivelesFondo", "assets/SeleccionDeNivelesFondo.png");
+        this.load.image("Level1", "assets/LEVEL1.png");
+        this.load.image("Level2", "assets/LEVEL2.png");
+        this.load.image("Level3", "assets/LEVEL3.png");
+        this.load.image("Level4", "assets/LEVEL4.png");
+        this.load.image("Level5", "assets/LEVEL5.png");
+        this.load.image("Online", "assets/ONLINE.png");
+        this.load.image("Infinitus","assets/INFINITUSS.png");
+
+        //Cosas que usa SeleccionJugador
+        this.load.image("FondoJugadores","assets/PlayersFondo.png");
+        this.load.image("Player1","assets/PLAYER1.png");
+        this.load.image("Player2","assets/PLAYER2.png");
 
         //Cosas que usa scene_Play
         this.load.image("lunaran", "assets/nave.png");

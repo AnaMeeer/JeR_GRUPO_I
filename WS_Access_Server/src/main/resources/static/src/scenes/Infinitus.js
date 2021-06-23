@@ -1,11 +1,13 @@
 import Lunaran from '../gameObjects/lunaran.js';
 import Balas from '../gameObjects/balas.js';
+import BalasEnemigos from '../gameObjects/balasEnemigos.js';
 import Enemies from '../gameObjects/enemy.js';
+import BounceEnemies from '../gameObjects/bounceEnemy.js';
+import WideEnemies from '../gameObjects/enemigoAncho.js';
 import Lasers from '../gameObjects/laser.js';
 import Barreras from '../gameObjects/barrera.js';
 import Vidas from '../gameObjects/vidas.js';
 import Barra from '../gameObjects/barra.js';
-import BalasEnemigos from '../gameObjects/balasEnemigos.js';
 
 //variables
 var amountDamageBullet = 50; //una bala normal les hace 1 de daño.
@@ -16,14 +18,24 @@ var spawnRate = 1000;
 var enemyFireRate = 5000;
 var p1;
 var p2;
+var spawnRate = 1000;
+var bounceSpawnRate = 2000;
+var swipeRate = 4000;
+var fireRate = 100;
+var enemyFireRate = 5000;
+var laser = false;
+var playerUser;
 
-class lvl_1 extends Phaser.Scene {
+
+class Infinitus extends Phaser.Scene {
     constructor() {
-        super({ key: "lvl_1" });
+        super({ key: "Infinitus" });
     }
 
 
     create(data) {
+        //Musica
+        this.nombreEscena = 'scene_Play';
         var musicConfigInGame = {
             mute: false,
             volume: 0.1,
@@ -35,26 +47,23 @@ class lvl_1 extends Phaser.Scene {
         }
 
         var that = this;
+        playerUser = data.player;
 
-        this.musicaInGame = data.musicaInGame;
+        this.musicaInGame = data.escena.musicaInGame;
         this.musicaInGame.play(musicConfigInGame);
 
-        this.click1Sound = data.click1;
-        this.nombreEscena = 'lvl_1';
-        this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(1.0);
-        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
+        this.click1Sound = data.escena.click1Sound;
 
-
-        this.iconoPausa.on('pointerdown', () => {
-            this.click1Sound.play();
-            this.scene.sleep();
-        })
-
-        this.muerteEnemigoSound = data.sonidos;
+        this.muerteEnemigoSound = data.escena.sonidos;
         this.iniciarEnemigoSoundDisparo1 = true;
         this.iniciarEnemigoSoundDisparo2 = true;
         this.iniciarEnemigoSoundDisparoLaser = true;
-        this.victoriaPTS = 500;
+
+        this.victoriaPTS = 50;
+        this.diffbosstRate = 300;
+        
+        this.initBounce = 1000;
+        this.initSwipe = 2000;
 
         p1 = true;
         p2 = true;
@@ -62,9 +71,9 @@ class lvl_1 extends Phaser.Scene {
         this.primeravez = true;
         this.count = 0;
 
-        this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(3.0);
+        this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(1.0);
         this.texto = this.add.bitmapText(100, 50, 'NierFont', "", 20);
-        this.texto2 = this.add.bitmapText(100, 25, 'NierFont', "Achieve 500 points", 15);
+        this.texto2 = this.add.bitmapText(100, 25, 'NierFont', "How far con you get?", 15);
         this.score = 0;
         this.texto.text = "Points: " + "0";
 
@@ -92,15 +101,14 @@ class lvl_1 extends Phaser.Scene {
         this.cursor_o = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O, false);//dash
         this.cursor_u = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U, false);//power up
 
-
         //Balas
-        this.bulletsP1 = new Balas(this);
+        this.bulletsP1 = new Balas(this, "bala");
         this.balas1 = this.bulletsP1.getChildren(false);
         for (let index = 0; index < this.balas1.length; index++) {
             let element = this.balas1[index];
             element.body.enable = false;
         }
-        this.bulletsP2 = new Balas(this);
+        this.bulletsP2 = new Balas(this, "bala");
         this.balas2 = this.bulletsP2.getChildren(false);
         for (let index = 0; index < this.balas2.length; index++) {
             let element = this.balas2[index];
@@ -111,8 +119,7 @@ class lvl_1 extends Phaser.Scene {
 
         //PowerUp - Láser desintegrador.
         this.lasers = new Lasers(this);
-        this.lasersInit = this.lasers.getChildren(false);
-        ;
+        this.lasersInit = this.lasers.getChildren(false);;
         for (let index = 0; index < this.lasersInit.length; index++) {
             let element = this.lasersInit[index];
             element.body.enable = false;
@@ -130,6 +137,8 @@ class lvl_1 extends Phaser.Scene {
 
         //Enemigos
         this.enemies = new Enemies(this);
+        this.bounceEnemies = new BounceEnemies(this);
+        this.wideEnemies = new WideEnemies(this);
 
 
         //Colisión Bala-Jugador1
@@ -137,7 +146,6 @@ class lvl_1 extends Phaser.Scene {
             bullet.die();
             that.sistemaVida.damage(amountDamageEnemy);
         }
-
         //Colisión Bala-Jugador2
         function player2Hit(player, bullet) {
             bullet.die();
@@ -151,7 +159,6 @@ class lvl_1 extends Phaser.Scene {
                 that.score += 5;
                 that.count++;
                 that.texto.text = "Points: " + that.score;
-
                 that.barraEnergia.increasePowerUp(10);
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
                     that.muerteEnemigoSound.setVolume(0.1);
@@ -168,10 +175,10 @@ class lvl_1 extends Phaser.Scene {
                 that.score += 5;
                 that.count++;
                 that.texto.text = "Points: " + that.score;
-
                 if (that.barreras.isAlive()) {
                     that.barraEnergia2.increasePowerUp(1);
-                } else {
+                }
+                else {
                     that.barraEnergia2.increasePowerUp(10);
                 }
                 if (that.iniciarEnemigoSoundDisparo1 && that.iniciarEnemigoSoundDisparo2 && that.iniciarEnemigoSoundDisparoLaser) {
@@ -193,6 +200,14 @@ class lvl_1 extends Phaser.Scene {
         function enemyPlayer2(player, enemy) {
             enemy.die();
             that.sistemaVida2.damage(amountDamageEnemy);
+        }
+
+        function enemySwipe1(player, enemy) {
+            that.sistemaVida.damage(300);
+        }
+
+        function enemySwipe2(player, enemy) {
+            that.sistemaVida2.damage(300);
         }
 
         //Balas de Enemigos
@@ -218,28 +233,31 @@ class lvl_1 extends Phaser.Scene {
         //Colisiones 
         this.physics.add.collider(this.bulletsP1, this.enemies, bullet1Enemy);  //colision con una bala
         this.physics.add.collider(this.bulletsP2, this.enemies, bullet2Enemy);
+        this.physics.add.collider(this.bulletsP1, this.bounceEnemies, bullet1Enemy);
+        this.physics.add.collider(this.bulletsP2, this.bounceEnemies, bullet2Enemy);
         this.physics.add.collider(this.lasers, this.enemies, laserEnemy);    //colision con el laser
+        this.physics.add.collider(this.lasers, this.bounceEnemies, laserEnemy);
         this.physics.add.overlap(this.player1, this.enemyBullets, player1Hit);
         this.physics.add.overlap(this.player2, this.enemyBullets, player2Hit);
         this.physics.add.overlap(this.barreras, this.enemyBullets, barrera);
         this.physics.add.overlap(this.barreras, this.enemies, barrera);
+        this.physics.add.overlap(this.barreras, this.bounceEnemies, barrera);
         this.physics.add.collider(this.player1, this.enemies, enemyPlayer1);
         this.physics.add.collider(this.player2, this.enemies, enemyPlayer2);
+        this.physics.add.collider(this.player1, this.bounceEnemies, enemyPlayer1);
+        this.physics.add.collider(this.player2, this.bounceEnemies, enemyPlayer2);
+        this.physics.add.collider(this.player1, this.wideEnemies, enemySwipe1);
+        this.physics.add.collider(this.player2, this.wideEnemies, enemySwipe2);
 
 
-        this.timerSpawn = this.time.addEvent({
-            delay: spawnRate,
-            callback: spawnerFunc,
-            callbackScope: this,
-            loop: true
-        });
+        this.timerSpawn = this.time.addEvent({ delay: spawnRate, callback: spawnerFunc, callbackScope: this, loop: true });
         this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
-        this.timerDisparoEnemigo = this.time.addEvent({
-            delay: enemyFireRate,
-            callback: enemyShoot,
-            callbackScope: this,
-            loop: true
-        });
+        this.timerDisparoEnemigo = this.time.addEvent({ delay: enemyFireRate, callback: enemyShoot, callbackScope: this, loop: true });
+        this.timerBounceEnemy = this.time.addEvent({ delay: bounceSpawnRate, callback: bounceSpawnerFunc, callbackScope: this, loop: true });
+        this.timerSwipeEnemy = this.time.addEvent({ delay:swipeRate , callback: swipeFunc, callbackScope: this, loop: true });
+        
+        this.timerBounceEnemy.paused = true;
+        this.timerSwipeEnemy.paused = true;
 
         //impacto del laser contra un enemigo
         function laserEnemy(laser, enemy) {
@@ -254,18 +272,44 @@ class lvl_1 extends Phaser.Scene {
                 that.muerteEnemigoSound.play();
             }
         }
+
+        //Función de control de dificultad
+        this.dificulty = function difBoost() {
+            if (spawnRate > 200) {
+                spawnRate -= 10;
+                that.timerSpawn.delay = spawnRate;
+            }
+            if (enemyFireRate > 1000) {
+                enemyFireRate -= 20;
+                that.timerDisparoEnemigo.delay = enemyFireRate;
+            }
+            if(that.score > this.initBounce && bounceSpawnRate > 1000){
+                bounceSpawnRate -= 10;
+            }
+            if(that.score > this.initSwipe && swipeRate > 1500){
+                swipeRate -= 10;
+            }
+            if(that.score === 4000){
+                amountDamageBullet = 34;
+            }
+            if(that.score === 8000){
+                amountDamageBullet = 25;
+            }
+
+        }
     }
 
     update(time, delta) {
-
-        if (this.score === this.victoriaPTS) {
-            this.musicaInGame.stop();
-            this.scene.stop('lvl_1');
-            this.scene.stop('Bootloader');
-            this.scene.stop('MenuPrincipal');
-            this.scene.stop('EscenaSonido');
-            this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: 0, condition: 0 });
+       
+        if (this.score >= this.diffbosstRate) {
+            this.dificulty();
+            this.diffbosstRate += 300;
+        }
+        if (this.score === this.initBounce){
+            this.timerBounceEnemy.paused = false;
+        }
+        if (this.score === this.initSwipe){
+            this.timerSwipeEnemy.paused = false;
         }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
@@ -281,6 +325,10 @@ class lvl_1 extends Phaser.Scene {
         if (this.cursor_q.isDown && (this.barraEnergia.value > 0) && p1) {
             this.lasers.fireLaser(this.player1.x, this.player1.y, 0, this.bulletSpeed);
             this.barraEnergia.decrease(0.33);
+            laser = true;
+        }
+        if(this.cursor_q.isUp){
+            laser = false;
         }
 
         //PowerUp: Rezo desesperado
@@ -303,25 +351,29 @@ class lvl_1 extends Phaser.Scene {
                 this.player1.body.setVelocityX(-1000); //velocidad del dash
                 this.barraDash.decrease(8);
             }
-        } else if (this.cursor_d.isDown) {
+        }
+        else if (this.cursor_d.isDown) {
             this.player1.body.setVelocityX(200);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 this.player1.body.setVelocityX(1000);
                 this.barraDash.decrease(8);
             }
-        } else if (this.cursor_w.isDown) {
+        }
+        else if (this.cursor_w.isDown) {
             this.player1.body.setVelocityY(-200);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 this.player1.body.setVelocityY(-1000);
                 this.barraDash.decrease(8);
             }
-        } else if (this.cursor_s.isDown) {
+        }
+        else if (this.cursor_s.isDown) {
             this.player1.body.setVelocityY(200);
             if (this.cursor_e.isDown && (this.barraDash.value > 0)) {
                 this.player1.body.setVelocityY(1000);
                 this.barraDash.decrease(8);
             }
-        } else {
+        }
+        else {
             this.player1.body.setVelocity(0);
         }
 
@@ -332,25 +384,29 @@ class lvl_1 extends Phaser.Scene {
                 this.player2.body.setVelocityY(1000);
                 this.barraDash2.decrease(8);
             }
-        } else if (this.cursor_i.isDown) {
+        }
+        else if (this.cursor_i.isDown) {
             this.player2.body.setVelocityY(-200);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityY(-1000);
                 this.barraDash2.decrease(8);
             }
-        } else if (this.cursor_l.isDown) {
+        }
+        else if (this.cursor_l.isDown) {
             this.player2.body.setVelocityX(200);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityX(1000);
                 this.barraDash2.decrease(8);
             }
-        } else if (this.cursor_j.isDown) {
+        }
+        else if (this.cursor_j.isDown) {
             this.player2.body.setVelocityX(-200);
             if (this.cursor_o.isDown && (this.barraDash.value > 0)) {
                 this.player2.body.setVelocityX(-1000);
                 this.barraDash2.decrease(8);
             }
-        } else {
+        }
+        else {
             this.player2.body.setVelocity(0);
         }
 
@@ -365,24 +421,28 @@ class lvl_1 extends Phaser.Scene {
 
         //Menu
         this.iconoPausa.on('pointerdown', () => {
+            this.click1Sound.play();
             this.scene.sleep();
         })
 
         if (!p1 && !p2) {
+
             this.musicaInGame.stop();
+
             this.scene.stop('scene_Play');
             this.scene.stop('Bootloader');
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: 0, condition: 1 });
+            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS, player: playerUser });
         }
     }
 }
 
 
+
 function shootFunc() {
-    if (p1) {
+    if (p1 && !laser) {
         this.bulletsP1.fireBullet(this.player1.x, this.player1.y, 0, this.payerBulletYSpeed);
     }
     if (p2) {
@@ -403,7 +463,8 @@ function spawnerFunc() {
         for (var i = 0; i < 5; i++) {
             this.enemies.spawnEnemy(x + (25 * i), y, xDir, yDir);
         }
-    } else {
+    }
+    else {
         if (y % 2) {
             x = -130
             xDir = 200
@@ -411,7 +472,8 @@ function spawnerFunc() {
             for (var i = 0; i < 3; i++) {
                 this.enemies.spawnEnemy(x + (40 * i), y, xDir, yDir);
             }
-        } else {
+        }
+        else {
             x = 1030
             xDir = -200
             yDir = Phaser.Math.Between(-20, 20);
@@ -422,6 +484,22 @@ function spawnerFunc() {
     }
 }
 
+function bounceSpawnerFunc() {
+    var x = (this.player1.x < 450) ? Phaser.Math.Between(450, 900) : Phaser.Math.Between(0, 400);
+    var y = (this.player2.y < 250) ? Phaser.Math.Between(250, 500) : Phaser.Math.Between(0, 250);
+    var xDir = (x < 450) ? Phaser.Math.Between(80, 120) : Phaser.Math.Between(-80, -120);
+    var yDir = (y < 250) ? Phaser.Math.Between(80, 120) : Phaser.Math.Between(-80, -120);
+    this.bounceEnemies.spawnEnemy(x, y, xDir, yDir);
+}
+
+function swipeFunc() {
+    let aux1 = this.sys.game.config.width / 6;
+    let aux2 = this.sys.game.config.width / 3;
+    let ran = Phaser.Math.Between(0, 2);
+    let x = aux1 + aux2 * ran;
+    this.wideEnemies.spawnEnemy(x, 0);
+}
+
 function enemyShoot() {
     var arrayEnemies = this.enemies.getChildren();
     var enemigo;
@@ -430,21 +508,28 @@ function enemyShoot() {
     var eXDir;
     var eYDir;
     for (let i = 0; i < arrayEnemies.length; i++) {
-        enemigo = arrayEnemies[i]
+        enemigo = arrayEnemies[i];
+        var active = enemigo.active;
         eX = enemigo.body.position.x;
         eY = enemigo.body.position.y;
 
-        if (i % 2 && p1) {
-            eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
-            eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
-        } else if (p2) {
-            eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
-            eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
-        } else {
-            eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
-            eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
+        if (active) {
+
+
+            if (i % 2 && p1) {
+                eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
+                eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
+            }
+            else if (p2) {
+                eXDir = (this.player2.x - arrayEnemies[i].body.position.x) / 2;
+                eYDir = (this.player2.y - arrayEnemies[i].body.position.y) / 2;
+            }
+            else {
+                eXDir = (this.player1.x - arrayEnemies[i].body.position.x) / 2;
+                eYDir = (this.player1.y - arrayEnemies[i].body.position.y) / 2;
+            }
+            this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
         }
-        this.enemyBullets.fireBullet(eX, eY, eXDir, eYDir);
     }
 }
 
@@ -452,5 +537,5 @@ function barrera(barrera, bala) {
     bala.die();
 }
 
-export default lvl_1;
 
+export default Infinitus;
