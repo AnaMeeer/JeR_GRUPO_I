@@ -1,0 +1,293 @@
+{
+	"textures": [
+		{
+			"image": "Anim_Boton.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1748,
+				"h": 496
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "AnimBoton_0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 37,
+						"w": 343,
+						"h": 92
+					},
+					"frame": {
+						"x": 1404,
+						"y": 398,
+						"w": 343,
+						"h": 92
+					}
+				},
+				{
+					"filename": "AnimBoton_0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 37,
+						"w": 343,
+						"h": 113
+					},
+					"frame": {
+						"x": 1,
+						"y": 345,
+						"w": 343,
+						"h": 113
+					}
+				},
+				{
+					"filename": "AnimBoton_0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 37,
+						"w": 343,
+						"h": 151
+					},
+					"frame": {
+						"x": 1404,
+						"y": 245,
+						"w": 343,
+						"h": 151
+					}
+				},
+				{
+					"filename": "AnimBoton_0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 37,
+						"w": 343,
+						"h": 171
+					},
+					"frame": {
+						"x": 346,
+						"y": 324,
+						"w": 343,
+						"h": 171
+					}
+				},
+				{
+					"filename": "AnimBoton_0005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 37,
+						"w": 343,
+						"h": 196
+					},
+					"frame": {
+						"x": 1059,
+						"y": 260,
+						"w": 343,
+						"h": 196
+					}
+				},
+				{
+					"filename": "AnimBoton_0006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 37,
+						"w": 343,
+						"h": 242
+					},
+					"frame": {
+						"x": 1404,
+						"y": 1,
+						"w": 343,
+						"h": 242
+					}
+				},
+				{
+					"filename": "AnimBoton_0007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 37,
+						"w": 343,
+						"h": 301
+					},
+					"frame": {
+						"x": 691,
+						"y": 1,
+						"w": 343,
+						"h": 301
+					}
+				},
+				{
+					"filename": "AnimBoton_0008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 37,
+						"w": 343,
+						"h": 321
+					},
+					"frame": {
+						"x": 346,
+						"y": 1,
+						"w": 343,
+						"h": 321
+					}
+				},
+				{
+					"filename": "AnimBoton_0009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 37,
+						"w": 343,
+						"h": 342
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 343,
+						"h": 342
+					}
+				},
+				{
+					"filename": "AnimBoton_0010.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 52,
+						"y": 81,
+						"w": 259,
+						"h": 257
+					},
+					"frame": {
+						"x": 1036,
+						"y": 1,
+						"w": 259,
+						"h": 257
+					}
+				},
+				{
+					"filename": "AnimBoton_0011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 91,
+						"y": 118,
+						"w": 182,
+						"h": 182
+					},
+					"frame": {
+						"x": 691,
+						"y": 304,
+						"w": 182,
+						"h": 182
+					}
+				},
+				{
+					"filename": "AnimBoton_0012.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 91,
+						"y": 118,
+						"w": 182,
+						"h": 182
+					},
+					"frame": {
+						"x": 875,
+						"y": 304,
+						"w": 182,
+						"h": 182
+					}
+				},
+				{
+					"filename": "AnimBoton_0013.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 362,
+						"h": 417
+					},
+					"spriteSourceSize": {
+						"x": 135,
+						"y": 162,
+						"w": 92,
+						"h": 92
+					},
+					"frame": {
+						"x": 1297,
+						"y": 1,
+						"w": 92,
+						"h": 92
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:621b27bc342c3f783d742bde52f95490:40e65095d2af71a4e53f2d8d859128e4:a7e556889d8cc54f6368b61ce2752405$"
+	}
+}
