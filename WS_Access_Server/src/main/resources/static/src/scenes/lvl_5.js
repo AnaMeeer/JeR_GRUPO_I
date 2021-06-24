@@ -21,7 +21,7 @@ var p2;
 
 class lvl_5 extends Phaser.Scene {
     constructor() {
-        super({key: "lvl_5"});
+        super({ key: "lvl_5" });
     }
 
 
@@ -43,7 +43,7 @@ class lvl_5 extends Phaser.Scene {
         this.click1Sound = data.click1;
         this.nombreEscena = 'lvl_5';
         this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro').setScale(1.0);
-        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({useHandCursor: true});
+        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
 
 
         this.iconoPausa.on('pointerdown', () => {
@@ -73,7 +73,7 @@ class lvl_5 extends Phaser.Scene {
         this.score = 0;
         this.texto.text = "Points: " + "0";
 
-        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({useHandCursor: true});
+        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({ useHandCursor: true });
 
         let center_width = this.sys.game.config.width / 2;
         //Lunara
@@ -253,8 +253,8 @@ class lvl_5 extends Phaser.Scene {
             callbackScope: this,
             loop: true
         });
-        this.timerSwipe = this.time.addEvent({delay: swipeRate, callback: swipeFunc, callbackScope: this, loop: true});
-        this.timerDisparo = this.time.addEvent({delay: fireRate, callback: shootFunc, callbackScope: this, loop: true});
+        this.timerSwipe = this.time.addEvent({ delay: swipeRate, callback: swipeFunc, callbackScope: this, loop: true });
+        this.timerDisparo = this.time.addEvent({ delay: fireRate, callback: shootFunc, callbackScope: this, loop: true });
         this.timerDisparoEnemigo = this.time.addEvent({
             delay: enemyFireRate,
             callback: enemyShoot,
@@ -288,7 +288,7 @@ class lvl_5 extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', {score: 0, condition: 0});
+            this.scene.start('PantallaFinal', { score: 0, condition: 0 });
         }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
@@ -398,7 +398,7 @@ class lvl_5 extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', {score: 0, condition: 1});
+            this.scene.start('PantallaFinal', { score: 0, condition: 1 });
         }
     }
 }

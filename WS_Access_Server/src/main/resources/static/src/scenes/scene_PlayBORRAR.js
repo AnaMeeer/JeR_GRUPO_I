@@ -84,7 +84,7 @@ class scene_PlayBORRAR extends Phaser.Scene {
         this.score = 0;
         this.texto.text = "Points: " + "0";
 
-        this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({useHandCursor: true});
+        // this.iconoPausa = this.add.image(900 - 30, 0 + 30, 'iconPausa').setInteractive({useHandCursor: true});
 
         let center_width = this.sys.game.config.width / 2;
         //Lunara
@@ -625,11 +625,11 @@ class scene_PlayBORRAR extends Phaser.Scene {
         }
 
 
-        //Menu
-        this.iconoPausa.on('pointerdown', () => {
-            this.click1Sound.play();
-            this.scene.sleep();
-        })
+        // //Menu
+        // this.iconoPausa.on('pointerdown', () => {
+        //     this.click1Sound.play();
+        //     this.scene.sleep();
+        // })
 
         if (!p1 && !p2) {
 

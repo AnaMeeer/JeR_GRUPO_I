@@ -12,7 +12,10 @@ import lvl_3 from './scenes/lvl_3.js'
 import lvl_4 from './scenes/lvl_4.js'
 import lvl_5 from './scenes/lvl_5.js'
 import scene_PlayBORRAR from './scenes/scene_PlayBORRAR.js'
-
+import StartTutorial from './scenes/StartTutorial.js'
+import NuevoSelectorNiveles from './scenes/NuevoSelectorNiveles.js'
+import Infinitus from './scenes/Infinitus.js'
+import SeleccionJugador from './scenes/SeleccionJugador.js'
 const config = {
     type: Phaser.CANVAS,
     scale: {
@@ -30,7 +33,7 @@ const config = {
 
     },
     //QUITAR LA ESCENA DE BORRAR CUANDO SE TERMINEN DE HACER LOS CAMBIOS
-    scene: [Bootloader, PantallaFinal, EscenaSonido, EscenaPausa, scene_Play, scene_PlayBORRAR, lvl_5, lvl_4, lvl_3, lvl_2, lvl_1, SelectorNiveles, MenuPrincipal, EscenaLobby]
+    scene: [Bootloader, PantallaFinal, EscenaSonido, EscenaPausa, scene_Play, scene_PlayBORRAR, SeleccionJugador, Infinitus, lvl_5, lvl_4, lvl_3, lvl_2, lvl_1, SelectorNiveles, EscenaLobby, NuevoSelectorNiveles, StartTutorial, MenuPrincipal]
 };
 
 
