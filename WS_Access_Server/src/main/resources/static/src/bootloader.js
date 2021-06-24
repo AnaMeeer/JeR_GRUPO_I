@@ -30,6 +30,7 @@ class Bootloader extends Phaser.Scene {
         this.load.image("MenuStartTutorial",'assets/MenuDeInicioFondo.png');
         this.load.image("BotonStart",'assets/PLAY.png');
         this.load.image("BotonTutorial",'assets/BotonTutorial.png');
+        this.load.image("LogoJuego", "assets/NOMBRE.png");
 
         //Cosas que usa el Selector de niveles, borrar cuando se implemente la nueva versión
         this.load.image("Juego", "assets/juego.png");
@@ -44,7 +45,7 @@ class Bootloader extends Phaser.Scene {
 
 
         //Cosas que usa el NuevoSelectorNiveles
-        this.load.image("SelectorNivelesFondo", "assets/SeleccionDeNivelesFondo.png");
+        this.load.image("SelectorNivelesFondo", "assets/ImagenFondo.png");
         this.load.image("Level1", "assets/LEVEL1.png");
         this.load.image("Level2", "assets/LEVEL2.png");
         this.load.image("Level3", "assets/LEVEL3.png");

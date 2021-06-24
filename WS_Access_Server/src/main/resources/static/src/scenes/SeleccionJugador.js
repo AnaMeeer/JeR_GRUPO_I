@@ -15,7 +15,7 @@ export default class SeleccionJugador extends Phaser.Scene {
         var escenaAPasar = data.escena;
         var player = data.player;
 
-        this.image = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'FondoJugadores');
+        this.image = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'SelectorNivelesFondo');
 
         this.Jugador1 = this.add.image(this.sys.game.config.width / 2-205, this.sys.game.config.height / 2 -22, 'Player1').setInteractive({useHandCursor: true}).setScale(1.01)
             .on("pointerover", () => {

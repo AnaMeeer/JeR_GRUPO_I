@@ -6,7 +6,8 @@ export default class StartTutorial extends Phaser.Scene {
 
     create(data) {
         var that = this;
-        this.fondoEstatico = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2 - 25, 'MenuStartTutorial').setScale(0.7);
+        this.fondoEstatico = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2 - 25, 'SelectorNivelesFondo');
+        this.logo = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2-50, 'LogoJuego').setScale(0.7);
         this.botonStart = this.add.image(this.sys.game.config.width / 2 - 143, this.sys.game.config.height / 2 + 71, 'BotonStart').setInteractive({ useHandCursor: true }).setScale(0.7)
             .on("pointerover", () => {
                 this.botonStart.setScale(0.75);

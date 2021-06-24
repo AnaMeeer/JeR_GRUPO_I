@@ -12,7 +12,7 @@ export default class EscenaLobby extends Phaser.Scene {
             loop: true
         });
         // this.escena = data.escena;
-        this.fondo = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'fondoNegro');
+        this.fondo = this.add.image(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'SelectorNivelesFondo');
         var that = this;
         this.pasarAjugar = this.add.image(this.sys.game.config.width / 2 + 350, this.sys.game.config.height / 2 - 200, 'levels').setInteractive({useHandCursor: true}).setScale(0.7)
             .on("pointerover", () => {
