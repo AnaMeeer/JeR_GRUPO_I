@@ -34,6 +34,19 @@ export default class PantallaFinal extends Phaser.Scene {
                 this.icono.setScale(0.15);
             })
             .on("pointerdown", () => {
+                this.scene.stop('Infinitus');
+                this.scene.stop('lvl_1');
+                this.scene.stop('lvl_2');
+                this.scene.stop('lvl_3');
+                this.scene.stop('lvl_4');
+                this.scene.stop('lvl_5');
+                this.scene.stop('SelectorNiveles');
+                this.scene.stop('Bootloader');
+                this.scene.stop('MenuPrincipal');
+                this.scene.stop('PantallaFinal');
+                this.scene.stop('EscenaSonido');
+                this.scene.stop('StartTutorial');
+    
                 this.scene.start('Bootloader');
                 this.scene.start('MenuPrincipal');
                 // ChatAlTerminar();

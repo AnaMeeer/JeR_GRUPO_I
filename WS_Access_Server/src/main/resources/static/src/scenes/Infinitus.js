@@ -24,7 +24,6 @@ var swipeRate = 4000;
 var fireRate = 100;
 var enemyFireRate = 5000;
 var laser = false;
-var playerUser;
 
 
 class Infinitus extends Phaser.Scene {
@@ -47,7 +46,7 @@ class Infinitus extends Phaser.Scene {
         }
 
         var that = this;
-        playerUser = data.player;
+        this.playerUser = data.player;
 
         this.musicaInGame = data.escena.musicaInGame;
         this.musicaInGame.play(musicConfigInGame);
@@ -434,7 +433,7 @@ class Infinitus extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS, player: playerUser });
+            this.scene.start('PantallaFinal', { score: this.score, condition: this.victoriaPTS, player: this.playerUser });
         }
     }
 }

@@ -178,7 +178,7 @@ function showMessage(m) {
 //======================================================================================
 
 //let pageUrl = window.location.href;
-let player;
+var player;
 getMessages();
 getConnectedUsers();
 

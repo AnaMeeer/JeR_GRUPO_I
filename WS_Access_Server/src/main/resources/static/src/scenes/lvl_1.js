@@ -35,7 +35,7 @@ class lvl_1 extends Phaser.Scene {
         }
 
         var that = this;
-
+        this.player = data.player;
         this.musicaInGame = data.musicaInGame;
         this.musicaInGame.play(musicConfigInGame);
 
@@ -265,7 +265,7 @@ class lvl_1 extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: 0, condition: 0 });
+            this.scene.start('PantallaFinal', { score: 0, condition: 0, player: this.player });
         }
         if (!this.sistemaVida.getFirstAlive()) {
             this.player1.die();
@@ -375,7 +375,7 @@ class lvl_1 extends Phaser.Scene {
             this.scene.stop('MenuPrincipal');
             this.scene.stop('EscenaSonido');
             this.scene.stop('EscenaPausa');
-            this.scene.start('PantallaFinal', { score: 0, condition: 1 });
+            this.scene.start('PantallaFinal', { score: 0, condition: 1, player: this.player });
         }
     }
 }
