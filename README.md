@@ -1148,17 +1148,7 @@ https://pixabay.com/illustrations/abstract-heart-cover-blue-gift-4913016/
 
 
 # 14. Instrucciones precisas para ejecutar la aplicación
-
-En nuestro caso, no hemos podido crear un .jar debido a que cuando este se creaba y ejecutaba, daba errores en el código que corriendo con el
-sts no sucedían. Por tanto la única forma de correrlo es a través de construir el proyecto con sts. Para ello, hace falta tener también
-PostgreSQL, debido a que nuestro servidor accede a una base de datos que hemos creado con esta aplicación y que nos ha sido imposible
-que se acceda a esta base de datos de forma remota. Si que es posible acceder, siempre y cuando nosotros corramos la aplicación en nuestro
-ordenador y se acceda a través de port-forwarding. La IP es la siguiente: 193.161.193.99:30998.
-
-En resumen, se ha creado un servidor con persistencia gracias a una base de datos, pero debido a nuestra inexperiencia no hemos podido crear
-el .jar
-
-
+Para iniciar la aplicación se ejecuta el .jar (es importante que el .jar no se mueva del directorio donde está y que la base de datos de Microsoft access esté a su lado, pues el servidor la usa para recoger y guardar datos para los servicios rest, en este caso, almacenar los jugadores y el chat). Al ejecutar el jar, se abre el servidor de forma predeterminada en el puerto 8080 del localhost, donde si se accede, se puede jugar al juego.
 
 # 15. Miembros del equipo
 
