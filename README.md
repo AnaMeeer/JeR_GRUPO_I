@@ -438,7 +438,7 @@ Una vez se complete la barra se pasará automáticamente a la siguiente interfaz
 
 
   
-## 4.2 Interfaz de inicio (menú principal)
+## 4.2 Interfaz de inicio (Menú inicial)
 
 ![](https://i.imgur.com/sRj1SEn.png)
 
@@ -468,52 +468,109 @@ Al pasar el ratón por encima, una pequeña animación de giro revelará un nuev
 
 Mientras el jugador tenga el cursor sobre el botón se mantendrá este estado, y transicionará al menú de inicio una vez se presione el botón (se haga click).
 
- 
- 
-## 4.4 Interfaz de inicio (Menú)
+## 4.4 Chat
 
-![](https://i.imgur.com/fx4DDLY.png)
+![](https://i.imgur.com/TdwYIxQ.jpg)
 
-    
 ### 4.4.1 Descripción
 
-Al presionar el único botón de la escena anterior, se revelarán el nombre del juego, todos los niveles disponibles y un tutorial.
+En esta interfaz el jugador se conectará al juego con su usuario y contraseña, y podrá hablar con el resto de jugadores.
+
+### 4.4.2 Estados de juego
+
+Una vez en esta interfaz, el jugador podrá realizar las siguientes acciones:
+
+• Introducir su usuario y su contraseña y conectarse al servidor.
+
+• Deconectarse del servidor.
+
+• Ver el estado del servidor (si está activo o no) y cuantos jugadores están conectados.
+
+• Hablar con el resto de jugadores a través del chat.
+
+• Una vez conectado al servidor, podrá transicionar hacia el menú principal haciendo click en "Continue To The Game".
+ 
+## 4.5 Interfaz de inicio (Menú principal)
+
+![](https://i.imgur.com/oELMpuX.jpg)
 
     
-### 4.4.2 Estados de juego
+### 4.5.1 Descripción
+
+Al presionar el único botón de la escena anterior, se revelarán el nombre del juego, con dos opciones a elegir.
+
+    
+### 4.5.2 Estados de juego
+
+Una vez entremos en esta interfaz podremos elegir entre dos opciones:
+
+• Si presionamos "Play", aparecerá el menú de selección de niveles para que el jugador pueda empezar a jugar ya.
+
+• Si presionamos sobre el botón "Tutorial", se abrirá una pestaña que nos muestre los controles y los objetivos.
+
+
+## 4.6 Pestaña Tutorial
+
+![](https://i.imgur.com/uwlf1dj.jpg)
+![](https://i.imgur.com/9BkAyxq.jpg)
+
+    
+### 4.6.1 Descripción
+
+Al presionar el botón "Tutorial", se revelará toda la información necesaria para jugar al videojuego.
+
+    
+### 4.6.2 Estados de juego
+
+Una vez accedamos a esta opción debemos hacer click para pasar a la siguiente pestaña, que nos indicará los objetivos de cada nivel. Un último click cerrará la pestaña y nos hará regresar al menú principal, en que aparece el logo del juego.
+
+## 4.7 Selección de nivel
+
+![](https://i.imgur.com/6tQP43m.jpg)
+
+### 4.6.1 Descripción
+
+Al presionar "Play" en el menú principal, se revelará una pantalla con siete hexágonos blancos.
+
+### 4.7.2 Estados de juego
 
 Una vez entremos en esta interfaz podremos elegir entre siete opciones:
 
 • Si presionamos cualquiera de los niveles o el nivel infinito, se iniciará el nivel elegido.
 
-• Si presionamos sobre el botón "Tutorial", se abrirá una pestaña que nos muestre los controles.
+• Si presionamos sobre el botón "Online", transicionará hacia el menú de selección de jugador para el modo online.
 
 
-## 4.5 Pestaña Tutorial
+## 4.8 Selección de jugador (Modo online)
 
-![](https://i.imgur.com/C1t6PU7.png)
+![](https://i.imgur.com/iq2vZDc.jpg)
 
-    
-### 4.5.1 Descripción
+### 4.6.1 Descripción
 
-Al presionar el botón "Tutorial", se revelará toda la información necesaria para jugar al videojuego.
+Al presionar "Online" en el menú de selección de niveles, se revelará una pantalla con dos hexágonos.
 
-    
-### 4.5.2 Estados de juego
+### 4.7.2 Estados de juego
 
-Una vez accedamos a esta opción debemos hacer click para pasar a la siguiente pestaña, que nos indicará los objetivos de cada nivel. Un último click cerrará la pestaña y nos hará regresar al menú.
-  
-## 4.6 Interfaz HUD
+Una vez entremos en esta interfaz tenemos dos opciones:
+
+• El hexágono azul corresponde al Player 1 (nave azul) en el juego.
+
+• El hexágono rosa corresponde al Player 2 (nave rosa).
+
+Una vez elegido tu jugador, la pantalla transicionaría hasta empezar el nivel online, con el jugador controlando la nave elegida.
+
+
+## 4.9 Interfaz HUD
 
 ![](https://i.imgur.com/J7ddRww.png?1)
 
     
-### 4.6.1 Descripción
+### 4.9.1 Descripción
 
 Esta será la interfaz HUD que el jugador verá al estar jugando por los niveles del juego. Tal y como puede apreciarse, la interfaz cuenta con un sistema de vidas, una barra para indicar la energía del dash, otra barra para indicar la energía del power up y una puntuación. Ocasionalmente, también habrá un temporizador que nos indique cuanto tiempo debemos sobrevivir en el nivel para completarlo.
 
     
-### 4.6.2 Estados de juego
+### 4.9.2 Estados de juego
 
 Mientras el jugador se mantenga con vida el juego se mantendrá en un estado activo.
 
@@ -526,17 +583,17 @@ En caso de que el jugador pierda todos sus puntos de vida se pasará al estado d
 ![](https://i.imgur.com/MObCn95.png)
   
   
-## 4.7 Menú de pausa
+## 4.10 Menú de pausa
 
 ![](https://i.imgur.com/ImflgWq.png)
 
     
-### 4.7.1 Descripción
+### 4.10.1 Descripción
 
 Este es el menú de pausa que se abrirá al darle al icono de pausa durante el juego. El botón de la izquierda te sacará al menú principal, el botón de la derecha te devolverá a la pantalla donde estabas. El botón superior izquierdo te permitirá subir o bajar los efectos de sonido.
 
     
-###  4.7.2 Estados de juego
+###  4.10.2 Estados de juego
 
 Aquí el jugador tiene 3 opciones claras:
 
@@ -546,17 +603,17 @@ Aquí el jugador tiene 3 opciones claras:
 
 • Entrar al menú de opciones presionando SFX con el ratón.
 
-## 4.8 Menú de opciones SFX
+## 4.11 Menú de opciones SFX
 
 ![](https://i.imgur.com/vf2V1Yw.png)
 
     
-### 4.8.1 Descripción
+### 4.11.1 Descripción
 
 Este es el menú de pausa al darle al icono de pausa durante el juego. El botón de la izquierda te sacará al menú principal, el botón de la derecha te devolverá a la pantalla donde estabas. El botón superior izquierdo te permitirá subir o bajar los efectos de sonido.
 
     
-###  4.8.2 Estados de juego
+###  4.11.2 Estados de juego
 
 Aquí el jugador tiene 3 opciones:
 
@@ -1158,11 +1215,14 @@ Algunos de los assets que se han incluido en el videojuego muestran el siguiente
 
 ![](https://i.imgur.com/6GCMZza.png)
 
+La imagen de fondo de los menús:
+https://pixabay.com/illustrations/abstract-heart-cover-blue-gift-4913016/
+
 
 # 12. Diagrama de navegación
 ## El diagrama de navegación de nuestro juego es el siguiente: 
 
-![](https://i.imgur.com/BttZfYt.jpg)
+![](https://i.imgur.com/Fo7n0Xa.png)
 
 
 # 13. Diagrama de clases y API REST
