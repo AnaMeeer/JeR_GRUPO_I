@@ -16,7 +16,7 @@ class Bootloader extends Phaser.Scene {
         this.load.image('levels', 'assets/levels.png');
 
         //Cosas que usa el Menú Principal
-        this.load.atlas('animintro', 'assets/Anim_Intro.png', 'assets/Anim_Intro.json'); //nombre que le damos, donde está el json, nombre de la carpeta
+        this.load.atlas('animintro', 'assets/Anim_intro.png', 'assets/Anim_Intro.json'); //nombre que le damos, donde está el json, nombre de la carpeta
         this.load.atlas('animapertura', 'assets/Anim_Apertura.png', 'assets/Anim_Apertura.json');
         this.load.atlas('animboton', 'assets/Anim_Boton.png', 'assets/Anim_Boton.json');
         this.load.image('fondo', 'assets/white-background-2.jpg');
