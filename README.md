@@ -53,57 +53,29 @@ Game Document Design del grupo I para la asignatura de Juegos en Red
 
 3.5 Puntuación 
 
-3.6 Guardar/Cargar: 
-
 4. Interfaces 
 
 4.1 Pantalla de carga
 
-4.1.1 Descripción 
-
-4.1.2 Estados de juego 
-
 4.2 Interfaz de inicio (menú principal) 
-
-4.2.1 Descripción 
-
-4.2.2 Estados de juego 
 
 4.3 Interfaz de inicio (V2) 
 
-4.3.1 Descripción 
+4.4 Chat
 
-4.3.2 Estados de juego 
+4.5 Interfaz de inicio (Menú principal) 
 
-4.4 Interfaz de inicio (Menú) 
+4.6 Pestaña tutorial
 
-4.4.1 Descripción 
+4.7 Selección de nivel
 
-4.4.2 Estados de juego
+4.8 Selección de jugador (Modo online).
 
-4.5 Pestaña tutorial
+4.9 Interfaz HUD 
 
-4.5.1 Descripción 
+4.10 Menú de pausa 
 
-4.5.2 Estados de juego 
-
-4.6 Interfaz HUD 
-
-4.6.1 Descripción 
-
-4.6.2 Estados de juego 
-
-4.7 Menú de pausa 
-
-4.7.1 Descripción 
-
-4.7.2 Estados de juego 
-
-4.8 Menú de opciones SFX 
-
-4.8.1 Descripción 
-
-4.8.2 Estados de juego 
+4.11 Menú de opciones SFX 
 
 5. Niveles 
 
@@ -255,7 +227,7 @@ Game Document Design del grupo I para la asignatura de Juegos en Red
 
 7. Enemigos 
 
-7.1 Boss 1
+7.1 Súbdito 1
 
 7.1.1 Nombre 
 
@@ -265,9 +237,7 @@ Game Document Design del grupo I para la asignatura de Juegos en Red
 
 7.1.4 Imagen 
 
-7.1.5 Habilidad 
-
-7.1.6 Armas 
+7.1.5 Armas 
 
 7.2 Súbdito 1
 
@@ -280,18 +250,6 @@ Game Document Design del grupo I para la asignatura de Juegos en Red
 7.2.4 Imagen 
 
 7.2.5 Armas 
-
-7.3 Súbdito 1
-
-7.3.1 Nombre 
-
-7.3.2 Descripción 
-
-7.3.3 Encuentro 
-
-7.3.4 Imagen 
-
-7.3.5 Armas 
 
 8. Progreso del juego
 
@@ -412,12 +370,6 @@ _Modo dos jugadores_: El jugador 1 usará el modo tradicional (A, W, S, D, E, Q 
 La puntuación será global, acumulada por los dos jugadores. Cada eliminación otorgará 5 puntos al conjunto y será determinante en algunos niveles del videojuego. En cada nuevo nivel, la puntuación regresará a su cantidad inicial. 
 
 Asimismo, existirá un nivel infinito donde el objetivo será acumular la máxima cantidad de puntos posibles.
-  
-### 3.6 Guardar/Cargar:
-
-Todavía no se ha implementado ningún sistema de guardado en el videojuego. Una vez se haya iniciado el nivel, deberá ser completado de principio a fin.
-
-En un futuro se considerará la posibilidad de guardar el úlitmo nivel completado del jugador y retormar la partida desde este punto.
 
 
 # 4. Interfaces
@@ -1079,50 +1031,14 @@ Sí
 
 # 7. Enemigos
 
+## 7.1 Súbdito 1
 
-## 7.1 Boss 1
-Todavía no se ha implementado
 
-  
 ### 7.1.1 Nombre
-
-Leviatán
-
-  
-### 7.1.2 Descripción
-
-Fuerza alienígena, en teoría, desconocida. Es en realidad fruto de uno de los experimentos fallidos de MechaSoft. No posee conciencia propia y tiene como único objetivo la destrucción de aquello que no sea capaz de identificar como aliado.
-
-  
-### 7.1.3 Encuentro
-
-Aparecerá en el primer nivel del videojuego, una vez que la partida haya avanzado hasta cierto punto.
-
-  
-### 7.1.4 Imagen
-
-(En desarrollo).
-
-  
-### 7.1.5 Habilidad
-
-_Impulso de Hringhorni_: permite al taumaturgo lanzar una ola que avanzará en perpendicular desde la posición del personaje y dotará de un escudo a todas las unidades aliadas que alcance.
-
-  
-### 7.1.6 Armas
-
-Bolas de energía: proyectiles constantes que dirigirá en la dirección del jugador.
-
-
-
-## 7.2 Súbdito 1
-
-
-### 7.2.1 Nombre
 
 SysMod-192x
   
-### 7.2.2 Descripción
+### 7.1.2 Descripción
 
 SysMod-192x es el súbdito enemigo más básico del universo. Se desplazará horizontalmente de un extremo a otro de la pantalla y disparará en la dirección en la que se encuentren los jugadores.
 
@@ -1133,29 +1049,29 @@ SysMod-192x es el súbdito enemigo más básico del universo. Se desplazará hor
 • No posee powerUps
 
   
-### 7.2.3 Encuentro
+### 7.1.3 Encuentro
 
 Aparecerá en todos los niveles del videojuego y desde el comienzo del nivel.
 
   
-### 7.2.4 Imagen
+### 7.1.4 Imagen
 
 ![](https://i.imgur.com/Gb4911o.png)
 
   
-### 7.2.5 Armas
+### 7.1.5 Armas
 
 Bolas de energía: proyectiles constantes que dirigirá en la dirección del jugador.
 
 
-## 7.3 Súbdito 2
+## 7.2 Súbdito 2
 
 
-### 7.3.1 Nombre
+### 7.2.1 Nombre
 
 Vortex
   
-### 7.3.2 Descripción
+### 7.2.2 Descripción
 
 Vortex es el segundo súbdito enemigo más común del universo. Aparecerá en una posición aleatoria de la pantalla y se moverá hacia los extremos, rebotando sobre los mismos. Disparará en la dirección en la que se encuentren los jugadores.
 
@@ -1166,16 +1082,16 @@ Vortex es el segundo súbdito enemigo más común del universo. Aparecerá en un
 • No posee powerUps
 
   
-### 7.3.3 Encuentro
+### 7.2.3 Encuentro
 
 Aparecerá en todos los niveles a partir del 4.
   
-### 7.3.4 Imagen
+### 7.2.4 Imagen
 
 ![](https://i.imgur.com/64ID0xq.png)
 
   
-### 7.3.5 Armas
+### 7.2.5 Armas
 
 Bolas de energía: proyectiles constantes que dirigirá en la dirección del jugador.
 
